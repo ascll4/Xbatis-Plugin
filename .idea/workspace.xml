@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e3739bd7-9b19-47ac-8c04-4ae457a0a175" name="Default" comment="update:">
+    <list default="true" id="e3739bd7-9b19-47ac-8c04-4ae457a0a175" name="Default" comment="update:psiFile instanceof XmlFile">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/utils/SimpleUtil.java" afterPath="$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/utils/SimpleUtil.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,11 +51,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleUtil.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimpleUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/utils/SimpleUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="82" column="61" lean-forward="true" selection-start-line="82" selection-start-column="35" selection-end-line="82" selection-end-column="61" />
+            <state relative-caret-position="275">
+              <caret line="73" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -82,8 +92,8 @@
         <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
         <option value="$PROJECT_DIR$/src/xbatis/dom/fileDescription/SimpleDomFileDescription.java" />
         <option value="$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/dom/fileDescription/SimpleDomFileDescription.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/utils/SimpleUtil.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -215,17 +225,6 @@
             <path>
               <item name="Xbatis-Plugin" type="b2602c69:ProjectViewProjectNode" />
               <item name="Xbatis-Plugin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Xbatis-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Xbatis-Plugin" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Xbatis-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Xbatis-Plugin" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -470,7 +469,7 @@
       <option name="presentableId" value="Default" />
       <updated>1513956483511</updated>
       <workItem from="1513956485054" duration="677000" />
-      <workItem from="1513957252127" duration="487000" />
+      <workItem from="1513957252127" duration="558000" />
     </task>
     <task id="LOCAL-00001" summary="update:">
       <created>1513956900035</created>
@@ -486,11 +485,18 @@
       <option name="project" value="LOCAL" />
       <updated>1513957033004</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update:psiFile instanceof XmlFile">
+      <created>1513957769990</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1513957769990</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1164000" />
+    <option name="totallyTimeSpent" value="1235000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -508,7 +514,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293124" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.07868383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23390558" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Tail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -534,7 +540,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update:" />
-    <option name="LAST_COMMIT_MESSAGE" value="update:" />
+    <MESSAGE value="update:psiFile instanceof XmlFile" />
+    <option name="LAST_COMMIT_MESSAGE" value="update:psiFile instanceof XmlFile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -557,13 +564,6 @@
         <state relative-caret-position="198">
           <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="17" lean-forward="true" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -603,8 +603,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/github/ansafari/plugin/xbatis/utils/SimpleUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="82" column="61" lean-forward="true" selection-start-line="82" selection-start-column="35" selection-end-line="82" selection-end-column="61" />
+        <state relative-caret-position="275">
+          <caret line="73" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="20" />
           <folding />
         </state>
       </provider>
