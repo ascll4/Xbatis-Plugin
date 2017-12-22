@@ -79,11 +79,11 @@ public class SimpleUtil {
             allXmlVirtualFiles.addAll(xmlVirtualFiles);
         }
         for (VirtualFile xmlVirtualFile : allXmlVirtualFiles) {
-            XmlFile xmlFile = (XmlFile) PsiManager.getInstance(project).findFile(xmlVirtualFile);
-            if (xmlFile != null) {
+            PsiFile psiFile = PsiManager.getInstance(project).findFile(xmlVirtualFile);
+            if (psiFile != null && psiFile instanceof XmlFile) {
                 DomManager manager = DomManager.getDomManager(project);
                 //DomFileDescription<SqlMap> description = new DomFileDescription<>(SqlMap.class, "sqlMap", "sqlMap");
-                DomFileElement<SqlMap> domFileElement = manager.getFileElement(xmlFile, SqlMap.class);
+                DomFileElement<SqlMap> domFileElement = manager.getFileElement((XmlFile) psiFile, SqlMap.class);
                 SqlMap sqlMap = null;
                 if (domFileElement != null) {
                     sqlMap = domFileElement.getRootElement();
