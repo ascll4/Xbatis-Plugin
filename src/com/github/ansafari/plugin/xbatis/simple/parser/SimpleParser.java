@@ -1,7 +1,7 @@
 // This is a generated file. Not intended for manual editing.
-package com.github.ansafari.plugin.xbatis.parser;
+package com.github.ansafari.plugin.xbatis.simple.parser;
 
-import com.github.ansafari.plugin.xbatis.psi.SimpleTypes;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleTypes;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;

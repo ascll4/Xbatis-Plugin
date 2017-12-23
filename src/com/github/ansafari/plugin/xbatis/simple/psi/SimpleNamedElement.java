@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.simple.psi;
 
 import com.intellij.psi.PsiNameIdentifierOwner;
 

@@ -25,7 +25,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-    <fileTypeFactory implementation="com.github.ansafari.plugin.xbatis.fileTypes.SimpleFileTypeFactory"/>
+    <fileTypeFactory implementation="com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileTypeFactory"/>
     <!--<lang.parserDefinition language="Simple" implementationClass="SimpleParserDefinition"/>-->
     <!--<lang.syntaxHighlighterFactory language="Simple"-->
     <!--implementationClass="SimpleSyntaxHighlighterFactory"/>-->

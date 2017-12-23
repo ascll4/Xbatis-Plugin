@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.xbatis.psi.reference;
 
-import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
+import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -57,7 +57,7 @@ public class MapperDefinitionReference extends PsiReferenceBase<PsiElement> impl
                 String id = xmlAttribute.getValue();
                 if (id != null && id.length() > 0) {
                     variants.add(LookupElementBuilder.create(id).
-                            withIcon(SimpleIcons.NAVIGATE_TO_STATEMENT).
+                            withIcon(XbatisIcons.NAVIGATE_TO_STATEMENT).
                             withTypeText(id)
                     );
                 }

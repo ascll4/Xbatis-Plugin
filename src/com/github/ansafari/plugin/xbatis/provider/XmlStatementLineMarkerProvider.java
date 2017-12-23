@@ -1,7 +1,7 @@
 package com.github.ansafari.plugin.xbatis.provider;
 
 import com.github.ansafari.plugin.xbatis.domain.SqlDomElement;
-import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
+import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
@@ -41,7 +41,7 @@ public class XmlStatementLineMarkerProvider extends RelatedItemLineMarkerProvide
                     Set<PsiElement> psiElementSet = SimpleUtil.findJavaByPsiLiteralExpression(project, ((SqlDomElement) element).getId().getValue());
                     if (psiElementSet != null && psiElementSet.size() > 0) {
                         NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
-                                .create(SimpleIcons.NAVIGATE_TO_METHOD)
+                                .create(XbatisIcons.NAVIGATE_TO_METHOD)
                                 .setTargets(psiElementSet)
                                 .setEmptyPopupText("Java Statement Not Found")
                                 .setTooltipText("Navigate to a Java Statement");

@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.simple.psi;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;

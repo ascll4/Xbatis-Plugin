@@ -1,6 +1,6 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.simple.psi;
 
-import com.github.ansafari.plugin.xbatis.SimpleLanguage;
+import com.github.ansafari.plugin.xbatis.simple.SimpleLanguage;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;

@@ -1,8 +1,8 @@
 // This is a generated file. Not intended for manual editing.
-package com.github.ansafari.plugin.xbatis.psi.impl;
+package com.github.ansafari.plugin.xbatis.simple.psi.impl;
 
-import com.github.ansafari.plugin.xbatis.psi.SimpleProperty;
-import com.github.ansafari.plugin.xbatis.psi.SimpleVisitor;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleProperty;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleVisitor;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;

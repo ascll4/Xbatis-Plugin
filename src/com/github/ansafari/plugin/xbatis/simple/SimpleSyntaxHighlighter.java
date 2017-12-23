@@ -1,6 +1,6 @@
-package com.github.ansafari.plugin.xbatis;
+package com.github.ansafari.plugin.xbatis.simple;
 
-import com.github.ansafari.plugin.xbatis.psi.SimpleTypes;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleTypes;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;

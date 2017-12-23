@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.xbatis.psi.reference;
 
-import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
+import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -59,7 +59,7 @@ public class XmlStatementReference extends PsiReferenceBase<PsiElement> implemen
                     String value = psiLiteralExpression.getValue() instanceof String ? (String) psiLiteralExpression.getValue() : null;
                     if (value != null && value.length() > 0) {
                         variants.add(LookupElementBuilder.create(value).
-                                withIcon(SimpleIcons.NAVIGATE_TO_METHOD).
+                                withIcon(XbatisIcons.NAVIGATE_TO_METHOD).
                                 withTypeText(value)
                         );
                     }

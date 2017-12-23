@@ -1,6 +1,6 @@
-package com.github.ansafari.plugin.xbatis.psi.impl;
+package com.github.ansafari.plugin.xbatis.simple.psi.impl;
 
-import com.github.ansafari.plugin.xbatis.psi.SimpleNamedElement;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleNamedElement;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;

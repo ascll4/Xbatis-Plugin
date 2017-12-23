@@ -1,6 +1,6 @@
-package com.github.ansafari.plugin.xbatis;
+package com.github.ansafari.plugin.xbatis.simple;
 
-import com.github.ansafari.plugin.xbatis.psi.SimpleProperty;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleProperty;
 import com.intellij.lang.refactoring.RefactoringSupportProvider;
 import com.intellij.psi.PsiElement;
 

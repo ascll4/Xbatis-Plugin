@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis;
+package com.github.ansafari.plugin.xbatis.simple;
 
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;

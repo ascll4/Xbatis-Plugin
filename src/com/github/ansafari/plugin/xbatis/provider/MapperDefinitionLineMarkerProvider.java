@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.xbatis.provider;
 
-import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
+import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
@@ -25,7 +25,7 @@ public class MapperDefinitionLineMarkerProvider extends RelatedItemLineMarkerPro
                 List<XmlTag> xmlTagList = SimpleUtil.findXmlTags(project, value);
                 if (xmlTagList != null && xmlTagList.size() > 0) {
                     NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
-                            .create(SimpleIcons.NAVIGATE_TO_STATEMENT)
+                            .create(XbatisIcons.NAVIGATE_TO_STATEMENT)
                             .setTargets(xmlTagList).setTooltipText("Navigate to xml");
                     result.add(builder.createLineMarkerInfo(element));
                 }

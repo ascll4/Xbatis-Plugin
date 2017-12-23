@@ -1,6 +1,6 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.simple.psi;
 
-import com.github.ansafari.plugin.xbatis.fileTypes.SimpleFileType;
+import com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFileFactory;

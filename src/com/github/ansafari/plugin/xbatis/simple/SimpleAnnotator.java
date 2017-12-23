@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis;
+package com.github.ansafari.plugin.xbatis.simple;
 
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.lang.annotation.Annotation;

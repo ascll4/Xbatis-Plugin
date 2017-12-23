@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.fileTypes;
+package com.github.ansafari.plugin.xbatis.simple.fileTypes;
 
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;

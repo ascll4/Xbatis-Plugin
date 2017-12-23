@@ -1,7 +1,7 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.simple.psi;
 
-import com.github.ansafari.plugin.xbatis.SimpleLanguage;
-import com.github.ansafari.plugin.xbatis.fileTypes.SimpleFileType;
+import com.github.ansafari.plugin.xbatis.simple.SimpleLanguage;
+import com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileType;
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;

@@ -1,7 +1,7 @@
-package com.github.ansafari.plugin.xbatis.fileTypes;
+package com.github.ansafari.plugin.xbatis.simple.fileTypes;
 
-import com.github.ansafari.plugin.xbatis.SimpleLanguage;
-import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
+import com.github.ansafari.plugin.xbatis.simple.SimpleLanguage;
+import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +36,6 @@ public class SimpleFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return SimpleIcons.NAVIGATE_TO_STATEMENT;
+        return XbatisIcons.NAVIGATE_TO_STATEMENT;
     }
 }

@@ -1,9 +1,9 @@
-package com.github.ansafari.plugin.xbatis;
+package com.github.ansafari.plugin.xbatis.simple;
 
-import com.github.ansafari.plugin.xbatis.fileTypes.SimpleFileType;
-import com.github.ansafari.plugin.xbatis.psi.SimpleElementFactory;
-import com.github.ansafari.plugin.xbatis.psi.SimpleFile;
-import com.github.ansafari.plugin.xbatis.psi.SimpleProperty;
+import com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileType;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleElementFactory;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleFile;
+import com.github.ansafari.plugin.xbatis.simple.psi.SimpleProperty;
 import com.intellij.codeInsight.intention.impl.BaseIntentionAction;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.application.ApplicationManager;
