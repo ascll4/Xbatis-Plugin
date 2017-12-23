@@ -62,30 +62,29 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
 
 
                 Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
-                //final List<NavigationItem> results = new ArrayList<>(processorResults.size());
-                List<XmlElement> xmlTagList = new ArrayList<>();
+                if (processor.getResults().size() > 0) {
+                    List<XmlElement> xmlTagList = new ArrayList<>();
 
-                for (SqlMapIdentifiableStatement statement : processorResults) {
-                    XmlElement xmlElement = statement.getId().getXmlElement();
-                    String idValue = statement.getId().getStringValue();
-                    if (idValue != null) {
-                        final Icon icon = ElementPresentationManager.getIcon(statement);
-                        if (namespace.length() > 0) {
-                            // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
-                            xmlTagList.add(xmlElement);
-                        } else {
-                            // results.add(new BaseNavigationItem(psiElement, value, icon));
-                            xmlTagList.add(xmlElement);
+                    for (SqlMapIdentifiableStatement statement : processorResults) {
+                        XmlElement xmlElement = statement.getId().getXmlElement();
+                        String idValue = statement.getId().getStringValue();
+                        if (idValue != null) {
+                            final Icon icon = ElementPresentationManager.getIcon(statement);
+                            if (namespace.length() > 0) {
+                                // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
+                                xmlTagList.add(xmlElement);
+                            } else {
+                                // results.add(new BaseNavigationItem(psiElement, value, icon));
+                                xmlTagList.add(xmlElement);
+                            }
                         }
                     }
+                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
+                            .create(XbatisIcons.NAVIGATE_TO_STATEMENT)
+                            .setTargets(xmlTagList).setTooltipText("Navigate to xml");
+                    return builder.createLineMarkerInfo(psiElement);
                 }
-                NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
-                        .create(XbatisIcons.NAVIGATE_TO_STATEMENT)
-                        .setTargets(xmlTagList).setTooltipText("Navigate to xml");
-                return builder.createLineMarkerInfo(psiElement);
-                //return results;
             }
-
         }
         return null;
     }

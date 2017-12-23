@@ -37,16 +37,20 @@
 
 
         <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
+
         <codeInsight.lineMarkerProvider language="JAVA"
                                         implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="XML"
-                                        implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>
+        <!--<codeInsight.lineMarkerProvider language="XML"-->
+        <!--implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>-->
 
         <psi.referenceContributor
-                implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>
+                implementation="com.github.ansafari.plugin.xbatis.psi.reference.MyBatisReferenceContributor"/>
 
-        <psi.referenceContributor
-                implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceProvider"/>
+        <!--<psi.referenceContributor-->
+        <!--implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>-->
+
+        <!--<psi.referenceContributor-->
+        <!--implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceContributortor"/>-->
 
     </extensions>
 

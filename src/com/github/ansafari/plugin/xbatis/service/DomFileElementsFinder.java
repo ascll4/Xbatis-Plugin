@@ -20,12 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 01.01.12
- * Time: 16:03
- */
+
 public class DomFileElementsFinder {
 
     private final Project project;
@@ -46,6 +41,7 @@ public class DomFileElementsFinder {
             String namespace = sqlMap.getNamespace().getRawText();
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (SqlMapIdentifiableStatement statement : sqlMap.getIdentifiableStatements()) {
+                    System.out.println(targetNamespace + " " + targetId + " " + statement.getId().getRawText());
                     if (targetId.equals(statement.getId().getRawText())) {
                         if (!processor.process(statement)) {
                             return;
