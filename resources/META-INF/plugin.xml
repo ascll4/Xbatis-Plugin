@@ -47,6 +47,10 @@
   </extensions>
 
   <actions>
+    <!--<action class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
+    <!--id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction">-->
+    <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+    <!--</action>-->
     <!--<group id="SimpleGroup" text="Custom Action Group" popup="true">-->
     <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
     <!--<action class="com.github.ansafari.plugin.GroupedAction"-->
@@ -54,6 +58,12 @@
     <!--text="Grouped Action" description="Grouped Action Demo">-->
     <!--</action>-->
     <!--</group>-->
+
+    <action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"
+            class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"
+            description="GotoMapperAction">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>
+    </action>
   </actions>
 
 </idea-plugin>
