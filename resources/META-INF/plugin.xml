@@ -33,6 +33,7 @@
         <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
         <!--<dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>-->
         <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
+        <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>
 
 
         <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
