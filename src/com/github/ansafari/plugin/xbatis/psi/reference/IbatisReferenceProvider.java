@@ -56,6 +56,9 @@ public class IbatisReferenceProvider extends PsiReferenceContributor {
             }
         };
         registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, new String[]{"insert", "update", "delete", "select"}, new String[]{"id"}, psiReferenceProvider);
+
+        //StatementSelfReferenceProvider statementSelfReferenceProvider = new StatementSelfReferenceProvider();
+        //registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "sql", new String[]{"id"}, statementSelfReferenceProvider);
     }
 
     /**
