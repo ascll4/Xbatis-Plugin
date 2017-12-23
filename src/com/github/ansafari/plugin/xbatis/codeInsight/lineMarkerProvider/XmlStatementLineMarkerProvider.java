@@ -30,12 +30,7 @@ public class XmlStatementLineMarkerProvider extends RelatedItemLineMarkerProvide
     }
 
     @Override
-    protected void collectNavigationMarkers(@NotNull PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {
-        annotate(element, result);
-    }
-
-    private static void annotate(@NotNull PsiElement psiElement, Collection<? super RelatedItemLineMarkerInfo> result) {
-
+    protected void collectNavigationMarkers(@NotNull PsiElement psiElement, Collection<? super RelatedItemLineMarkerInfo> result) {
         if (psiElement instanceof XmlTag) {
             DomElement element = DomManager.getDomManager(psiElement.getProject()).getDomElement((XmlTag) psiElement);
             if (element != null && element instanceof SqlDomElement) {
