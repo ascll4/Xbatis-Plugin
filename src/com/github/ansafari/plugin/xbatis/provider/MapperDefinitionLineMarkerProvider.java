@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.codeInsight.lineMarkerProvider;
+package com.github.ansafari.plugin.xbatis.provider;
 
 import com.github.ansafari.plugin.xbatis.icons.SimpleIcons;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;

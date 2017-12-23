@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.psi.reference;
 
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;

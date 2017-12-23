@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.psi;
+package com.github.ansafari.plugin.xbatis.psi.reference;
 
 import com.github.ansafari.plugin.xbatis.domain.SqlDomElement;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;

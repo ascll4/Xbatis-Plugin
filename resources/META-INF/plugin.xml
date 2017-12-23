@@ -32,15 +32,15 @@
     <!--Annotator helps highlight and annotate any code based on specific rules.-->
     <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
     <codeInsight.lineMarkerProvider language="JAVA"
-                                    implementationClass="com.github.ansafari.plugin.xbatis.codeInsight.lineMarkerProvider.MapperDefinitionLineMarkerProvider"/>
+                                    implementationClass="com.github.ansafari.plugin.xbatis.provider.MapperDefinitionLineMarkerProvider"/>
     <codeInsight.lineMarkerProvider language="XML"
-                                    implementationClass="com.github.ansafari.plugin.xbatis.codeInsight.lineMarkerProvider.XmlStatementLineMarkerProvider"/>
+                                    implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>
 
     <psi.referenceContributor
-            implementation="com.github.ansafari.plugin.xbatis.psi.MapperDefinitionReferenceContributor"/>
+            implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>
 
     <psi.referenceContributor
-            implementation="com.github.ansafari.plugin.xbatis.psi.XmlStatementReferenceContributor"/>
+            implementation="com.github.ansafari.plugin.xbatis.psi.reference.XmlStatementReferenceContributor"/>
 
     <dom.fileDescription
             implementation="com.github.ansafari.plugin.xbatis.dom.fileDescription.SimpleDomFileDescription"/>
