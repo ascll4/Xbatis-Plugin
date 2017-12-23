@@ -34,18 +34,18 @@ public class GotoMapperAction extends AnAction implements DumbAware {
 
     @Override
     public void update(AnActionEvent e) {
+        Boolean enabled = false;
         Editor editor = e.getData(CommonDataKeys.EDITOR);
         if (editor != null) {
-            String text = editor.getSelectionModel().getSelectedText();
-            if (text == null || "".equals(text)) {
-                e.getPresentation().setEnabledAndVisible(false);
-            } else {
-                e.getPresentation().setEnabledAndVisible(true);
+            SelectionModel selectionModel = editor.getSelectionModel();
+            if (selectionModel != null) {
+                String text = editor.getSelectionModel().getSelectedText();
+                if (text != null && "".equals(text)) {
+                    enabled = true;
+                 }
             }
-        } else {
-            e.getPresentation().setEnabledAndVisible(false);
         }
-
+        e.getPresentation().setEnabledAndVisible(enabled);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class GotoMapperAction extends AnAction implements DumbAware {
         if (editor == null) {
             return;
         }
-        // 获取sql所在的行数，这里用了比较笨的方法。api找了很久没找到有什么方法可以获取行号，希望有大神指点
+        // 获取sql所在的行数
         String[] split = xml.split("\n");
         int lineNumber = 0;
         for (int i = 0; i < split.length; i++) {
