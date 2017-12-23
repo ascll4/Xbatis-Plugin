@@ -40,7 +40,7 @@ public class GotoMapperAction extends AnAction implements DumbAware {
             SelectionModel selectionModel = editor.getSelectionModel();
             if (selectionModel != null) {
                 String text = editor.getSelectionModel().getSelectedText();
-                if (text != null && "".equals(text)) {
+                if (text != null && !"".equals(text)) {
                     enabled = true;
                  }
             }
