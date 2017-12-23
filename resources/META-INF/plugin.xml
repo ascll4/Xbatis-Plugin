@@ -43,7 +43,7 @@
             implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceProvider"/>
 
     <dom.fileDescription
-            implementation="com.github.ansafari.plugin.xbatis.dom.fileDescription.SimpleDomFileDescription"/>
+            implementation="com.github.ansafari.plugin.xbatis.dom.description.SimpleDomFileDescription"/>
   </extensions>
 
   <actions>

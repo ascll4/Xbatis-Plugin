@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.dom.fileDescription;
+package com.github.ansafari.plugin.xbatis.dom.description;
 
 import com.github.ansafari.plugin.xbatis.domain.SqlMap;
 import com.intellij.util.xml.DomFileDescription;
