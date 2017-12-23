@@ -35,7 +35,8 @@ public class IbatisReferenceProvider extends PsiReferenceContributor {
 
     public void registerProvider() {
         JavaClassReferenceProvider classReferenceProvider = new JavaClassReferenceProvider();
-       // registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "typeAlias", new String[]{"type"}, classReferenceProvider);
+        //跳转到Java文件
+        // registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "typeAlias", new String[]{"type"}, classReferenceProvider);
 
 
         PsiReferenceProvider psiReferenceProvider = new PsiReferenceProvider() {
@@ -54,11 +55,7 @@ public class IbatisReferenceProvider extends PsiReferenceContributor {
                 }
             }
         };
-        registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "insert", new String[]{"id"}, psiReferenceProvider);
-        registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "update", new String[]{"id"}, psiReferenceProvider);
-        registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "delete", new String[]{"id"}, psiReferenceProvider);
-        registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, "select", new String[]{"id"}, psiReferenceProvider);
-
+        registerXmlAttributeValueReferenceProvider(ibatisSqlMapNamespaceFilter, new String[]{"insert", "update", "delete", "select"}, new String[]{"id"}, psiReferenceProvider);
     }
 
     /**
@@ -69,6 +66,10 @@ public class IbatisReferenceProvider extends PsiReferenceContributor {
      * @param namespaceFilter Namespace for tag(s).
      * @param tagName         tag name
      */
+    private void registerXmlAttributeValueReferenceProvider(final NamespaceFilter namespaceFilter, String[] tagName, final @NonNls String[] attributeNames, final PsiReferenceProvider provider) {
+        XmlUtil.registerXmlAttributeValueReferenceProvider(registrar, attributeNames, andTagNames(namespaceFilter, tagName), provider);
+    }
+
     private void registerXmlAttributeValueReferenceProvider(final NamespaceFilter namespaceFilter, String tagName, final @NonNls String[] attributeNames, final PsiReferenceProvider provider) {
         XmlUtil.registerXmlAttributeValueReferenceProvider(registrar, attributeNames, andTagNames(namespaceFilter, tagName), provider);
     }
