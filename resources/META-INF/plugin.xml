@@ -40,7 +40,7 @@
             implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>
 
     <psi.referenceContributor
-            implementation="com.github.ansafari.plugin.xbatis.psi.reference.XmlStatementReferenceContributor"/>
+            implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceProvider"/>
 
     <dom.fileDescription
             implementation="com.github.ansafari.plugin.xbatis.dom.fileDescription.SimpleDomFileDescription"/>

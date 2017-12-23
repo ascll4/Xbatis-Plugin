@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="MsgPlan">
+    <!-- Alias Map Defined -->
+    <typeAlias alias="MsgPlanQuery" type="com.kuaidizs.crm.query.msg.MsgPlanQuery"/>
+    <typeAlias alias="MsgPlan" type="com.kuaidizs.crm.domain.msg.MsgPlan"/>
+    <resultMap id="msgPlan" class="MsgPlan">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userNick" column="user_nick"/>
+        <result property="platform" column="platform"/>
+        <result property="costPlatform" column="cost_platform"/>
+        <result property="sendStatus" column="send_status"/>
+        <result property="content" column="content"/>
+        <result property="planType" column="plan_type"/>
+        <result property="planDelayType" column="plan_delay_type"/>
+        <result property="planSubType" column="plan_sub_type"/>
+        <result property="remark" column="remark"/>
+        <result property="planSendNums" column="plan_send_nums"/>
+        <result property="realSendNums" column="real_send_nums"/>
+        <result property="queryJson" column="query_json"/>
+        <result property="checkSign" column="check_sign"/>
+        <result property="msgUseUserId" column="msg_use_user_id"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="auditStatus" column="audit_status"/>
+        <result property="auditResult" column="audit_result"/>
+        <result property="msgFee" column="msg_fee"/>
+        <result property="contentType" column="content_type"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="propertiesJson" column="properties_json"/>
+        <result property="planJobType" column="plan_job_type"/>
+        <result property="enableStatus" column="enable_status"/>
+        <result property="created" column="created"/>
+        <result property="modified" column="modified"/>
+    </resultMap>
+    <!-- Select SQL -->
+    <sql id="msgPlan.selector">
+        SELECT
+        <dynamic>
+            <isNotEmpty property="fields">
+                $fields$
+            </isNotEmpty>
+            <isEmpty property="fields">
+                id , user_id , user_nick , platform , cost_platform , send_status , content , plan_type ,
+                plan_delay_type , plan_sub_type , remark , plan_send_nums , real_send_nums , query_json , check_sign ,
+                msg_use_user_id , send_time , audit_status , audit_result , msg_fee , content_type , activity_id ,
+                properties_json , plan_job_type , enable_status , created , modified
+            </isEmpty>
+        </dynamic>
+        FROM msg_plan_$tableName$
+    </sql>
+    <sql id="msgPlanList.where">
+        <dynamic prepend=" WHERE ">
+            <isNotEmpty property="id" prepend=" AND ">
+                id=#id#
+            </isNotEmpty>
+            <isNotEmpty property="userId" prepend=" AND ">
+                user_id=#userId#
+            </isNotEmpty>
+            <isNotEmpty property="userNick" prepend=" AND ">
+                user_nick=#userNick#
+            </isNotEmpty>
+            <isNotEmpty property="platform" prepend=" AND ">
+                platform=#platform#
+            </isNotEmpty>
+            <isNotEmpty property="costPlatform" prepend=" AND ">
+                cost_platform=#costPlatform#
+            </isNotEmpty>
+            <isNotEmpty property="sendStatus" prepend=" AND ">
+                send_status=#sendStatus#
+            </isNotEmpty>
+            <isNotEmpty property="sendStatusList" prepend="AND">
+                `send_status` in
+                <iterate property="sendStatusList" conjunction="," open="(" close=")">
+                    #sendStatusList[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotEmpty property="content" prepend=" AND ">
+                content=#content#
+            </isNotEmpty>
+            <isNotEmpty property="planType" prepend=" AND ">
+                plan_type=#planType#
+            </isNotEmpty>
+            <isNotEmpty property="planDelayType" prepend=" AND ">
+                plan_delay_type=#planDelayType#
+            </isNotEmpty>
+            <isNotEmpty property="planSubType" prepend=" AND ">
+                plan_sub_type=#planSubType#
+            </isNotEmpty>
+            <isNotEmpty property="remark" prepend=" AND ">
+                remark=#remark#
+            </isNotEmpty>
+            <isNotEmpty property="planSendNums" prepend=" AND ">
+                plan_send_nums=#planSendNums#
+            </isNotEmpty>
+            <isNotEmpty property="realSendNums" prepend=" AND ">
+                real_send_nums=#realSendNums#
+            </isNotEmpty>
+            <isNotEmpty property="queryJson" prepend=" AND ">
+                query_json=#queryJson#
+            </isNotEmpty>
+            <isNotEmpty property="checkSign" prepend=" AND ">
+                check_sign=#checkSign#
+            </isNotEmpty>
+            <isNotEmpty property="msgUseUserId" prepend=" AND ">
+                msg_use_user_id=#msgUseUserId#
+            </isNotEmpty>
+            <isNotEmpty property="sendTimeStart" prepend=" AND ">
+                <![CDATA[  send_time >= #sendTimeStart# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="sendTimeEnd" prepend=" AND ">
+                <![CDATA[  send_time <= #sendTimeEnd# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="sendTimeEqual" prepend=" AND ">
+                <![CDATA[  send_time = #sendTimeEqual# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="auditStatus" prepend=" AND ">
+                audit_status=#auditStatus#
+            </isNotEmpty>
+            <isNotEmpty property="auditResult" prepend=" AND ">
+                audit_result=#auditResult#
+            </isNotEmpty>
+            <isNotEmpty property="msgFee" prepend=" AND ">
+                msg_fee=#msgFee#
+            </isNotEmpty>
+            <isNotEmpty property="contentType" prepend=" AND ">
+                content_type=#contentType#
+            </isNotEmpty>
+            <isNotEmpty property="activityId" prepend=" AND ">
+                activity_id=#activityId#
+            </isNotEmpty>
+            <isNotEmpty property="propertiesJson" prepend=" AND ">
+                properties_json=#propertiesJson#
+            </isNotEmpty>
+            <isNotEmpty property="planJobType" prepend=" AND ">
+                plan_job_type=#planJobType#
+            </isNotEmpty>
+            <isNotEmpty property="enableStatus" prepend=" AND ">
+                enable_status=#enableStatus#
+            </isNotEmpty>
+            <isNotEmpty property="createdStart" prepend=" AND ">
+                <![CDATA[  created >= #createdStart# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="createdEnd" prepend=" AND ">
+                <![CDATA[  created <= #createdEnd# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="createdEqual" prepend=" AND ">
+                <![CDATA[  created = #createdEqual# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="modifiedStart" prepend=" AND ">
+                <![CDATA[  modified >= #modifiedStart# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="modifiedEnd" prepend=" AND ">
+                <![CDATA[  modified <= #modifiedEnd# ]]>
+            </isNotEmpty>
+            <isNotEmpty property="modifiedEqual" prepend=" AND ">
+                <![CDATA[  modified = #modifiedEqual# ]]>
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+    <!-- 用#号会导致druid连接池报错 -->
+    <sql id="msgPlanList.order">
+        <dynamic prepend=" ORDER BY ">
+            <isNotEmpty property="orderFields">
+                <iterate property="orderFields" conjunction="," open="" close="">
+                    $orderFields[].fieldName$ $orderFields[].order$
+                </iterate>
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+    <sql id="msgPlanList.limit">
+        <dynamic prepend=" LIMIT  ">
+            <isNotEmpty property="startRow">
+                #startRow#,#pageSize#
+            </isNotEmpty>
+        </dynamic>
+    </sql>
+
+    <!-- 根据主键查询 -->
+    <select id="MsgPlan.getMsgPlanByKey" resultMap="msgPlan"
+            parameterClass="hashMap">
+        SELECT id , user_id , user_nick , platform , cost_platform , send_status , content , plan_type , plan_delay_type
+        , plan_sub_type , remark , plan_send_nums , real_send_nums , query_json , check_sign , msg_use_user_id ,
+        send_time , audit_status , audit_result , msg_fee , content_type , activity_id , properties_json , plan_job_type
+        , enable_status , created , modified FROM msg_plan_$tableName$
+        WHERE
+        id=#id#
+    </select>
+    <select id="MsgPlan.getMsgPlansByKeys" resultMap="msgPlan"
+            parameterClass="hashMap">
+        SELECT id , user_id , user_nick , platform , cost_platform , send_status , content , plan_type , plan_delay_type
+        , plan_sub_type , remark , plan_send_nums , real_send_nums , query_json , check_sign , msg_use_user_id ,
+        send_time , audit_status , audit_result , msg_fee , content_type , activity_id , properties_json , plan_job_type
+        , enable_status , created , modified FROM msg_plan_$tableName$
+        WHERE
+        id in
+        <iterate conjunction="," open="(" close=")" property="keys">
+            #keys[]#
+        </iterate>
+    </select>
+
+    <!-- 根据主键删除 -->
+    <delete id="MsgPlan.deleteByKey" parameterClass="hashMap">
+        DELETE FROM msg_plan_$tableName$
+        WHERE
+        id=#id#
+    </delete>
+
+    <delete id="MsgPlan.deleteByKeys">
+        DELETE FROM msg_plan_$tableName$
+        WHERE
+        id in
+        <iterate conjunction="," open="(" close=")" property="keys">
+            #keys[]#
+        </iterate>
+    </delete>
+
+    <!-- 根据主键更新 -->
+    <update id="MsgPlan.updateMsgPlanByKey" parameterClass="MsgPlan">
+        UPDATE msg_plan_$tableName$
+        <dynamic prepend="SET">
+            <isNotNull prepend="," property="id">
+                id = #id#
+            </isNotNull>
+            <isNotNull prepend="," property="userId">
+                user_id = substring(#userId#,1,32)
+            </isNotNull>
+            <isNotNull prepend="," property="userNick">
+                user_nick = substring(#userNick#,1,64)
+            </isNotNull>
+            <isNotNull prepend="," property="platform">
+                platform = substring(#platform#,1,8)
+            </isNotNull>
+            <isNotNull prepend="," property="costPlatform">
+                cost_platform = substring(#costPlatform#,1,8)
+            </isNotNull>
+            <isNotNull prepend="," property="sendStatus">
+                send_status = substring(#sendStatus#,1,64)
+            </isNotNull>
+            <isNotNull prepend="," property="content">
+                content = substring(#content#,1,512)
+            </isNotNull>
+            <isNotNull prepend="," property="planType">
+                plan_type = substring(#planType#,1,20)
+            </isNotNull>
+            <isNotNull prepend="," property="planDelayType">
+                plan_delay_type = substring(#planDelayType#,1,20)
+            </isNotNull>
+            <isNotNull prepend="," property="planSubType">
+                plan_sub_type = substring(#planSubType#,1,32)
+            </isNotNull>
+            <isNotNull prepend="," property="remark">
+                remark = substring(#remark#,1,128)
+            </isNotNull>
+            <isNotNull prepend="," property="planSendNums">
+                plan_send_nums = #planSendNums#
+            </isNotNull>
+            <isNotNull prepend="," property="realSendNums">
+                real_send_nums = #realSendNums#
+            </isNotNull>
+            <isNotNull prepend="," property="queryJson">
+                query_json = substring(#queryJson#,1,2048)
+            </isNotNull>
+            <isNotNull prepend="," property="checkSign">
+                check_sign = substring(#checkSign#,1,64)
+            </isNotNull>
+            <isNotNull prepend="," property="msgUseUserId">
+                msg_use_user_id = #msgUseUserId#
+            </isNotNull>
+            <isNotNull prepend="," property="sendTime">
+                send_time = #sendTime#
+            </isNotNull>
+            <isNotNull prepend="," property="auditStatus">
+                audit_status = substring(#auditStatus#,1,20)
+            </isNotNull>
+            <isNotNull prepend="," property="auditResult">
+                audit_result = substring(#auditResult#,1,128)
+            </isNotNull>
+            <isNotNull prepend="," property="msgFee">
+                msg_fee = #msgFee#
+            </isNotNull>
+            <isNotNull prepend="," property="contentType">
+                content_type = substring(#contentType#,1,32)
+            </isNotNull>
+            <isNotNull prepend="," property="activityId">
+                activity_id = #activityId#
+            </isNotNull>
+            <isNotNull prepend="," property="propertiesJson">
+                properties_json = substring(#propertiesJson#,1,512)
+            </isNotNull>
+            <isNotNull prepend="," property="planJobType">
+                plan_job_type = substring(#planJobType#,1,32)
+            </isNotNull>
+            <isNotNull prepend="," property="enableStatus">
+                enable_status = #enableStatus#
+            </isNotNull>
+            <isNotNull prepend="," property="created">
+                created = #created#
+            </isNotNull>
+            <isNotNull prepend="," property="modified">
+                modified = #modified#
+            </isNotNull>
+        </dynamic>
+        WHERE
+        id=#id#
+    </update>
+
+    <update id="MsgPlan.updateSendStatusByKey" parameterClass="MsgPlan">
+        UPDATE msg_plan_$tableName$ SET send_status = substring(#sendStatus#,1,64) WHERE id=#id#
+    </update>
+
+    <update id="MsgPlan.updateSendStatusAndRemarkByKey" parameterClass="MsgPlan">
+        UPDATE msg_plan_$tableName$ SET send_status = substring(#sendStatus#,1,64),remark = substring(#remark#,1,128)
+        WHERE id=#id#
+    </update>
+
+    <update id="MsgPlan.updateRealSendNumsById" parameterClass="MsgPlan">
+        update msg_plan_$tableName$ set `real_send_nums`=#realSendNums# WHERE `id`=#id#
+    </update>
+
+    <!-- 分页 -->
+    <select id="MsgPlan.getMsgPlanListWithPage" parameterClass="MsgPlanQuery" resultMap="msgPlan">
+        <include refid="msgPlan.selector"/>
+        <include refid="msgPlanList.where"/>
+        <include refid="msgPlanList.order"/>
+        <include refid="msgPlanList.limit"/>
+    </select>
+    <select id="MsgPlan.getMsgPlanListCount" parameterClass="MsgPlanQuery" resultClass="int">
+        SELECT count(1) FROM msg_plan_$tableName$
+        <include refid="msgPlanList.where"/>
+    </select>
+    <select id="MsgPlan.getMsgPlanList" parameterClass="MsgPlanQuery" resultMap="msgPlan">
+        <include refid="msgPlan.selector"/>
+        <include refid="msgPlanList.where"/>
+        <include refid="msgPlanList.order"/>
+    </select>
+
+    <!-- 如果使用自定义字段查询,则要使用resultClass否则会出现异常-->
+    <select id="MsgPlan.getMsgPlanListWithPageFields" parameterClass="MsgPlanQuery" resultClass="MsgPlan">
+        <include refid="msgPlan.selector"/>
+        <include refid="msgPlanList.where"/>
+        <include refid="msgPlanList.order"/>
+        <include refid="msgPlanList.limit"/>
+    </select>
+    <select id="MsgPlan.getMsgPlanListFields" parameterClass="MsgPlanQuery" resultClass="MsgPlan">
+        <include refid="msgPlan.selector"/>
+        <include refid="msgPlanList.where"/>
+        <include refid="msgPlanList.order"/>
+    </select>
+    <!--    <insert id="MsgPlan.insertMsgPlan" parameterClass="MsgPlan">
+    INSERT INTO msg_plan(
+           id ,           user_id ,           user_nick ,           platform ,           cost_platform ,           send_status ,           content ,           plan_type ,           plan_delay_type ,           plan_sub_type ,           remark ,           plan_send_nums ,           real_send_nums ,           query_json ,           check_sign ,           msg_use_user_id ,           send_time ,           audit_status ,           audit_result ,           msg_fee ,           content_type ,           activity_id ,           properties_json ,           plan_job_type ,           enable_status ,           created ,           modified         VALUES(
+            #id# ,            #userId# ,            #userNick# ,            #platform# ,            #costPlatform# ,            #sendStatus# ,            #content# ,            #planType# ,            #planDelayType# ,            #planSubType# ,            #remark# ,            #planSendNums# ,            #realSendNums# ,            #queryJson# ,            #checkSign# ,            #msgUseUserId# ,            #sendTime# ,            #auditStatus# ,            #auditResult# ,            #msgFee# ,            #contentType# ,            #activityId# ,            #propertiesJson# ,            #planJobType# ,            #enableStatus# ,            #created# ,            #modified#         )
+    </insert>
+    -->
+    <insert id="MsgPlan.insertMsgPlan" parameterClass="MsgPlan">
+        INSERT INTO msg_plan_$tableName$
+        <dynamic prepend="(" close=")">
+            <isNotEmpty prepend="," property="id">
+                id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="userId">
+                user_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="userNick">
+                user_nick
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="platform">
+                platform
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="costPlatform">
+                cost_platform
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sendStatus">
+                send_status
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="content">
+                content
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planType">
+                plan_type
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planDelayType">
+                plan_delay_type
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planSubType">
+                plan_sub_type
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+                remark
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planSendNums">
+                plan_send_nums
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="realSendNums">
+                real_send_nums
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="queryJson">
+                query_json
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="checkSign">
+                check_sign
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="msgUseUserId">
+                msg_use_user_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sendTime">
+                send_time
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="auditStatus">
+                audit_status
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="auditResult">
+                audit_result
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="msgFee">
+                msg_fee
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="contentType">
+                content_type
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="activityId">
+                activity_id
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="propertiesJson">
+                properties_json
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planJobType">
+                plan_job_type
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="enableStatus">
+                enable_status
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="created">
+                created
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="modified">
+                modified
+            </isNotEmpty>
+        </dynamic>
+        VALUES
+        <dynamic prepend="(" close=")">
+            <isNotEmpty prepend="," property="id">
+                #id#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="userId">
+                substring(#userId#,1,32)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="userNick">
+                substring(#userNick#,1,64)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="platform">
+                substring(#platform#,1,8)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="costPlatform">
+                substring(#costPlatform#,1,8)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sendStatus">
+                substring(#sendStatus#,1,64)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="content">
+                substring(#content#,1,512)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planType">
+                substring(#planType#,1,20)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planDelayType">
+                substring(#planDelayType#,1,20)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planSubType">
+                substring(#planSubType#,1,32)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="remark">
+                substring(#remark#,1,128)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planSendNums">
+                #planSendNums#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="realSendNums">
+                #realSendNums#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="queryJson">
+                substring(#queryJson#,1,2048)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="checkSign">
+                substring(#checkSign#,1,64)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="msgUseUserId">
+                #msgUseUserId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="sendTime">
+                #sendTime#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="auditStatus">
+                substring(#auditStatus#,1,20)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="auditResult">
+                substring(#auditResult#,1,128)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="msgFee">
+                #msgFee#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="contentType">
+                substring(#contentType#,1,32)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="activityId">
+                #activityId#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="propertiesJson">
+                substring(#propertiesJson#,1,512)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="planJobType">
+                substring(#planJobType#,1,32)
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="enableStatus">
+                #enableStatus#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="created">
+                #created#
+            </isNotEmpty>
+            <isNotEmpty prepend="," property="modified">
+                #modified#
+            </isNotEmpty>
+        </dynamic>
+
+        <selectKey resultClass="long" keyProperty="id">
+            SELECT last_insert_id() as id ;
+        </selectKey>
+    </insert>
+
+</sqlMap>
