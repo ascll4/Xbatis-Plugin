@@ -1,7 +1,7 @@
 package com.github.ansafari.plugin.xbatis.utils;
 
-import com.github.ansafari.plugin.xbatis.domain.SqlDomElement;
-import com.github.ansafari.plugin.xbatis.domain.SqlMap;
+import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMap;
+import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileType;
 import com.github.ansafari.plugin.xbatis.simple.psi.SimpleFile;
 import com.github.ansafari.plugin.xbatis.simple.psi.SimpleProperty;
@@ -99,9 +99,9 @@ public class SimpleUtil {
         return result;
     }
 
-    public static void findXmlTags(List<? extends SqlDomElement> elementList, List<XmlTag> result, String key) {
+    public static void findXmlTags(List<? extends SqlMapIdentifiableStatement> elementList, List<XmlTag> result, String key) {
         if (elementList != null && elementList.size() > 0 && result != null) {
-            for (SqlDomElement domElement : elementList) {
+            for (SqlMapIdentifiableStatement domElement : elementList) {
                 String id = domElement.getId().getValue();
                 if (key == null) {
                     result.add(domElement.getXmlTag());

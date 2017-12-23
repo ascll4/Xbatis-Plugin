@@ -1,69 +1,72 @@
 <idea-plugin>
-  <id>me.xiongjinteng.plugin.xbatis</id>
-  <name>Xbatis-Plugin</name>
-  <version>0.0.1</version>
-  <vendor email="xiongjinteng@gmail.com" url="https://ansafari.github.io">GitHub</vendor>
+    <id>me.xiongjinteng.plugin.xbatis</id>
+    <name>Xbatis-Plugin</name>
+    <version>0.0.1</version>
+    <vendor email="xiongjinteng@gmail.com" url="https://ansafari.github.io">GitHub</vendor>
 
-  <description><![CDATA[
+    <description><![CDATA[
       A simple reference contributor for ibatis in JAVA AND SQL XML.<br>
       And I will make it support for Mybatis in the future.<br>
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
       支持Ibatis mapper.xml 与 JAVA DAO 中的 statementName 的映射跳转.<br>
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="145.0"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-    <fileTypeFactory implementation="com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileTypeFactory"/>
-    <!--<lang.parserDefinition language="Simple" implementationClass="SimpleParserDefinition"/>-->
-    <!--<lang.syntaxHighlighterFactory language="Simple"-->
-    <!--implementationClass="SimpleSyntaxHighlighterFactory"/>-->
-    <!--Annotator helps highlight and annotate any code based on specific rules.-->
-    <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
-    <codeInsight.lineMarkerProvider language="JAVA"
-                                    implementationClass="com.github.ansafari.plugin.xbatis.provider.MapperDefinitionLineMarkerProvider"/>
-    <codeInsight.lineMarkerProvider language="XML"
-                                    implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <!--<fileTypeFactory implementation="com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileTypeFactory"/>-->
+        <!--<lang.parserDefinition language="Simple" implementationClass="SimpleParserDefinition"/>-->
+        <!--<lang.syntaxHighlighterFactory language="Simple"-->
+        <!--implementationClass="SimpleSyntaxHighlighterFactory"/>-->
+        <!--Annotator helps highlight and annotate any code based on specific rules.-->
+        <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
+        <!--<dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>-->
+        <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
 
-    <psi.referenceContributor
-            implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>
 
-    <psi.referenceContributor
-            implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceProvider"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="XML"
+                                        implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>
 
-    <dom.fileDescription
-            implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
-  </extensions>
+        <psi.referenceContributor
+                implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>
 
-  <actions>
-    <!--<action class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
-    <!--id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction">-->
-    <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
-    <!--</action>-->
-    <!--<group id="SimpleGroup" text="Custom Action Group" popup="true">-->
-    <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
-    <!--<action class="com.github.ansafari.plugin.GroupedAction"-->
-    <!--id="com.github.ansafari.plugin.GroupedAction"-->
-    <!--text="Grouped Action" description="Grouped Action Demo">-->
-    <!--</action>-->
-    <!--</group>-->
+        <psi.referenceContributor
+                implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceProvider"/>
 
-    <action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"
-            class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"
-            description="GotoMapperAction">
-      <keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>
-    </action>
-  </actions>
+    </extensions>
+
+    <actions>
+        <!--<action class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
+        <!--id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction">-->
+        <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+        <!--</action>-->
+        <!--<group id="SimpleGroup" text="Custom Action Group" popup="true">-->
+        <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+        <!--<action class="com.github.ansafari.plugin.GroupedAction"-->
+        <!--id="com.github.ansafari.plugin.GroupedAction"-->
+        <!--text="Grouped Action" description="Grouped Action Demo">-->
+        <!--</action>-->
+        <!--</group>-->
+
+        <action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"
+                class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"
+                description="GotoMapperAction">
+            <keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>
+        </action>
+    </actions>
 
 </idea-plugin>
