@@ -42,7 +42,10 @@ public class DomFileElementsFinder {
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (SqlMapIdentifiableStatement statement : sqlMap.getIdentifiableStatements()) {
                     // id匹配或者namespace.id 匹配
-                    if (targetId.equals(statement.getId().getRawText()) || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))) {
+                    String[] values = statement.getId().getRawText().split("\\.");
+                    if (targetId.equals(statement.getId().getRawText())
+                            || (targetNamespace + "." + targetId).equals(statement.getId().getRawText())
+                            || values.length == 2 && targetId.equals(values[1])) {
                         if (!processor.process(statement)) {
                             return;
                         }
@@ -51,7 +54,6 @@ public class DomFileElementsFinder {
                 }
             }
         }
-
     }
 
     public void processSqlMapStatementNames(@NotNull Processor<String> processor) {
@@ -66,7 +68,6 @@ public class DomFileElementsFinder {
                 }
             }
         }
-
     }
 
     public void processSqlMaps(@NotNull String targetNamespace, @NotNull Processor<? super SqlMap> processor) {
@@ -80,7 +81,6 @@ public class DomFileElementsFinder {
                 }
             }
         }
-
     }
 
     public void processSqlMapNamespaceNames(CommonProcessors.CollectProcessor<String> processor) {
@@ -94,7 +94,6 @@ public class DomFileElementsFinder {
     }
 
     public void processResultMaps(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super ResultMap> processor) {
-
         nsloop:
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
             SqlMap rootElement = fileElement.getRootElement();
@@ -109,13 +108,10 @@ public class DomFileElementsFinder {
                     }
                 }
             }
-
         }
-
     }
 
     public void processResultMapNames(@NotNull Processor<String> processor) {
-
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
             SqlMap rootElement = fileElement.getRootElement();
             String namespace = rootElement.getNamespace().getRawText();
@@ -126,7 +122,6 @@ public class DomFileElementsFinder {
                 }
             }
         }
-
     }
 
     public void processMappers(@NotNull final PsiClass clazz, @NotNull final Processor<? super Mapper> processor) {
@@ -145,7 +140,6 @@ public class DomFileElementsFinder {
     }
 
     public void processMapperStatements(@NotNull final PsiMethod method, @NotNull final Processor<? super MapperIdentifiableStatement> processor) {
-
         application.runReadAction(new Runnable() {
             @Override
             public void run() {
@@ -159,7 +153,6 @@ public class DomFileElementsFinder {
                 }
             }
         });
-
     }
 
     public boolean existsMapperStatement(PsiMethod method) {
@@ -203,7 +196,10 @@ public class DomFileElementsFinder {
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
                     // id匹配或者namespace.id 匹配
-                    if (targetId.equals(statement.getId().getRawText()) || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))) {
+                    String[] values = statement.getId().getRawText().split("\\.");
+                    if (targetId.equals(statement.getId().getRawText())
+                            || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))
+                            || values.length == 2 && targetId.equals(values[1])) {
                         if (!processor.process(statement)) {
                             return;
                         }
