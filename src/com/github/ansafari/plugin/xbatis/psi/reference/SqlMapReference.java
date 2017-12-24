@@ -2,15 +2,12 @@ package com.github.ansafari.plugin.xbatis.psi.reference;
 
 import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMap;
 import com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder;
+import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.psi.PsiElementResolveResult;
 import com.intellij.psi.PsiLiteral;
 import com.intellij.psi.PsiPolyVariantReferenceBase;
 import com.intellij.psi.ResolveResult;
-import com.intellij.psi.impl.PomTargetPsiElementImpl;
-import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.CommonProcessors;
-import com.intellij.util.xml.DomTarget;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -45,21 +42,22 @@ public class SqlMapReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
         }
 
         Collection<SqlMap> processorResults = processor.getResults();
-        final List<ResolveResult> results = new ArrayList<ResolveResult>(processorResults.size());
-        final SqlMap[] sqlMaps = processorResults.toArray(new SqlMap[processorResults.size()]);
-        for (SqlMap sqlMap : sqlMaps) {
-            DomTarget target = DomTarget.getTarget(sqlMap);
-            if (target != null) {
-                XmlElement xmlElement = sqlMap.getXmlElement();
-                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
-                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
-                    @Override
-                    public String getLocationString() {
-                        return locationString;
-                    }
-                }));
-            }
-        }
+        final List<ResolveResult> results = new ArrayList<>(processorResults.size());
+        //final SqlMap[] sqlMaps = processorResults.toArray(new SqlMap[processorResults.size()]);
+        SimpleUtil.addResults(processorResults, results);
+//        for (SqlMap sqlMap : sqlMaps) {
+//            DomTarget target = DomTarget.getTarget(sqlMap);
+//            if (target != null) {
+//                XmlElement xmlElement = sqlMap.getXmlElement();
+//                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
+//                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
+//                    @Override
+//                    public String getLocationString() {
+//                        return locationString;
+//                    }
+//                }));
+//            }
+//        }
         return results.toArray(ResolveResult.EMPTY_ARRAY);
 
     }
@@ -67,7 +65,7 @@ public class SqlMapReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
     @NotNull
     public Object[] getVariants() {
 
-        CommonProcessors.CollectProcessor<String> processor = new CommonProcessors.CollectProcessor<String>();
+        CommonProcessors.CollectProcessor<String> processor = new CommonProcessors.CollectProcessor<>();
         ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processSqlMapNamespaceNames(processor);
         return processor.toArray(new String[processor.getResults().size()]);
 

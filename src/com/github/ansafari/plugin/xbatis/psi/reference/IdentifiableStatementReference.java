@@ -2,14 +2,12 @@ package com.github.ansafari.plugin.xbatis.psi.reference;
 
 import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder;
+import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.JavaConstantExpressionEvaluator;
-import com.intellij.psi.impl.PomTargetPsiElementImpl;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.CommonProcessors;
-import com.intellij.util.xml.DomTarget;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -56,7 +54,6 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
     }
 
     private String tryComputeConcatenatedValue() {
-
         PsiPolyadicExpression parentExpression = PsiTreeUtil.getParentOfType(getElement(), PsiPolyadicExpression.class);
 
         if (parentExpression != null) {
@@ -100,20 +97,22 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
         final List<ResolveResult> results = new ArrayList<>(processorResults.size());
-        final SqlMapIdentifiableStatement[] statements = processorResults.toArray(new SqlMapIdentifiableStatement[processorResults.size()]);
-        for (SqlMapIdentifiableStatement statement : statements) {
-            DomTarget target = DomTarget.getTarget(statement);
-            if (target != null) {
-                XmlElement xmlElement = statement.getXmlElement();
-                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
-                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
-                    @Override
-                    public String getLocationString() {
-                        return locationString;
-                    }
-                }));
-            }
-        }
+        //final SqlMapIdentifiableStatement[] statements = processorResults.toArray(new SqlMapIdentifiableStatement[processorResults.size()]);
+
+        SimpleUtil.addResults(processorResults, results);
+        //        for (SqlMapIdentifiableStatement statement : statements) {
+//            DomTarget target = DomTarget.getTarget(statement);
+//            if (target != null) {
+//                XmlElement xmlElement = statement.getXmlElement();
+//                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
+//                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
+//                    @Override
+//                    public String getLocationString() {
+//                        return locationString;
+//                    }
+//                }));
+//            }
+//        }
         return results;
     }
 

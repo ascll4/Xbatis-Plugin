@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
     @Nullable
     @Override
@@ -35,8 +36,10 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
             DomFileElementsFinder finder = ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class);
             CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
             if (psiElement instanceof PsiClass) {
+                //匹配类
                 finder.processMappers((PsiClass) psiElement, processor);
             } else if (psiElement instanceof PsiMethod) {
+                //匹配方法
                 finder.processMapperStatements((PsiMethod) psiElement, processor);
             }
 
@@ -53,13 +56,14 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
                 );
             }
         } else if (psiElement instanceof PsiLiteralExpression) {
+            //匹配字面量如：return (MsgPlan) getSqlMapClientTemplate().queryForObject("MsgPlan.getMsgPlanByKey", params);
+            //需要优化
             String namespace = "";
             PsiLiteralExpression literalExpression = (PsiLiteralExpression) psiElement;
             String value = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
             if (value != null && value.length() > 0) {
                 CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processSqlMapStatements(namespace, value, processor);
-
 
                 Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
                 if (processor.getResults().size() > 0) {
@@ -79,9 +83,7 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
                             }
                         }
                     }
-                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
-                            .create(XbatisIcons.NAVIGATE_TO_STATEMENT)
-                            .setTargets(xmlTagList).setTooltipText("Navigate to xml");
+                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(XbatisIcons.NAVIGATE_TO_STATEMENT).setTargets(xmlTagList).setTooltipText("Navigate to xml");
                     return builder.createLineMarkerInfo(psiElement);
                 }
             }

@@ -41,8 +41,9 @@ public class DomFileElementsFinder {
             String namespace = sqlMap.getNamespace().getRawText();
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (SqlMapIdentifiableStatement statement : sqlMap.getIdentifiableStatements()) {
-                    System.out.println(targetNamespace + " " + targetId + " " + statement.getId().getRawText());
-                    if (targetId.equals(statement.getId().getRawText())) {
+                    // id匹配或者namespace.id 匹配
+                    if (targetId.equals(statement.getId().getRawText()) || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))) {
+                        System.out.println(statement.getId().getRawText());
                         if (!processor.process(statement)) {
                             return;
                         }

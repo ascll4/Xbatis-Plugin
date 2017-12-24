@@ -12,15 +12,19 @@ import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.PomTargetPsiElementImpl;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.indexing.FileBasedIndex;
+import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
+import com.intellij.util.xml.DomTarget;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
@@ -138,4 +142,22 @@ public class SimpleUtil {
         return psiElementSet;
     }
 
+    public static <T> void addResults(Collection<? extends DomElement> statements, List<ResolveResult> results) {
+        if (statements == null || statements.size() <= 0 || results == null) {
+            return;
+        }
+        for (DomElement statement : statements) {
+            DomTarget target = DomTarget.getTarget(statement);
+            if (target != null) {
+                XmlElement xmlElement = statement.getXmlElement();
+                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
+                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
+                    @Override
+                    public String getLocationString() {
+                        return locationString;
+                    }
+                }));
+            }
+        }
+    }
 }
