@@ -1,6 +1,7 @@
 package com.github.ansafari.plugin.xbatis.provider;
 
 import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
+import com.github.ansafari.plugin.xbatis.model.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder;
 import com.intellij.codeHighlighting.Pass;
@@ -21,7 +22,6 @@ import com.intellij.util.xml.ElementPresentationManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,27 +62,14 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
             PsiLiteralExpression literalExpression = (PsiLiteralExpression) psiElement;
             String value = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
             if (value != null && value.length() > 0) {
-                CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
-                ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processSqlMapStatements(namespace, value, processor);
+                List<XmlElement> xmlTagList = new ArrayList<>();
 
-                Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
-                if (processor.getResults().size() > 0) {
-                    List<XmlElement> xmlTagList = new ArrayList<>();
+                addSqlMapMatchElements(namespace, value, psiElement, xmlTagList);
 
-                    for (SqlMapIdentifiableStatement statement : processorResults) {
-                        XmlElement xmlElement = statement.getId().getXmlElement();
-                        String idValue = statement.getId().getStringValue();
-                        if (idValue != null) {
-                            final Icon icon = ElementPresentationManager.getIcon(statement);
-                            if (namespace.length() > 0) {
-                                // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
-                                xmlTagList.add(xmlElement);
-                            } else {
-                                // results.add(new BaseNavigationItem(psiElement, value, icon));
-                                xmlTagList.add(xmlElement);
-                            }
-                        }
-                    }
+                //在这里搓逼地支持了Mapper文件的关联
+                addMapperMatchElements(namespace, value, psiElement, xmlTagList);
+
+                if (xmlTagList.size() > 0) {
                     NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(XbatisIcons.NAVIGATE_TO_STATEMENT).setTargets(xmlTagList).setTooltipText("Navigate to xml");
                     return builder.createLineMarkerInfo(psiElement);
                 }
@@ -90,6 +77,52 @@ public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
         }
         return null;
     }
+
+
+    private void addSqlMapMatchElements(String namespace, @NotNull String value, @NotNull PsiElement psiElement, List<XmlElement> xmlTagList) {
+        CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
+        ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processSqlMapStatements(namespace, value, processor);
+        Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
+        if (processorResults.size() > 0) {
+            for (SqlMapIdentifiableStatement statement : processorResults) {
+                XmlElement xmlElement = statement.getId().getXmlElement();
+                String idValue = statement.getId().getStringValue();
+                if (idValue != null) {
+                    ElementPresentationManager.getIcon(statement);
+                    if (namespace.length() > 0) {
+                        // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
+                        xmlTagList.add(xmlElement);
+                    } else {
+                        // results.add(new BaseNavigationItem(psiElement, value, icon));
+                        xmlTagList.add(xmlElement);
+                    }
+                }
+            }
+        }
+    }
+
+    private void addMapperMatchElements(String namespace, @NotNull String value, @NotNull PsiElement psiElement, List<XmlElement> xmlTagList) {
+        CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
+        ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processMapperStatements2(namespace, value, processor);
+        Collection<MapperIdentifiableStatement> processorResults = processor.getResults();
+        if (processorResults.size() > 0) {
+            for (MapperIdentifiableStatement statement : processorResults) {
+                XmlElement xmlElement = statement.getId().getXmlElement();
+                String idValue = statement.getId().getStringValue();
+                if (idValue != null) {
+                    ElementPresentationManager.getIcon(statement);
+                    if (namespace.length() > 0) {
+                        // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
+                        xmlTagList.add(xmlElement);
+                    } else {
+                        // results.add(new BaseNavigationItem(psiElement, value, icon));
+                        xmlTagList.add(xmlElement);
+                    }
+                }
+            }
+        }
+    }
+
 
     private Function<PsiIdentifier, String> getTooltipProvider(final DomElement element) {
         return new NullableFunction<PsiIdentifier, String>() {

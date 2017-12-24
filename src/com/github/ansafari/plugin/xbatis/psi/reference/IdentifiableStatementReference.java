@@ -1,5 +1,6 @@
 package com.github.ansafari.plugin.xbatis.psi.reference;
 
+import com.github.ansafari.plugin.xbatis.model.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
@@ -36,16 +37,20 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
         String[] parts = dotPattern.split(value);
 
-        if (parts.length == 1) {
-            return findResults("", parts[0]).toArray(ResolveResult.EMPTY_ARRAY);
-        } else {
-            List<ResolveResult> results = new ArrayList<>();
-            for (int i = 0; i < parts.length - 1; i++) {
-                results.addAll(findResults(concatBefore(parts, i), concatAfter(parts, i + 1)));
-            }
-            return results.toArray(new ResolveResult[results.size()]);
-        }
+        List<ResolveResult> resolveResultList = new ArrayList<>();
 
+        if (parts.length == 1) {
+            //.toArray(ResolveResult.EMPTY_ARRAY)
+            resolveResultList.addAll(findSqlMapResults("", parts[0]));
+            resolveResultList.addAll(findMapperResults("", parts[0]));
+        } else {
+            for (int i = 0; i < parts.length - 1; i++) {
+                resolveResultList.addAll(findSqlMapResults(concatBefore(parts, i), concatAfter(parts, i + 1)));
+                resolveResultList.addAll(findMapperResults(concatBefore(parts, i), concatAfter(parts, i + 1)));
+            }
+            //return results.toArray(new ResolveResult[results.size()]);
+        }
+        return resolveResultList.toArray(new ResolveResult[resolveResultList.size()]);
     }
 
     @NotNull
@@ -93,29 +98,25 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
     }
 
-    private List<ResolveResult> findResults(String namespace, String id) {
-
+    private List<ResolveResult> findSqlMapResults(String namespace, String id) {
         CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
         ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processSqlMapStatements(namespace, id, processor);
 
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
         final List<ResolveResult> results = new ArrayList<>(processorResults.size());
-        //final SqlMapIdentifiableStatement[] statements = processorResults.toArray(new SqlMapIdentifiableStatement[processorResults.size()]);
 
         SimpleUtil.addResults(processorResults, results);
-        //        for (SqlMapIdentifiableStatement statement : statements) {
-//            DomTarget target = DomTarget.getTarget(statement);
-//            if (target != null) {
-//                XmlElement xmlElement = statement.getXmlElement();
-//                final String locationString = xmlElement != null ? xmlElement.getContainingFile().getName() : "";
-//                results.add(new PsiElementResolveResult(new PomTargetPsiElementImpl(target) {
-//                    @Override
-//                    public String getLocationString() {
-//                        return locationString;
-//                    }
-//                }));
-//            }
-//        }
+        return results;
+    }
+
+    private List<ResolveResult> findMapperResults(String namespace, String id) {
+        CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
+        ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processMapperStatements2(namespace, id, processor);
+
+        Collection<MapperIdentifiableStatement> processorResults = processor.getResults();
+        final List<ResolveResult> results = new ArrayList<>(processorResults.size());
+
+        SimpleUtil.addResults(processorResults, results);
         return results;
     }
 

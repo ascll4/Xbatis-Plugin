@@ -194,6 +194,27 @@ public class DomFileElementsFinder {
         }
     }
 
+    public void processMapperStatements2(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super MapperIdentifiableStatement> processor) {
+
+        nsloop:
+        for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
+            Mapper mapper = fileElement.getRootElement();
+            String namespace = mapper.getNamespace().getRawText();
+            if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
+                for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
+                    // id匹配或者namespace.id 匹配
+                    if (targetId.equals(statement.getId().getRawText()) || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))) {
+                        if (!processor.process(statement)) {
+                            return;
+                        }
+                        continue nsloop;
+                    }
+                }
+            }
+        }
+
+    }
+
     private List<DomFileElement<SqlMap>> findSqlMapFileElements() {
         return domService.getFileElements(SqlMap.class, project, GlobalSearchScope.allScope(project));
     }
