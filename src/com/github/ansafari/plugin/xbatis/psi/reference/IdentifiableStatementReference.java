@@ -47,7 +47,7 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
     @NotNull
     public Object[] getVariants() {
-        CommonProcessors.CollectProcessor<String> processor = new CommonProcessors.CollectProcessor<String>();
+        CommonProcessors.CollectProcessor<String> processor = new CommonProcessors.CollectProcessor<>();
         ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processSqlMapStatementNames(processor);
         return processor.toArray(new String[processor.getResults().size()]);
 
@@ -92,7 +92,7 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
     private List<ResolveResult> findResults(String namespace, String id) {
 
-        CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement>();
+        CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
         ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processSqlMapStatements(namespace, id, processor);
 
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();

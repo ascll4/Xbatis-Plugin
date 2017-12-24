@@ -43,7 +43,6 @@ public class DomFileElementsFinder {
                 for (SqlMapIdentifiableStatement statement : sqlMap.getIdentifiableStatements()) {
                     // id匹配或者namespace.id 匹配
                     if (targetId.equals(statement.getId().getRawText()) || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))) {
-                        System.out.println(statement.getId().getRawText());
                         if (!processor.process(statement)) {
                             return;
                         }
