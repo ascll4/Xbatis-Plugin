@@ -1,7 +1,7 @@
 package com.github.ansafari.plugin.xbatis.provider;
 
-import com.github.ansafari.plugin.xbatis.domain.SqlDomElement;
 import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
+import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.xbatis.utils.SimpleUtil;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
@@ -33,12 +33,12 @@ public class XmlStatementLineMarkerProvider extends RelatedItemLineMarkerProvide
     protected void collectNavigationMarkers(@NotNull PsiElement psiElement, Collection<? super RelatedItemLineMarkerInfo> result) {
         if (psiElement instanceof XmlTag) {
             DomElement element = DomManager.getDomManager(psiElement.getProject()).getDomElement((XmlTag) psiElement);
-            if (element != null && element instanceof SqlDomElement) {
+            if (element != null && element instanceof SqlMapIdentifiableStatement) {
                 XmlTag xmlTag = element.getXmlTag();
                 if (xmlTag != null) {
                     Project project = xmlTag.getProject();
                     //NotNullLazyValue
-                    Set<PsiElement> psiElementSet = SimpleUtil.findJavaByPsiLiteralExpression(project, ((SqlDomElement) element).getId().getValue());
+                    Set<PsiElement> psiElementSet = SimpleUtil.findJavaByPsiLiteralExpression(project, ((SqlMapIdentifiableStatement) element).getId().getValue());
                     if (psiElementSet != null && psiElementSet.size() > 0) {
                         NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
                                 .create(XbatisIcons.NAVIGATE_TO_METHOD)

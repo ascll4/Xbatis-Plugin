@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.xbatis.dom.description;
 
-import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMap;
+import com.github.ansafari.plugin.xbatis.model.mapper.Mapper;
 import com.intellij.openapi.module.Module;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class SqlMapDescription extends DomFileDescription<SqlMap> {
+public class MapperDescription extends DomFileDescription<Mapper> {
 
-    public SqlMapDescription() {
-        super(SqlMap.class, "sqlMap");
+    public MapperDescription() {
+        super(Mapper.class, "mapper");
     }
 
     @Override
