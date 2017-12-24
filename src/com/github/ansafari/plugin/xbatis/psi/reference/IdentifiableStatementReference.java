@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * 字面量 xml tag关联
+ */
 public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
 
     private static final Pattern dotPattern = Pattern.compile("\\.");
