@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>me.xiongjinteng.plugin.xbatis</id>
     <name>Xbatis-Plugin</name>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <vendor email="xiongjinteng@gmail.com" url="https://ansafari.github.io">GitHub</vendor>
 
     <description><![CDATA[
