@@ -17,12 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 20.04.13
- * Time: 22:01
- */
+
 public class SqlMapReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
 
     public SqlMapReference(PsiLiteral expression) {

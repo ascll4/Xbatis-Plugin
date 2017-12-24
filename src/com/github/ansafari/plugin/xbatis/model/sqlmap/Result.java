@@ -6,12 +6,6 @@ import com.intellij.psi.PsiReference;
 import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 10.04.12
- * Time: 22:53
- */
 public interface Result extends DomElement {
 
     @NameValue

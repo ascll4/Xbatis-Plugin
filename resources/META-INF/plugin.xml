@@ -32,17 +32,21 @@
         <!--Annotator helps highlight and annotate any code based on specific rules.-->
         <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
         <!--<dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>-->
+        <!--sqlMap文件-->
         <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
+        <!--mapper文件-->
         <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>
 
-
+        <!--service-->
         <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
 
+        <!--java reference to xml-->
         <codeInsight.lineMarkerProvider language="JAVA"
                                         implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
         <!--<codeInsight.lineMarkerProvider language="XML"-->
         <!--implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>-->
 
+        <!--字符串 reference-->
         <psi.referenceContributor
                 implementation="com.github.ansafari.plugin.xbatis.psi.reference.MyBatisReferenceContributor"/>
 

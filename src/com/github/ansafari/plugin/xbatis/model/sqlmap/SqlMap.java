@@ -4,12 +4,6 @@ import com.intellij.util.xml.*;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 23.12.11
- * Time: 23:56
- */
 public interface SqlMap extends DomElement {
 
     @NameValue

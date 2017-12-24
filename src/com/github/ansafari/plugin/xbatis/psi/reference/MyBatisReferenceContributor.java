@@ -5,12 +5,6 @@ import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 17.12.11
- * Time: 20:36
- */
 public class MyBatisReferenceContributor extends PsiReferenceContributor {
 
     @Override

@@ -17,12 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 24.12.11
- * Time: 23:59
- */
 public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
 
     private static final Pattern dotPattern = Pattern.compile("\\.");
@@ -34,7 +28,6 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean b) {
-
         String value = tryComputeConcatenatedValue();
         if (value.length() == 0) {
             return ResolveResult.EMPTY_ARRAY;
@@ -56,7 +49,6 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
 
     @NotNull
     public Object[] getVariants() {
-
         CommonProcessors.CollectProcessor<String> processor = new CommonProcessors.CollectProcessor<String>();
         ServiceManager.getService(getElement().getProject(), DomFileElementsFinder.class).processSqlMapStatementNames(processor);
         return processor.toArray(new String[processor.getResults().size()]);

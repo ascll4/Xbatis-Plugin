@@ -5,12 +5,7 @@ import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.NameValue;
 
-/**
- * Created with IntelliJ IDEA.
- * User: mishchenko
- * Date: 26.05.12
- * Time: 16:21
- */
+
 public interface ResultMap extends DomElement {
 
     @NameValue

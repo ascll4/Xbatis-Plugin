@@ -4,13 +4,6 @@ import com.intellij.util.xml.*;
 
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Max
- * Date: 01.01.12
- * Time: 18:37
- */
-
 public interface Mapper extends DomElement {
 
     @Attribute("namespace")
