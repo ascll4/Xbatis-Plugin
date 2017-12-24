@@ -42,10 +42,7 @@ public class DomFileElementsFinder {
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (SqlMapIdentifiableStatement statement : sqlMap.getIdentifiableStatements()) {
                     // id匹配或者namespace.id 匹配
-                    String[] values = statement.getId().getRawText().split("\\.");
-                    if (targetId.equals(statement.getId().getRawText())
-                            || (targetNamespace + "." + targetId).equals(statement.getId().getRawText())
-                            || values.length == 2 && targetId.equals(values[1])) {
+                    if (isMatch(targetNamespace, targetId, statement.getId().getRawText())) {
                         if (!processor.process(statement)) {
                             return;
                         }
@@ -55,6 +52,41 @@ public class DomFileElementsFinder {
             }
         }
     }
+
+    public void processMapperStatements2(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super MapperIdentifiableStatement> processor) {
+
+        nsloop:
+        for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
+            Mapper mapper = fileElement.getRootElement();
+            String namespace = mapper.getNamespace().getRawText();
+            if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
+                for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
+                    if (isMatch(targetNamespace, targetId, statement.getId().getRawText())) {
+                        if (!processor.process(statement)) {
+                            return;
+                        }
+                        continue nsloop;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * id匹配或者namespace.id 匹配
+     *
+     * @param targetNamespace targetNamespace
+     * @param targetId        targetId
+     * @param statementId     statementId
+     * @return boolean
+     */
+    private static boolean isMatch(String targetNamespace, String targetId, String statementId) {
+        String[] values = statementId.split("\\.");
+        return targetId.equals(statementId)
+                || (targetNamespace + "." + targetId).equals(statementId)
+                || values.length == 2 && targetId.equals(values[1]);
+    }
+
 
     public void processSqlMapStatementNames(@NotNull Processor<String> processor) {
 
@@ -185,30 +217,6 @@ public class DomFileElementsFinder {
                 }
             }
         }
-    }
-
-    public void processMapperStatements2(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super MapperIdentifiableStatement> processor) {
-
-        nsloop:
-        for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
-            Mapper mapper = fileElement.getRootElement();
-            String namespace = mapper.getNamespace().getRawText();
-            if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
-                for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
-                    // id匹配或者namespace.id 匹配
-                    String[] values = statement.getId().getRawText().split("\\.");
-                    if (targetId.equals(statement.getId().getRawText())
-                            || ((targetNamespace + "." + targetId).equals(statement.getId().getRawText()))
-                            || values.length == 2 && targetId.equals(values[1])) {
-                        if (!processor.process(statement)) {
-                            return;
-                        }
-                        continue nsloop;
-                    }
-                }
-            }
-        }
-
     }
 
     private List<DomFileElement<SqlMap>> findSqlMapFileElements() {
