@@ -163,7 +163,7 @@ public class DomFileElementsFinder {
     }
 
     public boolean existsMapperStatement(PsiMethod method) {
-        CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<DomElement>();
+        CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
         processMapperStatements(method, processor);
         return processor.isFound();
     }
