@@ -48,7 +48,7 @@
 
         <!--字符串 reference-->
         <psi.referenceContributor
-                implementation="com.github.ansafari.plugin.xbatis.psi.reference.MyBatisReferenceContributor"/>
+                implementation="com.github.ansafari.plugin.xbatis.psi.reference.XBatisReferenceContributor"/>
 
         <!--<psi.referenceContributor-->
         <!--implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>-->

@@ -5,7 +5,7 @@ import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 
-public class MyBatisReferenceContributor extends PsiReferenceContributor {
+public class XBatisReferenceContributor extends PsiReferenceContributor {
 
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
