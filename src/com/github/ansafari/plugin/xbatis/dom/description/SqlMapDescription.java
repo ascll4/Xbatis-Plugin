@@ -20,5 +20,4 @@ public class SqlMapDescription extends DomFileDescription<SqlMap> {
         XmlTag rootTag = file.getRootTag();
         return rootTag != null && rootTag.getName().equals(getRootTagName());
     }
-
 }

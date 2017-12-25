@@ -24,18 +24,13 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <!--<fileTypeFactory implementation="com.github.ansafari.plugin.xbatis.simple.fileTypes.SimpleFileTypeFactory"/>-->
-        <!--<lang.parserDefinition language="Simple" implementationClass="SimpleParserDefinition"/>-->
-        <!--<lang.syntaxHighlighterFactory language="Simple"-->
-        <!--implementationClass="SimpleSyntaxHighlighterFactory"/>-->
-        <!--Annotator helps highlight and annotate any code based on specific rules.-->
-        <!--<annotator language="JAVA" implementationClass="SimpleAnnotator"/>-->
-        <!--<dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>-->
         <!--sqlMap文件-->
         <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
         <!--mapper文件-->
         <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>
+
+        <definitionsSearch
+                implementation="com.github.ansafari.plugin.xbatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
 
         <!--service-->
         <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
@@ -43,18 +38,29 @@
         <!--java reference to xml-->
         <codeInsight.lineMarkerProvider language="JAVA"
                                         implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
+
         <!--<codeInsight.lineMarkerProvider language="XML"-->
         <!--implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>-->
 
-        <!--字符串 reference-->
+        <!--java 字面量 reference to xml statement-->
         <psi.referenceContributor
                 implementation="com.github.ansafari.plugin.xbatis.psi.reference.XBatisReferenceContributor"/>
 
-        <!--<psi.referenceContributor-->
-        <!--implementation="com.github.ansafari.plugin.xbatis.psi.reference.MapperDefinitionReferenceContributor"/>-->
+        <lang.documentationProvider language="JAVA"
+                                    implementationClass="com.github.ansafari.plugin.xbatis.psi.reference.StatementDocumentationProvider"/>
 
-        <!--<psi.referenceContributor-->
-        <!--implementation="com.github.ansafari.plugin.xbatis.psi.reference.IbatisReferenceContributortor"/>-->
+        <inspectionToolProvider
+                implementation="com.github.ansafari.plugin.xbatis.provider.MyBatisInspectionToolsProvider"/>
+
+        <qualifiedNameProvider
+                implementation="com.github.ansafari.plugin.xbatis.provider.IdentifiableStatementQualifiedNameProvider"/>
+
+        <callHierarchyProvider language="XML"
+                               implementationClass="com.github.ansafari.plugin.xbatis.provider.IdentifiableStatementHierarchyProvider"/>
+
+        <!--symbol name search alt+cmd+o-->
+        <gotoSymbolContributor
+                implementation="com.github.ansafari.plugin.xbatis.psi.reference.GoToSqlMapStatementContributor"/>
 
     </extensions>
 
@@ -71,11 +77,11 @@
         <!--</action>-->
         <!--</group>-->
 
-        <action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"
-                class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"
-                description="GotoMapperAction">
-            <keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>
-        </action>
+        <!--<action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
+        <!--class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"-->
+        <!--description="GotoMapperAction">-->
+        <!--<keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>-->
+        <!--</action>-->
     </actions>
 
 </idea-plugin>

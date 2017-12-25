@@ -38,12 +38,10 @@ public class GotoMapperAction extends AnAction implements DumbAware {
         Editor editor = e.getData(CommonDataKeys.EDITOR);
         if (editor != null) {
             SelectionModel selectionModel = editor.getSelectionModel();
-            if (selectionModel != null) {
-                String text = editor.getSelectionModel().getSelectedText();
-                if (text != null && !"".equals(text)) {
-                    enabled = true;
-                 }
-            }
+            String text = editor.getSelectionModel().getSelectedText();
+            if (text != null && !"".equals(text)) {
+                enabled = true;
+             }
         }
         e.getPresentation().setEnabledAndVisible(enabled);
     }
