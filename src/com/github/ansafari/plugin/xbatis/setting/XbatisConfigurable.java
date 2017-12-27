@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.ui;
+package com.github.ansafari.plugin.xbatis.setting;
 
 import com.intellij.application.options.editor.EditorOptionsProvider;
 import com.intellij.openapi.application.ApplicationBundle;
@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class MyCodeCompletionOptions extends BaseConfigurable implements SearchableConfigurable, EditorOptionsProvider {
-    private CodeCompletionPanel myPanel;
+public class XbatisConfigurable extends BaseConfigurable implements SearchableConfigurable, EditorOptionsProvider {
+    private XbatisSettingPanel myPanel;
 
     @Override
     public boolean isModified() {
@@ -18,8 +18,8 @@ public class MyCodeCompletionOptions extends BaseConfigurable implements Searcha
 
     @Override
     public JComponent createComponent() {
-        myPanel = new CodeCompletionPanel();
-        return myPanel.myPanel;
+        myPanel = new XbatisSettingPanel();
+        return myPanel.mainPanel;
     }
 
     @Override

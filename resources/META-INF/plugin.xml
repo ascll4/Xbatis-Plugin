@@ -62,7 +62,7 @@
         <gotoSymbolContributor
                 implementation="com.github.ansafari.plugin.xbatis.psi.reference.GoToSqlMapStatementContributor"/>
 
-        <editorOptionsProvider instance="com.github.ansafari.plugin.xbatis.ui.MyCodeCompletionOptions"
+        <editorOptionsProvider instance="com.github.ansafari.plugin.xbatis.setting.XbatisConfigurable"
                                id="editor.preferences.myCompletion"
                                key="title.code.myCompletion" bundle="messages.ApplicationBundle"/>
     </extensions>
