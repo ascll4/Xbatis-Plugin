@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.utils;
+package com.github.ansafari.plugin.ibatis;
 
 public interface IbatisConstants {
 

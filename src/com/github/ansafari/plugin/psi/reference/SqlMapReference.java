@@ -1,8 +1,8 @@
 package com.github.ansafari.plugin.psi.reference;
 
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMap;
-import com.github.ansafari.plugin.utils.SimpleUtil;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
+import com.github.ansafari.plugin.utils.DomUtils;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.PsiLiteral;
 import com.intellij.psi.PsiPolyVariantReferenceBase;
@@ -47,7 +47,7 @@ public class SqlMapReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
         Collection<SqlMap> processorResults = processor.getResults();
         final List<ResolveResult> results = new ArrayList<>(processorResults.size());
         //final SqlMap[] sqlMaps = processorResults.toArray(new SqlMap[processorResults.size()]);
-        SimpleUtil.addResults(processorResults, results);
+        DomUtils.addResults(processorResults, results);
 //        for (SqlMap sqlMap : sqlMaps) {
 //            DomTarget target = DomTarget.getTarget(sqlMap);
 //            if (target != null) {

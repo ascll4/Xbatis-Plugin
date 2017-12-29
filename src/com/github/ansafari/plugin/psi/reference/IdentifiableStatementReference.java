@@ -1,9 +1,9 @@
 package com.github.ansafari.plugin.psi.reference;
 
-import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
-import com.github.ansafari.plugin.utils.SimpleUtil;
+import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
+import com.github.ansafari.plugin.utils.DomUtils;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.JavaConstantExpressionEvaluator;
@@ -105,7 +105,7 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
         final List<ResolveResult> results = new ArrayList<>(processorResults.size());
 
-        SimpleUtil.addResults(processorResults, results);
+        DomUtils.addResults(processorResults, results);
         return results;
     }
 
@@ -116,7 +116,7 @@ public class IdentifiableStatementReference extends PsiPolyVariantReferenceBase<
         Collection<MapperIdentifiableStatement> processorResults = processor.getResults();
         final List<ResolveResult> results = new ArrayList<>(processorResults.size());
 
-        SimpleUtil.addResults(processorResults, results);
+        DomUtils.addResults(processorResults, results);
         return results;
     }
 
