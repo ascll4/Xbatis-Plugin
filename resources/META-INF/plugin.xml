@@ -25,56 +25,57 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!--sqlMap文件-->
-        <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.SqlMapDescription"/>
+        <dom.fileDescription implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapDescription"/>
         <!--mapper文件-->
-        <dom.fileDescription implementation="com.github.ansafari.plugin.xbatis.dom.description.MapperDescription"/>
+        <dom.fileDescription implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
 
         <definitionsSearch
-                implementation="com.github.ansafari.plugin.xbatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
+                implementation="com.github.ansafari.plugin.search.MyBatis3ProxiesDefinitionsSearcher"/>
 
         <!--service-->
-        <projectService serviceImplementation="com.github.ansafari.plugin.xbatis.service.DomFileElementsFinder"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.service.DomFileElementsFinder"/>
 
         <!--java reference to xml-->
         <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
+                                        implementationClass="com.github.ansafari.plugin.provider.XBatisProxiesLineMarkerProvider"/>
 
         <!--<codeInsight.lineMarkerProvider language="XML"-->
-        <!--implementationClass="com.github.ansafari.plugin.xbatis.simple.XmlStatementLineMarkerProvider"/>-->
+        <!--implementationClass="XmlStatementLineMarkerProvider"/>-->
 
         <!--java 字面量 reference to xml statement-->
         <psi.referenceContributor
-                implementation="com.github.ansafari.plugin.xbatis.psi.reference.XBatisReferenceContributor"/>
+                implementation="com.github.ansafari.plugin.psi.reference.XBatisReferenceContributor"/>
 
         <lang.documentationProvider language="JAVA"
-                                    implementationClass="com.github.ansafari.plugin.xbatis.psi.reference.StatementDocumentationProvider"/>
+                                    implementationClass="com.github.ansafari.plugin.psi.reference.StatementDocumentationProvider"/>
 
         <inspectionToolProvider
-                implementation="com.github.ansafari.plugin.xbatis.provider.MyBatisInspectionToolsProvider"/>
+                implementation="com.github.ansafari.plugin.provider.MyBatisInspectionToolsProvider"/>
 
         <qualifiedNameProvider
-                implementation="com.github.ansafari.plugin.xbatis.provider.IdentifiableStatementQualifiedNameProvider"/>
+                implementation="com.github.ansafari.plugin.provider.IdentifiableStatementQualifiedNameProvider"/>
 
         <callHierarchyProvider language="XML"
-                               implementationClass="com.github.ansafari.plugin.xbatis.provider.IdentifiableStatementHierarchyProvider"/>
+                               implementationClass="com.github.ansafari.plugin.provider.IdentifiableStatementHierarchyProvider"/>
 
         <!--symbol name search alt+cmd+o-->
         <gotoSymbolContributor
-                implementation="com.github.ansafari.plugin.xbatis.psi.reference.GoToSqlMapStatementContributor"/>
+                implementation="com.github.ansafari.plugin.psi.reference.GoToSqlMapStatementContributor"/>
 
-        <projectConfigurable instance="com.github.ansafari.plugin.xbatis.setting.XbatisConfigurable"
+        <projectConfigurable instance="com.github.ansafari.plugin.setting.XbatisConfigurable"
                              bundle="messages.XbatisPluginBundle"/>
 
-        <applicationService serviceInterface="com.github.ansafari.plugin.xbatis.setting.XbatisSettingStorage"
-                            serviceImplementation="com.github.ansafari.plugin.xbatis.setting.XbatisSettingStorage"/>
-        <!--<editorOptionsProvider instance="com.github.ansafari.plugin.xbatis.setting.XbatisConfigurable"-->
+        <!--xbatis的配置-->
+        <applicationService serviceInterface="com.github.ansafari.plugin.setting.XbatisSettingStorage"
+                            serviceImplementation="com.github.ansafari.plugin.setting.XbatisSettingStorage"/>
+        <!--<editorOptionsProvider instance="XbatisConfigurable"-->
         <!--id="editor.preferences.myCompletion"-->
         <!--key="title.code.myCompletion" />-->
     </extensions>
 
     <actions>
-        <!--<action class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
-        <!--id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction">-->
+        <!--<action class="com.github.ansafari.plugin.actions.GotoMapperAction"-->
+        <!--id="com.github.ansafari.plugin.actions.GotoMapperAction">-->
         <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
         <!--</action>-->
         <!--<group id="SimpleGroup" text="Custom Action Group" popup="true">-->
@@ -85,8 +86,8 @@
         <!--</action>-->
         <!--</group>-->
 
-        <!--<action id="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction"-->
-        <!--class="com.github.ansafari.plugin.xbatis.actions.GotoMapperAction" text="GotoMapper"-->
+        <!--<action id="com.github.ansafari.plugin.actions.GotoMapperAction"-->
+        <!--class="com.github.ansafari.plugin.actions.GotoMapperAction" text="GotoMapper"-->
         <!--description="GotoMapperAction">-->
         <!--<keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>-->
         <!--</action>-->
