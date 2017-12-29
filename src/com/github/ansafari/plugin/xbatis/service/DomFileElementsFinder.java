@@ -16,6 +16,7 @@ import com.intellij.util.Processor;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomService;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -82,9 +83,13 @@ public class DomFileElementsFinder {
      */
     private static boolean isMatch(String targetNamespace, String targetId, String statementId) {
         String[] values = statementId.split("\\.");
-        return targetId.equals(statementId)
-                || (targetNamespace + "." + targetId).equals(statementId)
-                || values.length == 2 && targetId.equals(values[1]);
+        if (values.length == 1) {
+            return StringUtils.equals(targetId, values[0]);
+        } else if (values.length == 2) {
+            return (StringUtils.isBlank(targetNamespace) || StringUtils.equals(targetNamespace, values[0]))
+                    && StringUtils.equals(targetId, values[values.length - 1]);
+        }
+        return false;
     }
 
 
