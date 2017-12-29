@@ -37,6 +37,7 @@ public final class DomUtils {
     }
 
     public static boolean isMybatisFile(@Nullable PsiFile file) {
+        assert file != null;
         if (!isXmlFile(file)) {
             return false;
         }
@@ -44,12 +45,13 @@ public final class DomUtils {
         return null != rootTag && rootTag.getName().equals("mapper");
     }
 
-    public static boolean isMybatisConfigurationFile(@NotNull PsiFile file) {
+    public static boolean isIbatisFile(@Nullable PsiFile file) {
+        assert file != null;
         if (!isXmlFile(file)) {
             return false;
         }
         XmlTag rootTag = ((XmlFile) file).getRootTag();
-        return null != rootTag && rootTag.getName().equals("configuration");
+        return null != rootTag && rootTag.getName().equals("sqlMap");
     }
 
     public static boolean isBeansFile(@NotNull PsiFile file) {
@@ -60,7 +62,7 @@ public final class DomUtils {
         return null != rootTag && rootTag.getName().equals("beans");
     }
 
-    static boolean isXmlFile(@NotNull PsiFile file) {
+    private static boolean isXmlFile(@NotNull PsiFile file) {
         return file instanceof XmlFile;
     }
 
