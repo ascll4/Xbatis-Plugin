@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.generate;
 
-import com.github.ansafari.plugin.setting.XbatisSettingStorage;
+import com.github.ansafari.plugin.generate.setting.XbatisSettingStorage;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Set;

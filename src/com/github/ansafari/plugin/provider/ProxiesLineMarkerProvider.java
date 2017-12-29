@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.setting.XbatisSettingStorage;
+import com.github.ansafari.plugin.generate.setting.XbatisSettingStorage;
 import com.github.ansafari.plugin.generate.GenerateModel;
 import com.github.ansafari.plugin.icons.XbatisIcons;
 import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;

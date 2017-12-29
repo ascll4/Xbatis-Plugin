@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.setting;
+package com.github.ansafari.plugin.generate.setting;
 
 import javax.swing.*;
 

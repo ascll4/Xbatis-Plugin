@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.setting;
+package com.github.ansafari.plugin.generate.setting;
 
 import com.github.ansafari.plugin.generate.GenerateModelUtils;
 import com.google.common.base.Joiner;
