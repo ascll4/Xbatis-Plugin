@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.provider;
+package com.github.ansafari.plugin.xbatis.simple;
 
 import com.github.ansafari.plugin.xbatis.icons.XbatisIcons;
 import com.github.ansafari.plugin.xbatis.model.sqlmap.SqlMapIdentifiableStatement;

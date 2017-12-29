@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.xbatis.provider;
+package com.github.ansafari.plugin.xbatis.simple;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;

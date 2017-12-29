@@ -40,7 +40,7 @@
                                         implementationClass="com.github.ansafari.plugin.xbatis.provider.XBatisProxiesLineMarkerProvider"/>
 
         <!--<codeInsight.lineMarkerProvider language="XML"-->
-        <!--implementationClass="com.github.ansafari.plugin.xbatis.provider.XmlStatementLineMarkerProvider"/>-->
+        <!--implementationClass="com.github.ansafari.plugin.xbatis.simple.XmlStatementLineMarkerProvider"/>-->
 
         <!--java 字面量 reference to xml statement-->
         <psi.referenceContributor
