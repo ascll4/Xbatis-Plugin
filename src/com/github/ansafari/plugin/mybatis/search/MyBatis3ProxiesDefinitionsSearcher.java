@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.search;
+package com.github.ansafari.plugin.mybatis.search;
 
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.intellij.openapi.application.QueryExecutorBase;
@@ -17,12 +17,7 @@ public class MyBatis3ProxiesDefinitionsSearcher extends QueryExecutorBase<XmlEle
     public void processQuery(@NotNull PsiElement element, @NotNull final Processor<XmlElement> consumer) {
 
         DomFileElementsFinder finder = ServiceManager.getService(element.getProject(), DomFileElementsFinder.class);
-        Processor<DomElement> processor = new Processor<DomElement>() {
-            @Override
-            public boolean process(DomElement domElement) {
-                return consumer.process(domElement.getXmlElement());
-            }
-        };
+        Processor<DomElement> processor = domElement -> consumer.process(domElement.getXmlElement());
 
         if (element instanceof PsiClass) {
             finder.processMappers((PsiClass) element, processor);

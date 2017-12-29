@@ -39,7 +39,7 @@ import java.util.List;
  * @author xiongjinteng@raycloud.com
  * @date 2017/12/29 15:16
  */
-public class XBatisProxiesLineMarkerProvider implements LineMarkerProvider {
+public class ProxiesLineMarkerProvider implements LineMarkerProvider {
 
     @Nullable
     @Override

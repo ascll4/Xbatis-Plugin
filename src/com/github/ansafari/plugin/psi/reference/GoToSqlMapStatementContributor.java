@@ -19,12 +19,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Max
- * Date: 02.09.13
- * Time: 21:12
- */
 public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
 
     private static final Pattern dotPattern = Pattern.compile("\\.");
@@ -55,7 +49,7 @@ public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
         CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
         ServiceManager.getService(project, DomFileElementsFinder.class).processSqlMapStatements(namespace, id, processor);
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
-        final List<NavigationItem> results = new ArrayList<NavigationItem>(processorResults.size());
+        final List<NavigationItem> results = new ArrayList<>(processorResults.size());
         for (SqlMapIdentifiableStatement statement : processorResults) {
             XmlElement psiElement = statement.getId().getXmlElement();
             String value = statement.getId().getStringValue();

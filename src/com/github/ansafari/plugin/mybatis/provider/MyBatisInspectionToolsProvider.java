@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.provider;
+package com.github.ansafari.plugin.mybatis.provider;
 
 import com.github.ansafari.plugin.mapper.NoMapperStatementInspection;
 import com.intellij.codeInspection.InspectionToolProvider;

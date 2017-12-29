@@ -30,14 +30,14 @@
         <dom.fileDescription implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
 
         <definitionsSearch
-                implementation="com.github.ansafari.plugin.search.MyBatis3ProxiesDefinitionsSearcher"/>
+                implementation="com.github.ansafari.plugin.mybatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
 
         <!--service-->
         <projectService serviceImplementation="com.github.ansafari.plugin.service.DomFileElementsFinder"/>
 
         <!--java reference to xml-->
         <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.github.ansafari.plugin.provider.XBatisProxiesLineMarkerProvider"/>
+                                        implementationClass="com.github.ansafari.plugin.provider.ProxiesLineMarkerProvider"/>
 
         <!--<codeInsight.lineMarkerProvider language="XML"-->
         <!--implementationClass="XmlStatementLineMarkerProvider"/>-->
@@ -47,10 +47,10 @@
                 implementation="com.github.ansafari.plugin.psi.reference.XBatisReferenceContributor"/>
 
         <lang.documentationProvider language="JAVA"
-                                    implementationClass="com.github.ansafari.plugin.psi.reference.StatementDocumentationProvider"/>
+                                    implementationClass="com.github.ansafari.plugin.provider.StatementDocumentationProvider"/>
 
         <inspectionToolProvider
-                implementation="com.github.ansafari.plugin.provider.MyBatisInspectionToolsProvider"/>
+                implementation="com.github.ansafari.plugin.mybatis.provider.MyBatisInspectionToolsProvider"/>
 
         <qualifiedNameProvider
                 implementation="com.github.ansafari.plugin.provider.IdentifiableStatementQualifiedNameProvider"/>

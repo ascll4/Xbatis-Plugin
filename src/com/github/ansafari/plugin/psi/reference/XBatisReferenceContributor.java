@@ -5,11 +5,15 @@ import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * 字符串 链接到 sql statement in xml
+ */
 public class XBatisReferenceContributor extends PsiReferenceContributor {
 
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
-        //字面量匹配 reference to xml sql statement
+
         registrar.registerReferenceProvider(PsiJavaPatterns.psiLiteral(), new PsiReferenceProvider() {
             @NotNull
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {

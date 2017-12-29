@@ -43,7 +43,6 @@ public class IdentifiableStatementHierarchyProvider implements HierarchyProvider
         if (!isIdentifiableStatement(psiElement)) {
             return null;
         }
-        assert psiElement != null;
         Collection<PsiReference> refs = ReferencesSearch.search(psiElement).findAll();
         if (refs.size() == 1) {
             PsiElement element = refs.iterator().next().getElement();

@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.psi.reference;
+package com.github.ansafari.plugin.provider;
 
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
@@ -14,6 +14,9 @@ import com.intellij.util.CommonProcessors;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * 字符串 预览 sql in xml
+ */
 public class StatementDocumentationProvider implements DocumentationProvider {
 
     private static final Pattern dotPattern = Pattern.compile("\\.");
@@ -52,7 +55,7 @@ public class StatementDocumentationProvider implements DocumentationProvider {
             finder.processSqlMapStatements(namespace, id, processor);
             if (processor.isFound()) {
                 SqlMapIdentifiableStatement statement = processor.getFoundValue();
-                XmlElement xmlElement = statement.getXmlElement();
+                XmlElement xmlElement = statement != null ? statement.getXmlElement() : null;
                 if (xmlElement != null) {
                     return "<pre>" + StringUtil.escapeXml(xmlElement.getText()) + "</pre>";
                 }
