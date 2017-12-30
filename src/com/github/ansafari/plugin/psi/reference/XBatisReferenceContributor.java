@@ -13,11 +13,23 @@ public class XBatisReferenceContributor extends PsiReferenceContributor {
 
     @Override
     public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
-
-        registrar.registerReferenceProvider(PsiJavaPatterns.psiLiteral(), new PsiReferenceProvider() {
+        //registrar.registerReferenceProvider(PsiJavaPatterns.literalExpression().and(new SqlClientElementFilter()), new StatementIdReferenceProvider());
+        //PsiJavaPatterns.psiLiteral()
+        registrar.registerReferenceProvider(PsiJavaPatterns.literalExpression(), new PsiReferenceProvider() {
             @NotNull
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
-                return new PsiReference[]{new IdentifiableStatementReference((PsiLiteral) element), new SqlMapReference((PsiLiteral) element)};
+                //.and(new SqlClientElementFilter())
+                if (!(element instanceof PsiLiteralExpression)) return PsiReference.EMPTY_ARRAY;
+                PsiElement parent = element.getParent().getParent();
+                if (parent == null || !(parent instanceof PsiMethodCallExpression)) {
+                    return PsiReference.EMPTY_ARRAY;
+                }
+//                //method name validation simply, filter for detailed validation
+//                String[] path = ((PsiMethodCallExpression) parent).getMethodExpression().getText().split("\\.");
+//                String methodName = path[path.length - 1].trim().toLowerCase();
+//                if (!methodName.matches(SqlClientElementFilter.operationPattern)) return PsiReference.EMPTY_ARRAY;
+                //new SqlMapNamespaceReference((PsiLiteral) element)
+                return new PsiReference[]{new IdentifiableStatementReference((PsiLiteral) element),};
             }
         });
 

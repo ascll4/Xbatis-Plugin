@@ -18,9 +18,9 @@ import java.util.List;
  * 字符串与sqlMap的namespace关联
  * 其实可以拆分关联sqlMap，statement，比如MsgPlan.deleteByKey  MsgPlan找sqlMap，找<select id=deleteByKey...
  */
-public class SqlMapReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
+public class SqlMapNamespaceReference extends PsiPolyVariantReferenceBase<PsiLiteral> {
 
-    public SqlMapReference(PsiLiteral expression) {
+    public SqlMapNamespaceReference(PsiLiteral expression) {
         super(expression);
     }
 

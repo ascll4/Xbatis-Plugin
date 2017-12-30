@@ -1,21 +1,24 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.generate.setting.XbatisSettingStorage;
-import com.github.ansafari.plugin.generate.GenerateModel;
+import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.icons.XbatisIcons;
 import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.pom.Navigatable;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlElement;
+import com.intellij.spring.java.SpringJavaClassInfo;
+import com.intellij.spring.model.utils.SpringCommonUtils;
 import com.intellij.util.CommonProcessors;
 import com.intellij.util.Function;
 import com.intellij.util.NullableFunction;
@@ -35,6 +38,7 @@ import java.util.List;
  * 原则上扫描范围需要限定：
  * 1.spring bean dao才进行扫描
  * 2.字面量符合配置的规则才查找XML映射 statement
+ * 参考类：com.intellij.spring.gutter.SpringClassAnnotator
  *
  * @author xiongjinteng@raycloud.com
  * @date 2017/12/29 15:16
@@ -44,6 +48,7 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
     @Nullable
     @Override
     public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement psiElement) {
+
         if (psiElement instanceof PsiLiteralExpression) {
             //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);
             //匹配字面量如：return (MsgPlan) getSqlMapClientTemplate().queryForObject("MsgPlan.getMsgPlanByKey", params);
@@ -51,12 +56,20 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
             //优化方案：如果发现字面量包含1个点，则认为.前面为namespace，后面为statement id；同时statement id如果也是带点的，则进行拆分出来
             //原来的处理方法是
             String targetNamespace = "";
+            //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class).getQualifiedName()
+            PsiClass psiClass = PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);
+            //是 java类，且是spring bean 且 className不为空
+            if (psiClass == null || StringUtils.isBlank(psiClass.getName()) || !isSpringBean(psiClass)) {
+                return null;
+            }
+//            className = className.toLowerCase();
+//            if (!className.contains("dao") && !className.contains("mapper")) {
+//                return null;
+//            }
+
             PsiLiteralExpression literalExpression = (PsiLiteralExpression) psiElement;
             String targetId = literalExpression.getValue() instanceof String ? (String) literalExpression.getValue() : null;
             if (StringUtils.isNotBlank(targetId)) {
-                XbatisSettingStorage storage = XbatisSettingStorage.getInstance();
-                GenerateModel generateModel = storage.getStatementGenerateModel();
-
                 String[] values = targetId.split("\\.");
                 if (values.length == 2) {
                     targetNamespace = values[0];
@@ -84,6 +97,25 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
         return null;
     }
 
+    /**
+     * spring bean 检查
+     *
+     * @param psiClass psiClass
+     * @return true：是；false：否
+     */
+    private boolean isSpringBean(@NotNull PsiClass psiClass) {
+        if (SpringCommonUtils.isSpringBeanCandidateClass(psiClass)) {
+            if (SpringCommonUtils.isSpringConfigured(ModuleUtilCore.findModuleForPsiElement(psiClass))) {
+                SpringJavaClassInfo info = SpringJavaClassInfo.getSpringJavaClassInfo(psiClass);
+                //annotatePsiClassSpringPropertyValues(result, psiClass, SpringModelUtils.getInstance().getSpringModel(psiElement).getConfigFiles());
+                //spring bean defined in xml and annotation
+                if (info.isMappedDomBean() || info.isStereotypeJavaBean()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 //    if (psiElement instanceof PsiNameIdentifierOwner) {
 //        DomFileElementsFinder finder = ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class);

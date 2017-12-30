@@ -1,10 +1,10 @@
 package com.github.ansafari.plugin.service;
 
-import com.github.ansafari.plugin.mybatis.domain.mapper.Mapper;
-import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.ResultMap;
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMap;
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.mybatis.domain.mapper.Mapper;
+import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
 import com.intellij.openapi.application.Application;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;

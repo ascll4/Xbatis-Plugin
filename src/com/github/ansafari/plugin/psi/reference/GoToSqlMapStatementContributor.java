@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/**
+ * symbol name search alt+cmd+o-
+ */
 public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
 
     private static final Pattern dotPattern = Pattern.compile("\\.");
