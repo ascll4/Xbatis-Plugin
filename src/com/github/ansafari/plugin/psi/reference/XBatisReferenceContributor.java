@@ -2,6 +2,7 @@ package com.github.ansafari.plugin.psi.reference;
 
 import com.intellij.patterns.PsiJavaPatterns;
 import com.intellij.psi.*;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,8 +21,7 @@ public class XBatisReferenceContributor extends PsiReferenceContributor {
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 //.and(new SqlClientElementFilter())
                 if (!(element instanceof PsiLiteralExpression)) return PsiReference.EMPTY_ARRAY;
-                PsiElement parent = element.getParent().getParent();
-                if (parent == null || !(parent instanceof PsiMethodCallExpression)) {
+                if (PsiTreeUtil.getParentOfType(element, PsiMethodCallExpression.class) == null) {
                     return PsiReference.EMPTY_ARRAY;
                 }
 //                //method name validation simply, filter for detailed validation

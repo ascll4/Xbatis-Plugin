@@ -26,9 +26,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!--sqlMap文件-->
-        <dom.fileDescription implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapDescription"/>
+        <dom.fileDescription id="xbatis.sqlMap"
+                             implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapDescription"/>
         <!--mapper文件-->
-        <dom.fileDescription implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
+        <dom.fileDescription id="xbatis.mapper"
+                             implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
 
         <definitionsSearch
                 implementation="com.github.ansafari.plugin.mybatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
@@ -65,7 +67,7 @@
 
 
         <!--<projectConfigurable instance="com.github.ansafari.plugin.generate.setting.XbatisConfigurable"-->
-                             <!--bundle="messages.XbatisPluginBundle"/>-->
+        <!--bundle="messages.XbatisPluginBundle"/>-->
 
         <!--xbatis的配置-->
         <!--<applicationService serviceInterface="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"-->
