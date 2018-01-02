@@ -3,6 +3,7 @@ package com.github.ansafari.plugin.provider;
 import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
+import com.github.ansafari.plugin.utils.XbatisUtils;
 import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.util.text.StringUtil;
@@ -55,6 +56,10 @@ public class StatementDocumentationProvider implements DocumentationProvider {
             } else {
                 namespace = "";
                 id = parts[0];
+            }
+
+            if (!XbatisUtils.isWithinScope(originalElement)) {
+                return null;
             }
 
             //先看Ibatis能不能找到，否则找Mybatis，最优是能够识别Dao是Ibatis还是Mybatis

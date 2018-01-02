@@ -20,7 +20,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * symbol name search alt+cmd+o-
+ * symbol name search alt+cmd+o.
+ *
+ * @author xiongjinteng@raycloud.com
+ * @date 2018/1/2 20:59
  */
 public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
 
