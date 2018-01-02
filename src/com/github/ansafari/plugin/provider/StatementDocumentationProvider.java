@@ -60,9 +60,8 @@ public class StatementDocumentationProvider implements DocumentationProvider {
                 if (xmlElement != null) {
                     String text = "";
                     if (StringUtils.isNotBlank(xmlElement.getText())) {
-                        text = xmlElement.getText().replaceAll("\n    ", "\n");
+                        text = xmlElement.getText().replaceAll("\n {4}", "\n");
                     }
-
                     return "<pre>" + StringUtil.escapeXml(text) + "</pre>";
                 }
             }
