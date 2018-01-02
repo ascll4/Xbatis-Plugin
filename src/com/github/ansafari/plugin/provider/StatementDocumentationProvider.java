@@ -10,6 +10,7 @@ import com.intellij.psi.PsiJavaToken;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.CommonProcessors;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -57,7 +58,12 @@ public class StatementDocumentationProvider implements DocumentationProvider {
                 SqlMapIdentifiableStatement statement = processor.getFoundValue();
                 XmlElement xmlElement = statement != null ? statement.getXmlElement() : null;
                 if (xmlElement != null) {
-                    return "<pre>" + StringUtil.escapeXml(xmlElement.getText()) + "</pre>";
+                    String text = "";
+                    if (StringUtils.isNotBlank(xmlElement.getText())) {
+                        text = xmlElement.getText().replaceAll("\n    ", "\n");
+                    }
+
+                    return "<pre>" + StringUtil.escapeXml(text) + "</pre>";
                 }
             }
 
