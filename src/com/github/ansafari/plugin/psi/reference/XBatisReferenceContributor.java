@@ -1,8 +1,8 @@
 package com.github.ansafari.plugin.psi.reference;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMap;
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
-import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMap;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.DomUtils;
 import com.github.ansafari.plugin.utils.XbatisUtils;

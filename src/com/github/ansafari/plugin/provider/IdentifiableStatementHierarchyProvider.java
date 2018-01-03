@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.intellij.codeInsight.hint.HintManager;
 import com.intellij.ide.hierarchy.HierarchyBrowser;
 import com.intellij.ide.hierarchy.HierarchyProvider;

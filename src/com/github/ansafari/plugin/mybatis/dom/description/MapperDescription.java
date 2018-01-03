@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.mybatis.dom.description;
 
-import com.github.ansafari.plugin.mybatis.domain.mapper.Mapper;
+import com.github.ansafari.plugin.mybatis.dom.mapper.Mapper;
 import com.intellij.openapi.module.Module;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;

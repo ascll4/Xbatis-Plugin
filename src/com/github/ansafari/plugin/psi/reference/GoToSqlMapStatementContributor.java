@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.psi.reference;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.components.ServiceManager;

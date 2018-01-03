@@ -1,7 +1,7 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMap;
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMap;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.intellij.ide.actions.QualifiedNameProvider;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;

@@ -1,7 +1,7 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMapIdentifiableStatement;
-import com.github.ansafari.plugin.mybatis.domain.mapper.MapperIdentifiableStatement;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.XbatisUtils;
 import com.intellij.lang.documentation.DocumentationProvider;

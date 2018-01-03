@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.ibatis.dom.description;
 
-import com.github.ansafari.plugin.ibatis.domain.sqlmap.SqlMap;
+import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMap;
 import com.intellij.openapi.module.Module;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;

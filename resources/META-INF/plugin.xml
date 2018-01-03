@@ -26,6 +26,7 @@
     <depends>com.intellij.modules.lang</depends>
     -->
     <depends>com.intellij.spring</depends>
+    <depends>com.intellij.properties</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!--sqlMap文件-->
@@ -34,6 +35,9 @@
         <!--mapper文件-->
         <dom.fileDescription id="xbatis.mapper"
                              implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
+
+        <dom.fileDescription id="xbatis.sqlMapConfig"
+                             implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapConfigDescription"/>
 
         <definitionsSearch
                 implementation="com.github.ansafari.plugin.mybatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
