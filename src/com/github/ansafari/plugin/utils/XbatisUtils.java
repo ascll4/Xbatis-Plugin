@@ -10,8 +10,20 @@ import com.intellij.spring.model.utils.SpringCommonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * XbatisUtils.
+ *
+ * @author xiongjinteng@raycloud.com
+ * @date 2018/1/3 18:5
+ */
 public class XbatisUtils {
 
+    /**
+     * 是否在扫描范围内
+     *
+     * @param psiElement psiElement
+     * @return boolean
+     */
     public static boolean isWithinScope(@NotNull PsiElement psiElement) {
         //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class).getQualifiedName()
         PsiClass psiClass = PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);

@@ -6,16 +6,16 @@ import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.CollectionUtils;
 import com.github.ansafari.plugin.utils.XbatisUtils;
+import com.intellij.codeHighlighting.Pass;
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.pom.Navigatable;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiIdentifier;
-import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.*;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.CommonProcessors;
 import com.intellij.util.Function;
@@ -48,8 +48,30 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
     @Nullable
     @Override
     public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement psiElement) {
+        if (psiElement instanceof PsiNameIdentifierOwner) {
+            DomFileElementsFinder finder = ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class);
+            CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
+            if (psiElement instanceof PsiClass) {
+                //匹配类
+                finder.processMappers((PsiClass) psiElement, processor);
+            } else if (psiElement instanceof PsiMethod) {
+                //匹配方法
+                finder.processMapperStatements((PsiMethod) psiElement, processor);
+            }
 
-        if (psiElement instanceof PsiLiteralExpression) {
+            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+            if (processor.isFound() && nameIdentifier != null && processor.getFoundValue() != null) {
+                return new LineMarkerInfo<>(
+                        (PsiIdentifier) nameIdentifier, //we just know it, ok
+                        nameIdentifier.getTextRange(),
+                        XbatisIcons.NAVIGATE_TO_STATEMENT,
+                        Pass.UPDATE_ALL,
+                        getTooltipProvider(processor.getFoundValue()),
+                        getNavigationHandler(processor.getFoundValue().getXmlElement()),
+                        GutterIconRenderer.Alignment.CENTER
+                );
+            }
+        } else if (psiElement instanceof PsiLiteralExpression) {
             //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);
             //匹配字面量如：return (MsgPlan) getSqlMapClientTemplate().queryForObject("MsgPlan.getMsgPlanByKey", params);
             //需要验证一个问题：就是.queryForObject("MsgPlan.getMsgPlanByKey", params)，同时<select id="MsgPlan.getMsgPlanByKey">居然可以映射到
@@ -94,32 +116,6 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
         }
         return null;
     }
-
-
-//    if (psiElement instanceof PsiNameIdentifierOwner) {
-//        DomFileElementsFinder finder = ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class);
-//        CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
-//        if (psiElement instanceof PsiClass) {
-//            //匹配类
-//            finder.processMappers((PsiClass) psiElement, processor);
-//        } else if (psiElement instanceof PsiMethod) {
-//            //匹配方法
-//            finder.processMapperStatements((PsiMethod) psiElement, processor);
-//        }
-//
-//        PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
-//        if (processor.isFound() && nameIdentifier != null) {
-//            return new LineMarkerInfo<>(
-//                    (PsiIdentifier) nameIdentifier, //we just know it, ok
-//                    nameIdentifier.getTextRange(),
-//                    XbatisIcons.NAVIGATE_TO_STATEMENT,
-//                    Pass.UPDATE_ALL,
-//                    getTooltipProvider(processor.getFoundValue()),
-//                    getNavigationHandler(processor.getFoundValue().getXmlElement()),
-//                    GutterIconRenderer.Alignment.CENTER
-//            );
-//        }
-//    } else if
 
 
     private void addSqlMapMatchElements(String namespace, @NotNull String value, @NotNull PsiElement psiElement, List<XmlElement> xmlTagList) {
