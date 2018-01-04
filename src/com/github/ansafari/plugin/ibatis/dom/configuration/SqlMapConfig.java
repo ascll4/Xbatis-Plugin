@@ -10,28 +10,28 @@ import java.util.List;
  * iBATIS configuration xml file model
  */
 public interface SqlMapConfig extends DomElement {
-    public Properties getProperties();
+    Properties getProperties();
 
-    public Settings getSettings();
+    Settings getSettings();
 
-    public ResultObjectFactory getResultObjectFactory();
+    ResultObjectFactory getResultObjectFactory();
 
     @SubTagList("typeAlias")
-    public List<TypeAlias> getTypeAlias();
+    List<TypeAlias> getTypeAlias();
 
     @SubTagList("typeHandler")
-    public List<TypeHandler> getTypeHandlers();
+    List<TypeHandler> getTypeHandlers();
 
     @SubTagList("sqlMap")
-    public List<SqlMap> getSqlMaps();
+    List<SqlMap> getSqlMaps();
 
     @SubTagList("sqlMap")
-    public SqlMap addSqlMap();
+    SqlMap addSqlMap();
 
     /**
      * get properties in file
      *
      * @return properties
      */
-    public List<Property> getPropertiesInFile();
+    List<Property> getPropertiesInFile();
 }

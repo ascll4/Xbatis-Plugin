@@ -29,16 +29,14 @@
     <depends>com.intellij.properties</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!--sqlMap文件-->
-        <dom.fileDescription id="xbatis.sqlMap"
+        <dom.fileDescription id="xbatis.ibatis.sqlMap"
                              implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapDescription"/>
-        <!--mapper文件-->
-        <dom.fileDescription id="xbatis.mapper"
-                             implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
-
-        <dom.fileDescription id="xbatis.sqlMapConfig"
+        <dom.fileDescription id="xbatis.ibatis.sqlMapConfig"
                              implementation="com.github.ansafari.plugin.ibatis.dom.description.SqlMapConfigDescription"/>
-
+        <dom.fileDescription id="xbatis.mybatis.mapper"
+                             implementation="com.github.ansafari.plugin.mybatis.dom.description.MapperDescription"/>
+        <dom.fileDescription id="xbatis.mybatis.configuration"
+                             implementation="com.github.ansafari.plugin.mybatis.dom.description.ConfigurationDescription"/>
         <definitionsSearch
                 implementation="com.github.ansafari.plugin.mybatis.search.MyBatis3ProxiesDefinitionsSearcher"/>
 

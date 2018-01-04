@@ -11,6 +11,6 @@ import org.jetbrains.annotations.NotNull;
 public interface ResultObjectFactory extends DomElement {
 
     @NotNull
-    public GenericAttributeValue<PsiClass> getType();
+    GenericAttributeValue<PsiClass> getType();
 
 }

@@ -9,24 +9,24 @@ import com.intellij.util.xml.GenericAttributeValue;
  */
 public interface Settings extends DomElement {
 
-    public GenericAttributeValue<String> getCacheModelsEnabled();
+    GenericAttributeValue<String> getCacheModelsEnabled();
 
-    public GenericAttributeValue<String> getEnhancementEnabled();
+    GenericAttributeValue<String> getEnhancementEnabled();
 
-    public GenericAttributeValue<String> getLazyLoadingEnabled();
+    GenericAttributeValue<String> getLazyLoadingEnabled();
 
-    public GenericAttributeValue<Integer> getMaxRequests();
+    GenericAttributeValue<Integer> getMaxRequests();
 
-    public GenericAttributeValue<Integer> getMaxSessions();
+    GenericAttributeValue<Integer> getMaxSessions();
 
-    public GenericAttributeValue<Integer> getMaxTransactions();
+    GenericAttributeValue<Integer> getMaxTransactions();
 
     @Attribute("useStatementNamespaces")
-    public GenericAttributeValue<String> getUseStatementNamespaces();
+    GenericAttributeValue<String> getUseStatementNamespaces();
 
-    public GenericAttributeValue<Integer> getDefaultStatementTimeout();
+    GenericAttributeValue<Integer> getDefaultStatementTimeout();
 
-    public GenericAttributeValue<Integer> getStatementCachingEnabled();
+    GenericAttributeValue<Integer> getStatementCachingEnabled();
 
-    public GenericAttributeValue<String> getClassInfoCacheEnabledd();
+    GenericAttributeValue<String> getClassInfoCacheEnabledd();
 }

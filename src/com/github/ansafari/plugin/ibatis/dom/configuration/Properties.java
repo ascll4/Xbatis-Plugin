@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 public interface Properties extends DomElement {
     @Nullable
     @Convert(PropertiesFileConverter.class)
-    public GenericAttributeValue<PsiFile> getResource();
+    GenericAttributeValue<PsiFile> getResource();
 
-    public @Nullable
+    @Nullable
     GenericAttributeValue<String> getUrl();
 }

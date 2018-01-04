@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 public interface TypeHandler extends DomElement {
     @Attribute("javaType")
     @NotNull
-    public GenericAttributeValue<String> getJavaType();
+    GenericAttributeValue<String> getJavaType();
 
     @Attribute("jdbcType")
     @NotNull
-    public GenericAttributeValue<String> getJdbcType();
+    GenericAttributeValue<String> getJdbcType();
 
     @Attribute("callback")
     @NotNull
-    public GenericAttributeValue<PsiClass> getCallback();
+    GenericAttributeValue<PsiClass> getCallback();
 }

@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface TypeAlias extends DomElement {
     @NotNull
-    public GenericAttributeValue<PsiClass> getType();
+    GenericAttributeValue<PsiClass> getType();
 
     @NotNull
-    public GenericAttributeValue<String> getAlias();
+    GenericAttributeValue<String> getAlias();
 
 }

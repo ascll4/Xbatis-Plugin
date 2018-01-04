@@ -14,6 +14,6 @@ public interface SqlMap extends DomElement {
 
     @Convert(SqlMapFileConverter.class)
     @NotNull
-    public GenericAttributeValue<PsiFile> getResource();
+    GenericAttributeValue<PsiFile> getResource();
 
 }
