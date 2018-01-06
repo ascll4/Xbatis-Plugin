@@ -79,12 +79,12 @@
                 implementation="com.github.ansafari.plugin.psi.reference.GoToSqlMapStatementContributor"/>
 
 
-        <projectConfigurable instance="com.github.ansafari.plugin.generate.setting.XbatisConfigurable"
-                             bundle="messages.XbatisPluginBundle"/>
+        <!--<projectConfigurable instance="com.github.ansafari.plugin.generate.setting.XbatisConfigurable"-->
+                             <!--bundle="messages.XbatisPluginBundle"/>-->
 
         <!--xbatis的配置-->
-        <applicationService serviceInterface="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"
-                            serviceImplementation="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"/>
+        <!--<applicationService serviceInterface="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"-->
+                            <!--serviceImplementation="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"/>-->
         <!--<editorOptionsProvider instance="com.github.ansafari.plugin.generate.setting.XbatisConfigurable"-->
         <!--id="editor.preferences.myCompletion" key="title.code.myCompletion" groupId=""/>-->
     </extensions>
