@@ -1,32 +1,21 @@
 package com.github.ansafari.plugin.mybatis.provider;
 
-import com.github.ansafari.plugin.icons.Icons;
 import com.github.ansafari.plugin.mybatis.dom.mapper.Mapper;
 import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
+import com.github.ansafari.plugin.provider.AbstractProxiesLineMarkerProvider;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.CollectionUtils;
 import com.github.ansafari.plugin.utils.XbatisUtils;
-import com.google.common.collect.Collections2;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
-import com.intellij.codeInsight.daemon.LineMarkerProvider;
-import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
-import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.psi.*;
-import com.intellij.psi.xml.XmlElement;
-import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.CommonProcessors;
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.ElementPresentationManager;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * Java 类名与namespace的映射，method与id的映射，字面量与id的映射.
@@ -38,7 +27,7 @@ import java.util.function.Function;
  * @author xiongjinteng@raycloud.com
  * @date 2017/12/29 15:16
  */
-public class MybatisProxiesLineMarkerProvider implements LineMarkerProvider {
+public class MybatisProxiesLineMarkerProvider extends AbstractProxiesLineMarkerProvider {
 
     @Nullable
     @Override
@@ -79,54 +68,17 @@ public class MybatisProxiesLineMarkerProvider implements LineMarkerProvider {
                     targetId = values[values.length - 1];
                 }
 
-                List<XmlElement> xmlTagList = new ArrayList<>();
-                addMapperMatchElements(targetNamespace, targetId, psiElement, xmlTagList);
+                CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
+                ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processMapperStatements2(targetNamespace, targetId, processor);
+                Collection<MapperIdentifiableStatement> results = processor.getResults();
 
-                if (CollectionUtils.isNotEmpty(xmlTagList)) {
-                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT).setTargets(xmlTagList).setTooltipText("Navigate to xml");
-                    return builder.createLineMarkerInfo(psiElement);
+                if (CollectionUtils.isNotEmpty(results)) {
+                    return createLineMarkerInfo(psiElement, results);
                 }
             }
         }
         return null;
     }
-
-    private void addMapperMatchElements(String namespace, @NotNull String value, @NotNull PsiElement psiElement, List<XmlElement> xmlTagList) {
-        CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
-        ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processMapperStatements2(namespace, value, processor);
-        Collection<MapperIdentifiableStatement> processorResults = processor.getResults();
-        if (processorResults.size() > 0) {
-            for (MapperIdentifiableStatement statement : processorResults) {
-                XmlElement xmlElement = statement.getId().getXmlElement();
-                String idValue = statement.getId().getStringValue();
-                if (idValue != null) {
-                    ElementPresentationManager.getIcon(statement);
-                    if (namespace.length() > 0) {
-                        // results.add(new BaseNavigationItem(psiElement, "" + "." + value, icon));
-                        xmlTagList.add(xmlElement);
-                    } else {
-                        // results.add(new BaseNavigationItem(psiElement, value, icon));
-                        xmlTagList.add(xmlElement);
-                    }
-                }
-            }
-        }
-    }
-
-    private RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements) {
-        PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
-        if (!domElements.isEmpty() && nameIdentifier != null) {
-            NavigationGutterIconBuilder<PsiElement> builder =
-                    NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT)
-                            .setAlignment(GutterIconRenderer.Alignment.CENTER)
-                            .setTargets(Collections2.transform(domElements, FUN::apply))
-                            .setTooltipTitle("Navigation to target in mapper xml");
-            return (builder.createLineMarkerInfo(nameIdentifier));
-        }
-        return null;
-    }
-
-    private static final Function<DomElement, XmlTag> FUN = DomElement::getXmlTag;
 
 //    private Function<PsiIdentifier, String> getTooltipProvider(final DomElement element) {
 //        return new NullableFunction<PsiIdentifier, String>() {
@@ -154,8 +106,6 @@ public class MybatisProxiesLineMarkerProvider implements LineMarkerProvider {
 //            }
 //        };
 //    }
-
-
 
 
 //            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
