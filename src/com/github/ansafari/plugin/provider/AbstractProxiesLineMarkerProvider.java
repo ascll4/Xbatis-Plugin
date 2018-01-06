@@ -37,7 +37,11 @@ public abstract class AbstractProxiesLineMarkerProvider implements LineMarkerPro
     }
 
     protected RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements) {
-        PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+        PsiElement nameIdentifier = psiElement;
+        if (psiElement instanceof PsiNameIdentifierOwner) {
+            //如果不这样判断的话，图标就会标注在方法，或者类注释上
+            nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+        }
         if (!domElements.isEmpty() && nameIdentifier != null) {
             NavigationGutterIconBuilder<PsiElement> builder =
                     NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT)
