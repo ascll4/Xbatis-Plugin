@@ -41,11 +41,6 @@ public class XBatisReferenceContributor extends PsiReferenceContributor {
                 if (!XbatisUtils.isWithinScope(element)) {
                     return PsiReference.EMPTY_ARRAY;
                 }
-//                //method name validation simply, filter for detailed validation
-//                String[] path = ((PsiMethodCallExpression) parent).getMethodExpression().getText().split("\\.");
-//                String methodName = path[path.length - 1].trim().toLowerCase();
-//                if (!methodName.matches(SqlClientElementFilter.operationPattern)) return PsiReference.EMPTY_ARRAY;
-                //new SqlMapNamespaceReference((PsiLiteral) element)
                 return new PsiReference[]{new IdentifiableStatementReference((PsiLiteral) element),};
             }
         });
