@@ -1,9 +1,7 @@
 package com.github.ansafari.plugin.utils;
 
 import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiMethodCallExpression;
+import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.spring.java.SpringJavaClassInfo;
 import com.intellij.spring.model.utils.SpringCommonUtils;
@@ -20,6 +18,8 @@ public class XbatisUtils {
 
     /**
      * 是否在扫描范围内
+     * 1. 是SpringBean
+     * 2. 继承了{@code com.alibaba.cobarclient.dao.MysdalBaseDao}
      *
      * @param psiElement psiElement
      * @return boolean
@@ -28,9 +28,22 @@ public class XbatisUtils {
         //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class).getQualifiedName()
         PsiClass psiClass = PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);
         //是 java类，且是spring bean 且 className不为空
-
-        return psiClass != null && StringUtils.isNotBlank(psiClass.getName()) && isSpringBean(psiClass)
-                && PsiTreeUtil.getParentOfType(psiElement, PsiMethodCallExpression.class) != null;
+        if (psiClass == null || StringUtils.isBlank(psiClass.getName()) || PsiTreeUtil.getParentOfType(psiElement, PsiMethodCallExpression.class) == null) {
+            return false;
+        }
+        PsiReferenceList psiReferenceList = psiClass.getExtendsList();
+        if (psiReferenceList != null) {
+            PsiJavaCodeReferenceElement[] psiJavaCodeReferenceElements = psiReferenceList.getReferenceElements();
+            if (psiJavaCodeReferenceElements.length > 0) {
+                for (PsiJavaCodeReferenceElement psiJavaCodeReferenceElement : psiReferenceList.getReferenceElements()) {
+                    String qualifiedName = psiJavaCodeReferenceElement.getQualifiedName();
+                    if (StringUtils.equals(qualifiedName, "com.alibaba.cobarclient.dao.MysdalBaseDao")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return isSpringBean(psiClass);
     }
 
     /**
