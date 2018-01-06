@@ -5,9 +5,13 @@ import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMap;
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.mybatis.dom.mapper.Mapper;
 import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
+import com.github.ansafari.plugin.utils.CollectionUtils;
+import com.intellij.codeInsight.navigation.ClassImplementationsSearch;
 import com.intellij.openapi.application.Application;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -19,6 +23,7 @@ import com.intellij.util.xml.DomService;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -32,6 +37,10 @@ public class DomFileElementsFinder {
         this.project = project;
         this.domService = domService;
         this.application = application;
+    }
+
+    public static DomFileElementsFinder getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, DomFileElementsFinder.class);
     }
 
     public void processSqlMapStatements(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super SqlMapIdentifiableStatement> processor) {
@@ -91,7 +100,6 @@ public class DomFileElementsFinder {
         }
         return false;
     }
-
 
     public void processSqlMapStatementNames(@NotNull Processor<String> processor) {
 
@@ -162,34 +170,46 @@ public class DomFileElementsFinder {
     }
 
     public void processMappers(@NotNull final PsiClass clazz, @NotNull final Processor<? super Mapper> processor) {
-        application.runReadAction(new Runnable() {
-            @Override
-            public void run() {
-                if (clazz.isInterface()) {
-                    PsiIdentifier nameIdentifier = clazz.getNameIdentifier();
-                    String qualifiedName = clazz.getQualifiedName();
-                    if (nameIdentifier != null && qualifiedName != null) {
-                        processMappers(qualifiedName, processor);
-                    }
+        application.runReadAction(() -> {
+            if (clazz.isInterface()) {
+                PsiIdentifier nameIdentifier = clazz.getNameIdentifier();
+                String qualifiedName = clazz.getQualifiedName();
+                if (nameIdentifier != null && qualifiedName != null) {
+                    processMappers(qualifiedName, processor);
                 }
             }
         });
     }
 
     public void processMapperStatements(@NotNull final PsiMethod method, @NotNull final Processor<? super MapperIdentifiableStatement> processor) {
-        application.runReadAction(new Runnable() {
-            @Override
-            public void run() {
-                PsiClass clazz = method.getContainingClass();
-                if (clazz != null && clazz.isInterface()) {
-                    String qualifiedName = clazz.getQualifiedName();
+        application.runReadAction(() -> {
+            PsiClass clazz = method.getContainingClass();
+            if (clazz != null && clazz.isInterface()) {
+                String qualifiedName = clazz.getQualifiedName();
+                String methodName = method.getName();
+                if (qualifiedName != null) {
+                    processMapperStatements(qualifiedName, methodName, processor);
+                }
+                processImplementationStatements(clazz, method, processor);
+            }
+        });
+    }
+
+    private void processImplementationStatements(@NotNull PsiClass clazz, @NotNull final PsiMethod method, @NotNull final Processor<? super MapperIdentifiableStatement> processor) {
+        CommonProcessors.CollectProcessor<PsiElement> processor1 = new CommonProcessors.CollectProcessor<>();
+        ClassImplementationsSearch.processImplementations(clazz, processor1, clazz.getUseScope());
+        Collection<PsiElement> collection = processor1.getResults();
+        if (CollectionUtils.isNotEmpty(collection)) {
+            for (PsiElement psiElement : collection) {
+                if (psiElement instanceof PsiClass) {
+                    String qualifiedName = ((PsiClass) psiElement).getQualifiedName();
                     String methodName = method.getName();
                     if (qualifiedName != null) {
                         processMapperStatements(qualifiedName, methodName, processor);
                     }
                 }
             }
-        });
+        }
     }
 
     public boolean existsMapperStatement(PsiMethod method) {

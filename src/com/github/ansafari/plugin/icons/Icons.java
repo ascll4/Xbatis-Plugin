@@ -4,7 +4,7 @@ import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
 
-public class XbatisIcons {
+public class Icons {
 
     public static final Icon NAVIGATE_TO_STATEMENT = IconLoader.getIcon("/icons/navigate_to_statement.png");
 

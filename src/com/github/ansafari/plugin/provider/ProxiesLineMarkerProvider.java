@@ -1,35 +1,33 @@
 package com.github.ansafari.plugin.provider;
 
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
-import com.github.ansafari.plugin.icons.XbatisIcons;
+import com.github.ansafari.plugin.icons.Icons;
+import com.github.ansafari.plugin.mybatis.dom.mapper.Mapper;
 import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.CollectionUtils;
 import com.github.ansafari.plugin.utils.XbatisUtils;
-import com.intellij.codeHighlighting.Pass;
-import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
+import com.google.common.collect.Collections2;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
+import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
-import com.intellij.pom.Navigatable;
 import com.intellij.psi.*;
 import com.intellij.psi.xml.XmlElement;
+import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.CommonProcessors;
-import com.intellij.util.Function;
-import com.intellij.util.NullableFunction;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.ElementPresentationManager;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Java 类名与namespace的映射，method与id的映射，字面量与id的映射.
@@ -43,34 +41,51 @@ import java.util.List;
  */
 public class ProxiesLineMarkerProvider implements LineMarkerProvider {
 
-    private static final Logger LOGGER = Logger.getInstance(ProxiesLineMarkerProvider.class);
-
     @Nullable
     @Override
     public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement psiElement) {
         if (psiElement instanceof PsiNameIdentifierOwner) {
-            DomFileElementsFinder finder = ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class);
-            CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
+            DomFileElementsFinder finder = DomFileElementsFinder.getInstance(psiElement.getProject());
+
             if (psiElement instanceof PsiClass) {
                 //匹配类
+                CommonProcessors.CollectUniquesProcessor<Mapper> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 finder.processMappers((PsiClass) psiElement, processor);
+                return createLineMarkerInfo(psiElement, processor.getResults());
             } else if (psiElement instanceof PsiMethod) {
                 //匹配方法
+                CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 finder.processMapperStatements((PsiMethod) psiElement, processor);
+                return createLineMarkerInfo(psiElement, processor.getResults());
             }
 
-            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
-            if (processor.isFound() && nameIdentifier != null && processor.getFoundValue() != null) {
-                return new LineMarkerInfo<>(
-                        (PsiIdentifier) nameIdentifier, //we just know it, ok
-                        nameIdentifier.getTextRange(),
-                        XbatisIcons.NAVIGATE_TO_STATEMENT,
-                        Pass.UPDATE_ALL,
-                        getTooltipProvider(processor.getFoundValue()),
-                        getNavigationHandler(processor.getFoundValue().getXmlElement()),
-                        GutterIconRenderer.Alignment.CENTER
-                );
-            }
+//            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+//            if (processor.isFound() && nameIdentifier != null && processor.getFoundValue() != null) {
+//                return new LineMarkerInfo<>(
+//                        (PsiIdentifier) nameIdentifier, //we just know it, ok
+//                        nameIdentifier.getTextRange(),
+//                        XbatisIcons.NAVIGATE_TO_STATEMENT,
+//                        Pass.UPDATE_ALL,
+//                        getTooltipProvider(processor.getFoundValue()),
+//                        getNavigationHandler(processor.getFoundValue().getXmlElement()),
+//                        GutterIconRenderer.Alignment.CENTER
+//                );
+//            }
+
+
+//CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
+//            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+//            if (processor.isFound() && nameIdentifier != null && processor.getFoundValue() != null) {
+//                return new LineMarkerInfo<>(
+//                        (PsiIdentifier) nameIdentifier, //we just know it, ok
+//                        nameIdentifier.getTextRange(),
+//                        Icons.NAVIGATE_TO_STATEMENT,
+//                        Pass.UPDATE_ALL,
+//                        getTooltipProvider(processor.getFoundValue()),
+//                        getNavigationHandler(processor.getFoundValue().getXmlElement()),
+//                        GutterIconRenderer.Alignment.CENTER
+//                );
+//            }
         } else if (psiElement instanceof PsiLiteralExpression) {
             //PsiTreeUtil.getParentOfType(psiElement, PsiClass.class);
             //匹配字面量如：return (MsgPlan) getSqlMapClientTemplate().queryForObject("MsgPlan.getMsgPlanByKey", params);
@@ -109,7 +124,7 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
                 addMapperMatchElements(targetNamespace, targetId, psiElement, xmlTagList);
 
                 if (CollectionUtils.isNotEmpty(xmlTagList)) {
-                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(XbatisIcons.NAVIGATE_TO_STATEMENT).setTargets(xmlTagList).setTooltipText("Navigate to xml");
+                    NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT).setTargets(xmlTagList).setTooltipText("Navigate to xml");
                     return builder.createLineMarkerInfo(psiElement);
                 }
             }
@@ -162,33 +177,47 @@ public class ProxiesLineMarkerProvider implements LineMarkerProvider {
         }
     }
 
-
-    private Function<PsiIdentifier, String> getTooltipProvider(final DomElement element) {
-        return new NullableFunction<PsiIdentifier, String>() {
-            @Override
-            public String fun(PsiIdentifier psiIdentifier) {
-                XmlElement xmlElement = element.getXmlElement();
-                if (xmlElement != null) {
-                    return element.getXmlElementName() + " in " + xmlElement.getContainingFile().getName();
-                } else {
-                    return null;
-                }
-            }
-        };
+    private RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements) {
+        PsiElement nameIdentifier = ((PsiNameIdentifierOwner) psiElement).getNameIdentifier();
+        if (!domElements.isEmpty() && nameIdentifier != null) {
+            NavigationGutterIconBuilder<PsiElement> builder =
+                    NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT)
+                            .setAlignment(GutterIconRenderer.Alignment.CENTER)
+                            .setTargets(Collections2.transform(domElements, FUN::apply))
+                            .setTooltipTitle("Navigation to target in mapper xml");
+            return (builder.createLineMarkerInfo(nameIdentifier));
+        }
+        return null;
     }
 
-    private GutterIconNavigationHandler<PsiIdentifier> getNavigationHandler(final XmlElement statement) {
-        return new GutterIconNavigationHandler<PsiIdentifier>() {
-            @Override
-            public void navigate(MouseEvent e, PsiIdentifier elt) {
-                if (statement instanceof Navigatable) {
-                    ((Navigatable) statement).navigate(true);
-                } else {
-                    throw new AssertionError("Could not navigate statement " + statement);
-                }
-            }
-        };
-    }
+    private static final Function<DomElement, XmlTag> FUN = DomElement::getXmlTag;
+
+//    private Function<PsiIdentifier, String> getTooltipProvider(final DomElement element) {
+//        return new NullableFunction<PsiIdentifier, String>() {
+//            @Override
+//            public String fun(PsiIdentifier psiIdentifier) {
+//                XmlElement xmlElement = element.getXmlElement();
+//                if (xmlElement != null) {
+//                    return element.getXmlElementName() + " in " + xmlElement.getContainingFile().getName();
+//                } else {
+//                    return null;
+//                }
+//            }
+//        };
+//    }
+//
+//    private GutterIconNavigationHandler<PsiIdentifier> getNavigationHandler(final XmlElement statement) {
+//        return new GutterIconNavigationHandler<PsiIdentifier>() {
+//            @Override
+//            public void navigate(MouseEvent e, PsiIdentifier elt) {
+//                if (statement instanceof Navigatable) {
+//                    ((Navigatable) statement).navigate(true);
+//                } else {
+//                    throw new AssertionError("Could not navigate statement " + statement);
+//                }
+//            }
+//        };
+//    }
 
     @Override
     public void collectSlowLineMarkers(@NotNull List<PsiElement> list, @NotNull Collection<LineMarkerInfo> collection) {
