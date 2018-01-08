@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.provider;
+package com.github.ansafari.plugin.ibatis.provider;
 
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.intellij.codeInsight.hint.HintManager;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-public class IdentifiableStatementHierarchyProvider implements HierarchyProvider {
+public class SqlMapIdentifiableStatementHierarchyProvider implements HierarchyProvider {
 
     private HierarchyProvider delegate = new JavaCallHierarchyProvider();
 

@@ -1,6 +1,7 @@
 package com.github.ansafari.plugin.provider;
 
 import com.github.ansafari.plugin.icons.Icons;
+import com.github.ansafari.plugin.utils.CollectionUtils;
 import com.google.common.collect.Collections2;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
@@ -12,6 +13,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.presentation.java.SymbolPresentationUtil;
 import com.intellij.psi.xml.XmlAttribute;
+import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +35,6 @@ public abstract class AbstractProxiesLineMarkerProvider implements LineMarkerPro
 
     @Override
     public void collectSlowLineMarkers(@NotNull List<PsiElement> list, @NotNull Collection<LineMarkerInfo> collection) {
-
     }
 
     protected RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements) {
@@ -73,8 +74,23 @@ public abstract class AbstractProxiesLineMarkerProvider implements LineMarkerPro
                             })
                             .setAlignment(GutterIconRenderer.Alignment.CENTER)
                             .setTargets(Collections2.transform(domElements, FUN::apply))
-                            .setTooltipTitle("Navigation to target in mapper xml");
+                            .setTooltipTitle(getTooltipProvider(domElements));
             return (builder.createLineMarkerInfo(nameIdentifier));
+        }
+        return null;
+    }
+
+    protected String getTooltipProvider(final Collection<? extends DomElement> domElements) {
+        if (CollectionUtils.isNotEmpty(domElements)) {
+            if (domElements.size() == 1) {
+                DomElement element = domElements.iterator().next();
+                XmlElement xmlElement = element.getXmlElement();
+                if (xmlElement != null) {
+                    return element.getXmlElementName() + " in " + xmlElement.getContainingFile().getName();
+                }
+            } else {
+                return "Navigation to target in multi mapper xml";
+            }
         }
         return null;
     }

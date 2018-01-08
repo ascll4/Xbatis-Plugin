@@ -1,11 +1,11 @@
-package com.github.ansafari.plugin.mapper;
+package com.github.ansafari.plugin.mybatis.codeInspection;
 
+import com.github.ansafari.plugin.codeInspection.AbstractInspection;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiIdentifier;
@@ -13,7 +13,7 @@ import com.intellij.psi.PsiMethod;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-public class NoMapperStatementInspection extends MyBatisInspection {
+public class NoMapperStatementInspection extends AbstractInspection {
 
     @Override
     public ProblemDescriptor[] checkMethod(@NotNull PsiMethod method, @NotNull InspectionManager manager, boolean isOnTheFly) {
@@ -21,7 +21,7 @@ public class NoMapperStatementInspection extends MyBatisInspection {
         if (containingClass != null && containingClass.isInterface()) {
 
             PsiIdentifier methodName = method.getNameIdentifier();
-            DomFileElementsFinder finder = ServiceManager.getService(containingClass.getProject(), DomFileElementsFinder.class);
+            DomFileElementsFinder finder = DomFileElementsFinder.getInstance(containingClass.getProject());
             boolean existsMapperStatement = finder.existsMapperStatement(method);
 
             boolean containsIbatisAnnotation = false;

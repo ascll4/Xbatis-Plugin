@@ -1,4 +1,4 @@
-package com.github.ansafari.plugin.provider;
+package com.github.ansafari.plugin.ibatis.provider;
 
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMap;
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
@@ -11,7 +11,7 @@ import com.intellij.util.xml.DomUtil;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IdentifiableStatementQualifiedNameProvider implements QualifiedNameProvider {
+public class SqlMapIdentifiableStatementQualifiedNameProvider implements QualifiedNameProvider {
 
     @Nullable
     @Override
