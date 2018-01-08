@@ -3,7 +3,6 @@ package com.github.ansafari.plugin.psi.reference;
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.intellij.navigation.NavigationItem;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.xml.XmlElement;
@@ -31,7 +30,7 @@ public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
 
     @Override
     protected void addNames(@NotNull Module module, Set<String> result) {
-        ServiceManager.getService(module.getProject(), DomFileElementsFinder.class).processSqlMapStatementNames(new CommonProcessors.CollectProcessor<>(result));
+        DomFileElementsFinder.getInstance(module.getProject()).processSqlMapStatementNames(new CommonProcessors.CollectProcessor<>(result));
     }
 
     @Override
@@ -53,7 +52,7 @@ public class GoToSqlMapStatementContributor extends GoToSymbolProvider {
 
     private List<NavigationItem> findResults(String namespace, String id, Project project) {
         CommonProcessors.CollectUniquesProcessor<SqlMapIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
-        ServiceManager.getService(project, DomFileElementsFinder.class).processSqlMapStatements(namespace, id, processor);
+        DomFileElementsFinder.getInstance(project).processSqlMapStatements(namespace, id, processor);
         Collection<SqlMapIdentifiableStatement> processorResults = processor.getResults();
         final List<NavigationItem> results = new ArrayList<>(processorResults.size());
         for (SqlMapIdentifiableStatement statement : processorResults) {

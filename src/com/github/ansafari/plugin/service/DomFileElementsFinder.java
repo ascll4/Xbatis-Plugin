@@ -96,7 +96,7 @@ public class DomFileElementsFinder {
             return StringUtils.equals(targetId, values[0]);
         } else if (values.length == 2) {
             return (StringUtils.isBlank(targetNamespace) || StringUtils.equals(targetNamespace, values[0]))
-                    && StringUtils.equals(targetId, values[values.length - 1]);
+                    && (StringUtils.equals(targetId, statementId) || StringUtils.equals(targetId, values[1]));
         }
         return false;
     }
