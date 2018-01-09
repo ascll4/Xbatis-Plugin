@@ -1,6 +1,5 @@
 package com.github.ansafari.plugin.provider;
 
-import com.github.ansafari.plugin.icons.Icons;
 import com.github.ansafari.plugin.utils.CollectionUtils;
 import com.google.common.collect.Collections2;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
@@ -19,6 +18,7 @@ import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -37,7 +37,7 @@ public abstract class AbstractProxiesLineMarkerProvider implements LineMarkerPro
     public void collectSlowLineMarkers(@NotNull List<PsiElement> list, @NotNull Collection<LineMarkerInfo> collection) {
     }
 
-    protected RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements) {
+    protected RelatedItemLineMarkerInfo<PsiElement> createLineMarkerInfo(@NotNull PsiElement psiElement, Collection<? extends DomElement> domElements,Icon icon) {
         PsiElement nameIdentifier = psiElement;
         if (psiElement instanceof PsiNameIdentifierOwner) {
             //如果不这样判断的话，图标就会标注在方法，或者类注释上
@@ -45,7 +45,7 @@ public abstract class AbstractProxiesLineMarkerProvider implements LineMarkerPro
         }
         if (!domElements.isEmpty() && nameIdentifier != null) {
             NavigationGutterIconBuilder<PsiElement> builder =
-                    NavigationGutterIconBuilder.create(Icons.NAVIGATE_TO_STATEMENT)
+                    NavigationGutterIconBuilder.create(icon)
                             .setCellRenderer(new PsiElementListCellRenderer() {
                                 @Override
                                 public String getElementText(PsiElement psiElement) {

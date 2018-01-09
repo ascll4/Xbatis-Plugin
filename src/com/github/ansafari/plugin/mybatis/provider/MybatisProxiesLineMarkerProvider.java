@@ -1,5 +1,6 @@
 package com.github.ansafari.plugin.mybatis.provider;
 
+import com.github.ansafari.plugin.icons.Icons;
 import com.github.ansafari.plugin.mybatis.dom.mapper.Mapper;
 import com.github.ansafari.plugin.mybatis.dom.mapper.MapperIdentifiableStatement;
 import com.github.ansafari.plugin.provider.AbstractProxiesLineMarkerProvider;
@@ -39,12 +40,12 @@ public class MybatisProxiesLineMarkerProvider extends AbstractProxiesLineMarkerP
                 //匹配类
                 CommonProcessors.CollectUniquesProcessor<Mapper> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 finder.processMappers((PsiClass) psiElement, processor);
-                return createLineMarkerInfo(psiElement, processor.getResults());
+                return createLineMarkerInfo(psiElement, processor.getResults(), Icons.NAVIGATE_TO_MAPPER);
             } else if (psiElement instanceof PsiMethod) {
                 //匹配方法
                 CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 finder.processMapperStatements((PsiMethod) psiElement, processor);
-                return createLineMarkerInfo(psiElement, processor.getResults());
+                return createLineMarkerInfo(psiElement, processor.getResults(), Icons.NAVIGATE_TO_STATEMENT);
             }
 
         } else if (psiElement instanceof PsiLiteralExpression) {
@@ -70,10 +71,9 @@ public class MybatisProxiesLineMarkerProvider extends AbstractProxiesLineMarkerP
 
                 CommonProcessors.CollectUniquesProcessor<MapperIdentifiableStatement> processor = new CommonProcessors.CollectUniquesProcessor<>();
                 ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processMapperStatements2(targetNamespace, targetId, processor);
-                Collection<MapperIdentifiableStatement> results = processor.getResults();
 
-                if (CollectionUtils.isNotEmpty(results)) {
-                    return createLineMarkerInfo(psiElement, results);
+                if (CollectionUtils.isNotEmpty(processor.getResults())) {
+                    return createLineMarkerInfo(psiElement, processor.getResults(), Icons.NAVIGATE_TO_STATEMENT);
                 }
             }
         }

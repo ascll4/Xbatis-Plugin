@@ -1,6 +1,7 @@
 package com.github.ansafari.plugin.ibatis.provider;
 
 import com.github.ansafari.plugin.ibatis.dom.sqlmap.SqlMapIdentifiableStatement;
+import com.github.ansafari.plugin.icons.Icons;
 import com.github.ansafari.plugin.provider.AbstractProxiesLineMarkerProvider;
 import com.github.ansafari.plugin.service.DomFileElementsFinder;
 import com.github.ansafari.plugin.utils.CollectionUtils;
@@ -56,7 +57,7 @@ public class IbatisProxiesLineMarkerProvider extends AbstractProxiesLineMarkerPr
                 ServiceManager.getService(psiElement.getProject(), DomFileElementsFinder.class).processSqlMapStatements(targetNamespace, targetId, processor);
                 Collection<SqlMapIdentifiableStatement> results = processor.getResults();
                 if (CollectionUtils.isNotEmpty(results)) {
-                    return createLineMarkerInfo(psiElement, results);
+                    return createLineMarkerInfo(psiElement, results, Icons.NAVIGATE_TO_STATEMENT);
                 }
             }
         }
