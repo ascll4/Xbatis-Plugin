@@ -212,11 +212,18 @@ public class DomFileElementsFinder {
         }
     }
 
+    public boolean existsSqlMapStatement(@NotNull String targetNamespace, @NotNull String targetId) {
+        CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
+        processSqlMapStatements(targetNamespace, targetId, processor);
+        return processor.isFound();
+    }
+
     public boolean existsMapperStatement(PsiMethod method) {
         CommonProcessors.FindFirstProcessor<DomElement> processor = new CommonProcessors.FindFirstProcessor<>();
         processMapperStatements(method, processor);
         return processor.isFound();
     }
+
 
     private void processMappers(String className, Processor<? super Mapper> processor) {
         for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {

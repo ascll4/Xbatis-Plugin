@@ -69,8 +69,8 @@
                                     implementationClass="com.github.ansafari.plugin.mybatis.provider.MyBatisStatementDocumentationProvider"/>
 
 
-        <inspectionToolProvider
-                implementation="com.github.ansafari.plugin.mybatis.provider.MyBatisInspectionToolsProvider"/>
+        <inspectionToolProvider id="xbatis.inspection.myBatisInspection"
+                                implementation="com.github.ansafari.plugin.provider.XbatisInspectionToolsProvider"/>
 
         <qualifiedNameProvider
                 implementation="com.github.ansafari.plugin.ibatis.provider.SqlMapIdentifiableStatementQualifiedNameProvider"/>

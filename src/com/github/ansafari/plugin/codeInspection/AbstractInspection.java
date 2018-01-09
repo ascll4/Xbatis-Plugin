@@ -5,15 +5,19 @@ import com.intellij.codeInspection.ProblemDescriptor;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.regex.Pattern;
+
 public abstract class AbstractInspection extends BaseJavaLocalInspectionTool {
 
     public static final ProblemDescriptor[] EMPTY_ARRAY = new ProblemDescriptor[0];
+
+    public static final Pattern dotPattern = Pattern.compile("\\.");
 
     @Nls
     @NotNull
     @Override
     public String getGroupDisplayName() {
-        return "IBATIS/MyBatis issues";
+        return "Ibatis/Mybatis issues";
     }
 
     @NotNull
