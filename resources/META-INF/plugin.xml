@@ -69,7 +69,7 @@
                                     implementationClass="com.github.ansafari.plugin.mybatis.provider.MyBatisStatementDocumentationProvider"/>
 
 
-        <inspectionToolProvider id="xbatis.inspection.myBatisInspection"
+        <inspectionToolProvider id="xbatis.inspection"
                                 implementation="com.github.ansafari.plugin.provider.XbatisInspectionToolsProvider"/>
 
         <qualifiedNameProvider

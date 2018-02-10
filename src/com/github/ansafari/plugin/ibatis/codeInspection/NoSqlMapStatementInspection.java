@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class NoSqlMapStatementInspection extends AbstractInspection {
 
+
     @NotNull
     @Override
     public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
@@ -49,11 +50,13 @@ public class NoSqlMapStatementInspection extends AbstractInspection {
                 DomFileElementsFinder finder = DomFileElementsFinder.getInstance(expression.getProject());
 
                 String[] parts = dotPattern.split(rawText, 2);
-                String targetNamespace = parts.length == 2 ? parts[0] : "";
-                String targetId = parts.length == 2 ? parts[1] : parts[0];
-                boolean existsMapperStatement = finder.existsSqlMapStatement(targetNamespace, targetId);
-                if (!existsMapperStatement) {
-                    holder.registerProblem(expression, "Not defined in mapper xml");
+                if (parts != null) {
+                    String targetNamespace = parts.length == 2 ? parts[0] : "";
+                    String targetId = parts.length == 2 ? parts[1] : parts[0];
+                    boolean existsMapperStatement = finder.existsSqlMapStatement(targetNamespace, targetId);
+                    if (!existsMapperStatement) {
+                        holder.registerProblem(expression, "Not defined in mapper xml");
+                    }
                 }
             }
         };
@@ -66,5 +69,9 @@ public class NoSqlMapStatementInspection extends AbstractInspection {
         return "SqlMap statement not defined in xml";
     }
 
-
+    @NotNull
+    @Override
+    public String getShortName() {
+        return "NoSqlMapStatement";
+    }
 }

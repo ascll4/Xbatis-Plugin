@@ -10,7 +10,7 @@ public class XbatisInspectionToolsProvider implements InspectionToolProvider {
     @NotNull
     @Override
     public Class[] getInspectionClasses() {
-        return new Class[]{NoSqlMapStatementInspection.class, NoMapperStatementInspection.class};
+        return new Class[]{NoMapperStatementInspection.class, NoSqlMapStatementInspection.class};
     }
 
 }

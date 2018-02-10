@@ -25,5 +25,4 @@ public abstract class AbstractInspection extends BaseJavaLocalInspectionTool {
     public String getShortName() {
         return this.getClass().getName();
     }
-
 }

@@ -49,4 +49,10 @@ public class NoMapperStatementInspection extends AbstractInspection {
         return "Mapper interface method not defined in xml";
     }
 
+    @NotNull
+    @Override
+    public String getShortName() {
+        return "NoMapperStatement";
+    }
+
 }
