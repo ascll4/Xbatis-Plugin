@@ -251,10 +251,20 @@ public class DomFileElementsFinder {
         }
     }
 
+    /**
+     * 获取SqlMap xml文件
+     *
+     * @return List
+     */
     private List<DomFileElement<SqlMap>> findSqlMapFileElements() {
         return domService.getFileElements(SqlMap.class, project, GlobalSearchScope.allScope(project));
     }
 
+    /**
+     * 获取Mapper xml文件
+     *
+     * @return List
+     */
     private List<DomFileElement<Mapper>> findMapperFileElements() {
         return domService.getFileElements(Mapper.class, project, GlobalSearchScope.allScope(project));
     }
