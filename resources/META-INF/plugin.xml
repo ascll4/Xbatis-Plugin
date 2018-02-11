@@ -84,7 +84,7 @@
 
 
         <!--<projectConfigurable instance="com.github.ansafari.plugin.generate.setting.XbatisConfigurable"-->
-        <!--bundle="messages.XbatisPluginBundle"/>-->
+        <!--bundle="XbatisPluginBundle"/>-->
 
         <!--xbatis的配置-->
         <!--<applicationService serviceInterface="com.github.ansafari.plugin.generate.setting.XbatisSettingStorage"-->

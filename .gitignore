@@ -4,3 +4,5 @@ testResources/
 Xbatis-Plugin.jar
 .idea
 *.iml
+build/
+dist/

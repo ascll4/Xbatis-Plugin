@@ -1,4 +1,4 @@
-package messages;
+package com.github.ansafari.plugin.messages;
 
 import com.intellij.AbstractBundle;
 import org.jetbrains.annotations.NonNls;
@@ -16,7 +16,7 @@ public class XbatisPluginBundle extends AbstractBundle {
     }
 
     @NonNls
-    private static final String PATH_TO_BUNDLE = "messages.XbatisPluginBundle";
+    private static final String PATH_TO_BUNDLE = "com.github.ansafari.plugin.messages.XbatisPluginBundle";
     private static final XbatisPluginBundle ourInstance = new XbatisPluginBundle();
 
 
