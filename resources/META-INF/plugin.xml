@@ -15,7 +15,7 @@
             <p>2. 支持Mybatis/Ibatis Configuration读写操作；</p>
             <p>3. 格式化快速预览XML Statement的语句；</p>
             <p>4. 扫描范围新增是否继承com.alibaba.cobarclient.dao.MysdalBaseDao判断；</p>
-            <p>5. 更新statement找不到的告警提示。</p>
+            <p>5. 更新statement找不到的告警提示(可能有空指针，搜索Inspection中"Ibatis/Mybatis issues"可开关)。</p>
         <p>v0.0.3：</p>
             <p>1. 优化Java对象扫描范围为Spring Bean，且字面量在方法内.</p>
             <p>2. 区分Ibatis／Mybatis，新增SqlMap，Mapper内部元素之间依赖的查找.</p>
