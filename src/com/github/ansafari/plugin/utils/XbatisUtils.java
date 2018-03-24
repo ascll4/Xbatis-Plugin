@@ -1,12 +1,15 @@
 package com.github.ansafari.plugin.utils;
 
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.spring.java.SpringJavaClassInfo;
 import com.intellij.spring.model.utils.SpringCommonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * XbatisUtils.
@@ -31,36 +34,43 @@ public class XbatisUtils {
         if (psiClass == null || StringUtils.isBlank(psiClass.getName()) || PsiTreeUtil.getParentOfType(psiElement, PsiMethodCallExpression.class) == null) {
             return false;
         }
-        PsiReferenceList psiReferenceList = psiClass.getExtendsList();
-        if (psiReferenceList != null) {
-            PsiJavaCodeReferenceElement[] psiJavaCodeReferenceElements = psiReferenceList.getReferenceElements();
-            if (psiJavaCodeReferenceElements.length > 0) {
-                for (PsiJavaCodeReferenceElement psiJavaCodeReferenceElement : psiReferenceList.getReferenceElements()) {
-                    String qualifiedName = psiJavaCodeReferenceElement.getQualifiedName();
-                    if (StringUtils.equals(qualifiedName, "com.alibaba.cobarclient.dao.MysdalBaseDao")) {
-                        return true;
-                    }
-                }
-            }
+
+        //获取类psiClass的父类列表
+        PsiClass psiSuperClass = psiClass.getSuperClass();
+        if (psiSuperClass != null && StringUtils.equals(psiSuperClass.getQualifiedName(), "com.alibaba.cobarclient.dao.MysdalBaseDao")) {
+            return true;
         }
-        return isSpringBean(psiClass);
+//        PsiReferenceList psiReferenceList = psiClass.getExtendsList();
+//        if (psiReferenceList != null) {
+//            PsiJavaCodeReferenceElement[] psiJavaCodeReferenceElements = psiReferenceList.getReferenceElements();
+//            if (psiJavaCodeReferenceElements.length > 0) {
+//                for (PsiJavaCodeReferenceElement psiJavaCodeReferenceElement : psiReferenceList.getReferenceElements()) {
+//                    String qualifiedName = psiJavaCodeReferenceElement.getQualifiedName();
+//                    if (StringUtils.equals(qualifiedName, "com.alibaba.cobarclient.dao.MysdalBaseDao")) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+        return isCandidateSpringBean(psiClass);
     }
 
     /**
-     * spring bean 检查
+     * spring bean 检查,只有是spring bean 并被Service，Repository标注的才符合
      *
      * @param psiClass psiClass
      * @return true：是；false：否
      */
-    public static boolean isSpringBean(@NotNull PsiClass psiClass) {
+    private static boolean isCandidateSpringBean(@NotNull PsiClass psiClass) {
+        //是否是spring bean
         if (SpringCommonUtils.isSpringBeanCandidateClass(psiClass)) {
-            if (SpringCommonUtils.isSpringConfigured(ModuleUtilCore.findModuleForPsiElement(psiClass))) {
-                SpringJavaClassInfo info = SpringJavaClassInfo.getSpringJavaClassInfo(psiClass);
-                //annotatePsiClassSpringPropertyValues(result, psiClass, SpringModelUtils.getInstance().getSpringModel(psiElement).getConfigFiles());
-                //spring bean defined in xml and annotation
-                if (info.isMappedDomBean() || info.isStereotypeJavaBean()) {
-                    return true;
-                }
+            SpringJavaClassInfo info = SpringJavaClassInfo.getSpringJavaClassInfo(psiClass);
+            //如果是StereotypeJavaBean，有@controller注解，则忽略，范围为不符合spring bean，目的只返回service或者dao
+            if (info.isStereotypeJavaBean()) {
+                return Arrays.stream(psiClass.getAnnotations())
+                        .anyMatch((e) -> StringUtils.isNotBlank(e.getQualifiedName())
+                                && ("org.springframework.stereotype.Service," +
+                                "org.springframework.stereotype.Repository").contains(e.getQualifiedName()));
             }
         }
         return false;
