@@ -1,8 +1,7 @@
 package com.github.ansafari.plugin.utils;
 
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiMethodCallExpression;
+import com.intellij.psi.*;
+import com.intellij.psi.impl.JavaConstantExpressionEvaluator;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.spring.java.SpringJavaClassInfo;
 import com.intellij.spring.model.utils.SpringCommonUtils;
@@ -10,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * XbatisUtils.
@@ -18,6 +18,8 @@ import java.util.Arrays;
  * @date 2018/1/3 18:5
  */
 public class XbatisUtils {
+
+    public static final Pattern dotPattern = Pattern.compile("\\.");
 
     /**
      * 是否在扫描范围内
@@ -74,5 +76,66 @@ public class XbatisUtils {
             }
         }
         return false;
+    }
+
+    //Concatenated串级
+    public static String tryComputeConcatenatedValue(@NotNull PsiElement psiElement) {
+        PsiPolyadicExpression parentExpression = PsiTreeUtil.getParentOfType(psiElement, PsiPolyadicExpression.class);
+        if (parentExpression != null) {
+            StringBuilder computedValue = new StringBuilder();
+            for (PsiExpression operand : parentExpression.getOperands()) {
+                if (operand instanceof PsiReference) {
+                    PsiElement probableDefinition = ((PsiReference) operand).resolve();
+                    if (probableDefinition instanceof PsiVariable) {
+                        PsiExpression initializer = ((PsiVariable) probableDefinition).getInitializer();
+                        if (initializer != null) {
+                            Object value = JavaConstantExpressionEvaluator.computeConstantExpression(initializer, true);
+                            if (value instanceof String) {
+                                computedValue.append(value);
+                            }
+                        }
+                    }
+                } else {
+                    Object value = JavaConstantExpressionEvaluator.computeConstantExpression(operand, true);
+                    if (value instanceof String) {
+                        computedValue.append(value);
+                    }
+                }
+            }
+            return computedValue.toString();
+        } else {
+            if (StringUtils.isNotBlank(psiElement.getText())) {
+                String rawText = psiElement.getText();
+                //with quotes, i.e. at least "x" count
+                if (rawText.length() < 3) {
+                    return "";
+                }
+                //clean up quotes
+                return rawText.substring(1, rawText.length() - 1);
+            }
+            return null;
+        }
+    }
+
+    public static String concatBefore(String[] parts, int before) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= before; i++) {
+            sb.append(parts[i]);
+            if (i + 1 <= before) {
+                sb.append(".");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String concatAfter(String[] parts, int after) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = after; i < parts.length; i++) {
+            sb.append(parts[i]);
+            if (i + 1 < parts.length) {
+                sb.append(".");
+            }
+        }
+        return sb.toString();
     }
 }

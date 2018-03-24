@@ -256,6 +256,19 @@ public class DomFileElementsFinder {
         }
     }
 
+    public void processMapperStatementNames(@NotNull Processor<String> processor) {
+        for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
+            Mapper mapper = fileElement.getRootElement();
+            String namespace = mapper.getNamespace().getRawText();
+            for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
+                String id = statement.getId().getRawText();
+                if (id != null && (namespace != null && !processor.process(namespace + "." + id) || namespace == null && !processor.process(id))) {
+                    return;
+                }
+            }
+        }
+    }
+
     private void processMapperStatements(String className, String methodName, Processor<? super MapperIdentifiableStatement> processor) {
         for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
             Mapper mapper = fileElement.getRootElement();
