@@ -27,12 +27,33 @@ import java.util.Collection;
 import java.util.List;
 
 
+/**
+ * Dom类型内容的文件查找，即sqlMap.xml的查找服务.
+ *
+ * @author xiongjinteng@raycloud.com
+ */
 public class DomFileElementsFinder {
 
+    /**
+     * 当前项目，工程
+     */
     private final Project project;
+    /**
+     * dom 服务
+     */
     private final DomService domService;
+    /**
+     * 当前IDEA应用
+     */
     private final Application application;
 
+    /**
+     * 初始化注入
+     *
+     * @param project     当前项目
+     * @param domService  dom 服务
+     * @param application 当前IDEA应用
+     */
     public DomFileElementsFinder(Project project, DomService domService, Application application) {
         this.project = project;
         this.domService = domService;
@@ -43,7 +64,8 @@ public class DomFileElementsFinder {
         return ServiceManager.getService(project, DomFileElementsFinder.class);
     }
 
-    public void processSqlMapStatements(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super SqlMapIdentifiableStatement> processor) {
+    public void processSqlMapStatements(@NotNull String targetNamespace, @NotNull String targetId
+            , @NotNull Processor<? super SqlMapIdentifiableStatement> processor) {
 
         nsloop:
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
@@ -63,15 +85,16 @@ public class DomFileElementsFinder {
         }
     }
 
-    public void processMapperStatements2(@NotNull String targetNamespace, @NotNull String targetId, @NotNull Processor<? super MapperIdentifiableStatement> processor) {
-
+    public void processMapperStatements2(@NotNull String targetNamespace, @NotNull String targetId
+            , @NotNull Processor<? super MapperIdentifiableStatement> processor) {
         nsloop:
         for (DomFileElement<Mapper> fileElement : findMapperFileElements()) {
             Mapper mapper = fileElement.getRootElement();
             String namespace = mapper.getNamespace().getRawText();
             if (targetNamespace.equals(namespace) || targetNamespace.length() == 0) {
                 for (MapperIdentifiableStatement statement : mapper.getIdentifiableStatements()) {
-                    if (isMatch(targetNamespace, targetId, statement.getId().getRawText())) {
+                    if (statement.getId() != null && StringUtils.isNotBlank(statement.getId().getRawText())
+                            && isMatch(targetNamespace, targetId, statement.getId().getRawText())) {
                         if (!processor.process(statement)) {
                             return;
                         }
@@ -102,7 +125,6 @@ public class DomFileElementsFinder {
     }
 
     public void processSqlMapStatementNames(@NotNull Processor<String> processor) {
-
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
             SqlMap rootElement = fileElement.getRootElement();
             String namespace = rootElement.getNamespace().getRawText();
@@ -116,7 +138,6 @@ public class DomFileElementsFinder {
     }
 
     public void processSqlMaps(@NotNull String targetNamespace, @NotNull Processor<? super SqlMap> processor) {
-
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
             SqlMap sqlMap = fileElement.getRootElement();
             String namespace = sqlMap.getNamespace().getRawText();
@@ -129,7 +150,6 @@ public class DomFileElementsFinder {
     }
 
     public void processSqlMapNamespaceNames(CommonProcessors.CollectProcessor<String> processor) {
-
         for (DomFileElement<SqlMap> fileElement : findSqlMapFileElements()) {
             SqlMap sqlMap = fileElement.getRootElement();
             if (sqlMap.getNamespace().getRawText() != null && !processor.process(sqlMap.getNamespace().getRawText())) {

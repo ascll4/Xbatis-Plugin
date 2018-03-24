@@ -47,13 +47,14 @@
     </target>
 
     <target name="dist" depends="compile" description="generate the distribution">
-        <jar jarfile="dist/Xbatis-Plugin.jar"
-             basedir="${build}">
+        <jar jarfile="dist/Xbatis-Plugin.jar" basedir="${build}">
             <resources>
                 <resource directory="resources"/>
             </resources>
             <!--<fileset dir="resources" includes="resources/**/**"/>-->
         </jar>
+
+        <delete dir="build"/>
     </target>
 
 
