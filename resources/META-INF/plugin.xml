@@ -33,6 +33,14 @@
     -->
     <depends>com.intellij.spring</depends>
     <depends>com.intellij.properties</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.ColumnModelConfigStorage"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.CodeGenModelStorage"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.DataSourceStorage"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.GenTableConfigStorage"/>
+    </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <dom.fileDescription id="xbatis.ibatis.sqlMap"
@@ -112,6 +120,11 @@
         <!--description="GotoMapperAction">-->
         <!--<keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>-->
         <!--</action>-->
+        <action id="com.github.ansafari.plugin.codeGen.action.CodeGenAction"
+                class="com.github.ansafari.plugin.codeGen.action.CodeGenAction" text="CodeGen"
+                description="code gen for raycloud">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </action>
     </actions>
 
 </idea-plugin>

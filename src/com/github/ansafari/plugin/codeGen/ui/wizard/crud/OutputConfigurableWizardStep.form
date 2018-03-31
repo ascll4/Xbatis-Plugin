@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.github.ansafari.plugin.codeGen.ui.wizard.crud.OutputConfigurableWizardStep">
+  <grid id="27dc6" binding="container" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="e68d3" binding="jPanel1" layout-manager="GridBagLayout">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-1250068"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="93495" class="javax.swing.JLabel" binding="tableName_label">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="表名"/>
+            </properties>
+          </component>
+          <component id="fcc9d" class="javax.swing.JTextField" binding="tableName_txt">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+              <text value=""/>
+              <toolTipText value="表名"/>
+            </properties>
+          </component>
+          <component id="8e37" class="javax.swing.JLabel" binding="tableComment_label">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="表备注"/>
+            </properties>
+          </component>
+          <component id="51a48" class="javax.swing.JTextField" binding="tableComment_txt">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+              <text value=""/>
+              <toolTipText value="表备注"/>
+            </properties>
+          </component>
+          <component id="37bf1" class="javax.swing.JLabel" binding="functionNameEn_label">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="功能名(EN)"/>
+            </properties>
+          </component>
+          <component id="ca454" class="javax.swing.JTextField" binding="functionNameEn_txt">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="module"/>
+              <toolTipText value="功能名(EN)"/>
+            </properties>
+          </component>
+          <component id="91fbc" class="javax.swing.JLabel" binding="functionNameCn_label">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="功能名(CN)"/>
+            </properties>
+          </component>
+          <component id="a96c1" class="javax.swing.JTextField" binding="functionNameCn_txt">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="模块"/>
+              <toolTipText value="功能名(CN)"/>
+            </properties>
+          </component>
+          <component id="8de04" class="javax.swing.JLabel" binding="urlPrefix_label">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="URL前缀"/>
+            </properties>
+          </component>
+          <component id="4684f" class="javax.swing.JTextField" binding="urlPrefix_txt">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="/a/module"/>
+              <toolTipText value="URL前缀"/>
+            </properties>
+          </component>
+          <component id="3356e" class="javax.swing.JLabel" binding="jspLocation_label">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="JSP路径"/>
+            </properties>
+          </component>
+          <component id="6f0f5" class="javax.swing.JTextField" binding="jspLocation_txt">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="/jsp/view"/>
+              <toolTipText value="JSP路径"/>
+            </properties>
+          </component>
+          <component id="df4b3" class="javax.swing.JLabel" binding="author_label">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="作者"/>
+            </properties>
+          </component>
+          <component id="cdd96" class="javax.swing.JTextField" binding="author_txt">
+            <constraints>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="xiongjinteng"/>
+              <toolTipText value="作者"/>
+            </properties>
+          </component>
+          <component id="40ea0" class="javax.swing.JLabel" binding="version_label">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="版本信息"/>
+            </properties>
+          </component>
+          <component id="6b90f" class="javax.swing.JTextField" binding="version_txt">
+            <constraints>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="v1.0.0"/>
+              <toolTipText value="版本信息"/>
+            </properties>
+          </component>
+          <component id="22d8a" class="javax.swing.JLabel" binding="filePath_label">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="代码生成路径"/>
+            </properties>
+          </component>
+          <component id="afc48" class="javax.swing.JTextField" binding="filePath_txt">
+            <constraints>
+              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="/Users/xjt2016"/>
+              <toolTipText value="代码生成路径"/>
+            </properties>
+          </component>
+          <component id="47ff8" class="javax.swing.JButton" binding="select_btn">
+            <constraints>
+              <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="选择"/>
+            </properties>
+          </component>
+          <component id="496c5" class="javax.swing.JLabel" binding="topPackage_label">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="顶层包名"/>
+            </properties>
+          </component>
+          <component id="cf219" class="javax.swing.JTextField" binding="topPackage_txt">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="com.sample.project.modules.module"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

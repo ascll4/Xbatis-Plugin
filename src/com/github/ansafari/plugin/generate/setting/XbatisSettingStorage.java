@@ -5,10 +5,7 @@ import com.github.ansafari.plugin.generate.GenerateModelUtils;
 import com.github.ansafari.plugin.generate.StatementGenerator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.components.*;
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Element;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +21,9 @@ import static com.github.ansafari.plugin.generate.StatementGeneratorUtils.*;
  * @author xiongjinteng@raycloud.com
  * @date 2017/12/28 20:36
  */
-@State(name = "XbatisSettingStorage", storages = @Storage(id = "other", file = "$APP_CONFIG$/XbatisSettingStorage.xml"))
+@State(name = "XbatisSettingStorage",
+        storages = {@Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/autoCode/XbatisSettingStorage.xml")}
+)
 public class XbatisSettingStorage implements PersistentStateComponent<Element> {
 
     private GenerateModel statementGenerateModel;
