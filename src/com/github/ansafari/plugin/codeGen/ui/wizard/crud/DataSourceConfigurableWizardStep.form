@@ -53,7 +53,7 @@
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <editable value="false"/>
+              <editable value="true"/>
               <text value="com.mysql.jdbc.Driver"/>
             </properties>
           </component>

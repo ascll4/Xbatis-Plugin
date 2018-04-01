@@ -2,6 +2,7 @@
 out/
 testResources/
 Xbatis-Plugin.jar
+Xbatis-Plugin.zip
 .idea
 *.iml
 build/
