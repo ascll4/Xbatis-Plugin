@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>me.xiongjinteng.plugin.xbatis</id>
     <name>Xbatis-Plugin</name>
-    <version>0.0.4</version>
+    <version>v1.r.0</version>
     <vendor email="xiongjinteng@gmail.com" url="https://ansafari.github.io">GitHub</vendor>
 
     <description><![CDATA[
@@ -10,6 +10,8 @@
     ]]></description>
 
     <change-notes><![CDATA[
+        <P>v1.r.0</p>
+            <p>减少spring扫描范围，新增Ibatis Raycloud代码生成风格（公司内部使用）。</p>
         <p>v0.0.4:</p>
             <p>1. 更新Dao接口所继承的公共接口能够找到，并列举所有Statement；</p>
             <p>2. 支持Mybatis/Ibatis Configuration读写操作；</p>
@@ -121,10 +123,11 @@
         <!--description="GotoMapperAction">-->
         <!--<keyboard-shortcut keymap="$default" first-keystroke="shift meta X"/>-->
         <!--</action>-->
-        <action id="com.github.ansafari.plugin.codeGen.action.CodeGenAction"
-                class="com.github.ansafari.plugin.codeGen.action.CodeGenAction" text="CodeGen"
+        <action id="com.github.ansafari.plugin.codeGen.action.CodeGenAction" icon="/icons/code@16.png"
+                class="com.github.ansafari.plugin.codeGen.action.CodeGenAction" text="Auto Code"
                 description="code genUtils for raycloud">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
+
         </action>
     </actions>
 
