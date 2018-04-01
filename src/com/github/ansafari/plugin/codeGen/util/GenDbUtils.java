@@ -20,7 +20,7 @@ public class GenDbUtils {
      */
     private static final Logger logger = Logger.getInstance(GenDbUtils.class);
 
-    public static Connection getConntion(DataSource ds) {
+    public static Connection getConnection(DataSource ds) {
         try {
             Class.forName(ds.getDriver()).newInstance();
             Properties prop = new Properties();
@@ -29,8 +29,15 @@ public class GenDbUtils {
             if ("ORACLE".equals(ds.getDataBaseType())) {
                 prop.put("remarksReporting", "true");
             }
-            Connection conn = DriverManager.getConnection(ds.getUrl(), prop);
-            return conn;
+
+            StringBuffer strConn = new StringBuffer()
+                    .append("jdbc:mysql://")
+                    .append(ds.getHost())
+                    .append(':')
+                    .append(ds.getPort())
+                    .append('/')
+                    .append(ds.getDatabase());
+            return DriverManager.getConnection(strConn.toString(), prop);
         } catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -60,12 +67,12 @@ public class GenDbUtils {
             sql = "SELECT table_name AS name,comments AS comments FROM user_tab_comments";
         } else if ("MYSQL".equals(ds.getDataBaseType())) {
             //sql = "SHOW TABLE STATUS FROM `" + ds.getDbName() + "`";
-            sql = "SELECT t.table_name AS name,t.TABLE_COMMENT AS comments FROM information_schema.`TABLES` t WHERE t.TABLE_SCHEMA = ('" + ds.getDbName() + "') ORDER BY t.TABLE_NAME";
+            sql = "SELECT t.table_name AS name,t.TABLE_COMMENT AS comments FROM information_schema.`TABLES` t WHERE t.TABLE_SCHEMA = ('" + ds.getDatabase() + "') ORDER BY t.TABLE_NAME";
         }
 
         Connection conn = null;
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -95,12 +102,12 @@ public class GenDbUtils {
             sql = "SELECT table_name AS name,comments AS comments FROM user_tab_comments";
         } else if ("MYSQL".equals(ds.getDataBaseType())) {
             //sql = "SHOW TABLE STATUS FROM `" + ds.getDbName() + "`";
-            sql = "SELECT t.table_name AS name,t.TABLE_COMMENT AS comments FROM information_schema.`TABLES` t WHERE t.TABLE_SCHEMA = ('" + ds.getDbName() + "') ORDER BY t.TABLE_NAME";
+            sql = "SELECT t.table_name AS name,t.TABLE_COMMENT AS comments FROM information_schema.`TABLES` t WHERE t.TABLE_SCHEMA = ('" + ds.getDatabase() + "') ORDER BY t.TABLE_NAME";
         }
 
         Connection conn = null;
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -135,7 +142,7 @@ public class GenDbUtils {
         logger.info("sql: " + sql);
 
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -179,7 +186,7 @@ public class GenDbUtils {
         logger.info("sql: " + sql);
 
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             assert conn != null;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -218,7 +225,7 @@ public class GenDbUtils {
         List<String> pkList = new ArrayList<>();
         String sql = "SELECT lower(au.COLUMN_NAME) AS columnName FROM information_schema.`COLUMNS` au WHERE au.TABLE_SCHEMA =(select database()) AND au.COLUMN_KEY = 'PRI' AND au.TABLE_NAME =('" + genTable.getName() + "')";
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -249,7 +256,7 @@ public class GenDbUtils {
         }
 
         try {
-            conn = getConntion(ds);
+            conn = getConnection(ds);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -276,29 +283,4 @@ public class GenDbUtils {
         return null;
     }
 
-    /***
-     * 获取默认数据源，需要移除
-     * @return
-     */
-    @Deprecated
-    public static DataSource getDefaultDataSource() {
-        String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/melon_primary";
-        String user = "root";
-        String password = "123456";
-        DataSource ds = new DataSource();
-        ds.setUrl(url);
-        ds.setDriver(driver);
-        ds.setDbName("melon_primary");
-        ds.setUser(user);
-        ds.setPassword(password);
-        ds.setName("datasource_name");
-        return ds;
-    }
-
-
-    public static void main(String[] args) {
-        DataSource ds = getDefaultDataSource();
-
-    }
 }

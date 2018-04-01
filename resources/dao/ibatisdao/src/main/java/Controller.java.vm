@@ -1,0 +1,134 @@
+##DAO实现代码生成模版
+##使用到的变量有：
+##$!{gb.packageName}包名，如：net.letuu.order
+##$!{gb.userName}机器登录用户名，如：microboss
+##$!{gb.nowDate}当前日期，如：2013-05-02
+##$!{tbb.className}类名，如：UserInfo
+##$!{tbb.objectName}对象名，如：userInfo
+##宏定义,用于单一对象的删除与查找的参数
+#macro(primaryKey $tbb)
+    #foreach($pkcol in $tbb.pkcol) $!{pkcol.propertyType} $!{pkcol.propertyName}  import java.sql.SQLException;#if(!$foreach.last), #end #end
+    #if($conf.isSplitTable()), String tableId#end
+#end
+##宏定义,用于多对象的删除与查找的参数
+#macro( primaryKeys $tbb )
+    #foreach($pkcol in $tbb.pkcol)#if($foreach.last)List<$!{pkcol.propertyType}> $!{pkcol.propertyName}List#else$!{pkcol.propertyType} $!{pkcol.propertyName},#end#end
+    #if($conf.isSplitTable()), String tableId#end
+#end
+##主键值
+#macro( primaryValue $tbb)
+    #foreach($pkcol in $tbb.pkcol)$!{pkcol.propertyName}  #if(!$foreach.last), #end #end
+    #if($conf.isSplitTable()), tableId #end
+#end
+##主键值
+#macro( primaryValues $tbb )
+    #foreach($pkcol in $tbb.pkcol)#if($foreach.last)$!{pkcol.propertyName}List#else $!{pkcol.propertyName},#end#end
+    #if($conf.isSplitTable()), tableId #end
+#end
+#macro( tableType $isSplitTable )
+    #if($isSplitTable), String tableId#end
+#end
+#macro( tableValue $isSplitTable )
+    #if($isSplitTable)
+        #if($isSplitTable), tableId#end
+    #end
+#end
+#set($conf=$!{tbb.conf})
+#set($PO = $!{gb.objSuffix})
+#set($clear = "")
+##---------------------模块名称--------------------------------
+#set($module_name = $!{gb.moduleName})
+##---------------------模块名称--------------------------------
+package $!{gb.packageName}.web.controller.${module_name};
+
+import java.util.List;
+import java.util.Collections;
+
+import java.util.HashMap;
+import java.util.Map;
+#foreach($cb in $tbb.colList)
+    #if($!{cb.propertyType}=="Clob"&&!$clob)
+    import java.sql.Clob;
+        #set($clob=true)
+    #elseif($!{cb.propertyType}=="Blob"&&!$blob)
+    import java.sql.Blob;
+        #set($blob=true)
+    #elseif($!{cb.propertyType}=="Date"&&!$d)
+    import java.util.Date;
+        #set($d=true)
+    #elseif($!{cb.propertyType}=="BigDecimal"&&!$bigDecimal)
+    import java.math.BigDecimal;
+        #set($bigDecimal=true)
+    #end
+#end
+
+import javax.annotation.Resource;
+import com.kuaidizs.web.api.response.WebResponse;
+import com.kuaidizs.web.controller.common.SessionUserController;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import com.kuaidizs.jxc.domain.User;
+
+import $!{gb.packageName}.domain.${module_name}.$!{tbb.className}${PO};
+#if($conf.isNeedPage())
+import $!{gb.packageName}.common.db.Result;
+#end
+
+import $!{gb.packageName}.service.${module_name}.$!{tbb.className}Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ *  $!{tbb.className} Controller
+ * @author $!{gb.userName}
+ * @since $!{gb.nowDate}
+ */
+@Controller
+@RequestMapping(value="$!{tbb.objectName}")
+public class $!{tbb.className}Controller extends SessionUserController {
+
+    @Resource
+    $!{tbb.className}Service $!{tbb.objectName}Service;
+
+    /**
+     * 保存
+     */
+    @RequestMapping(value="save$!{tbb.className}")
+    @ResponseBody
+    public WebResponse save$!{tbb.className} () throws Exception {
+        WebResponse webResponse = new WebResponse();
+        //TODO 接下来尽情的实现你的业务逻辑。
+
+        return webResponse;
+    }
+
+    /**
+     * 查询
+     * @return
+     */
+    @RequestMapping(value="get$!{tbb.className}List")
+    @ResponseBody
+    public WebResponse get$!{tbb.className}List () throws Exception {
+        WebResponse webResponse = new WebResponse();
+        //TODO 接下来尽情的实现你的业务逻辑。
+
+        return webResponse;
+    }
+
+    /**
+     * 删除
+     * @return
+     */
+    @RequestMapping(value="del$!{tbb.className}")
+    @ResponseBody
+    public WebResponse del$!{tbb.className} () throws Exception {
+        WebResponse webResponse = new WebResponse();
+        //TODO 接下来尽情的实现你的业务逻辑。
+
+        return webResponse;
+    }
+
+}

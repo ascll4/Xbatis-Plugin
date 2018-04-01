@@ -12,7 +12,7 @@
       <grid id="d7f73" binding="jPanel" layout-manager="GridBagLayout">
         <constraints border-constraint="North"/>
         <properties>
-          <preferredSize width="400" height="200"/>
+          <preferredSize width="400" height="250"/>
         </properties>
         <border type="none"/>
         <children>
@@ -45,7 +45,7 @@
               <text value="Driver"/>
             </properties>
           </component>
-          <component id="6b6cf" class="javax.swing.JTextField" binding="dirver_txt">
+          <component id="6b6cf" class="javax.swing.JTextField" binding="driver_txt">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -57,29 +57,18 @@
               <text value="com.mysql.jdbc.Driver"/>
             </properties>
           </component>
-          <component id="5128b" class="javax.swing.JLabel" binding="url_label">
+          <component id="5128b" class="javax.swing.JLabel" binding="host_label">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="URL"/>
-            </properties>
-          </component>
-          <component id="ae8a1" class="javax.swing.JTextField" binding="url_txt">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-              <gridbag weightx="0.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <text value="jdbc:mysql://localhost:3306/melon_primary"/>
+              <text value="Host"/>
             </properties>
           </component>
           <component id="94c58" class="javax.swing.JLabel" binding="user_label">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -88,7 +77,7 @@
           </component>
           <component id="2fec7" class="javax.swing.JTextField" binding="user_txt">
             <constraints>
-              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="5" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
               <gridbag weightx="0.0" weighty="0.0"/>
@@ -99,7 +88,7 @@
           </component>
           <component id="3c801" class="javax.swing.JLabel" binding="password_label">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -108,7 +97,7 @@
           </component>
           <component id="a19b9" class="javax.swing.JTextField" binding="password_txt">
             <constraints>
-              <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
               <gridbag weightx="0.0" weighty="0.0"/>
@@ -119,7 +108,7 @@
           </component>
           <component id="987ff" class="javax.swing.JButton" binding="btn_test">
             <constraints>
-              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -128,12 +117,63 @@
           </component>
           <component id="2b80" class="javax.swing.JLabel" binding="conn_result_label">
             <constraints>
-              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <foreground color="-1250068"/>
               <text value=""/>
+            </properties>
+          </component>
+          <component id="79e9d" class="javax.swing.JLabel" binding="jLabelPort">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Port"/>
+            </properties>
+          </component>
+          <component id="f2432" class="javax.swing.JTextField" binding="port_text">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="3306"/>
+            </properties>
+          </component>
+          <component id="2bea5" class="javax.swing.JLabel" binding="database_label">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Database"/>
+            </properties>
+          </component>
+          <component id="829cf" class="javax.swing.JTextField" binding="database_text">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="database"/>
+            </properties>
+          </component>
+          <component id="e4cc" class="javax.swing.JTextField" binding="host_text">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="localhost"/>
             </properties>
           </component>
         </children>

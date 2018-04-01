@@ -40,6 +40,7 @@
         <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.CodeGenModelStorage"/>
         <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.DataSourceStorage"/>
         <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.GenTableConfigStorage"/>
+        <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.RaycloudGenStorage"/>
     </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
@@ -122,7 +123,7 @@
         <!--</action>-->
         <action id="com.github.ansafari.plugin.codeGen.action.CodeGenAction"
                 class="com.github.ansafari.plugin.codeGen.action.CodeGenAction" text="CodeGen"
-                description="code gen for raycloud">
+                description="code genUtils for raycloud">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </action>
     </actions>

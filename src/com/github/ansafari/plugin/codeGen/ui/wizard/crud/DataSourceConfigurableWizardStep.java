@@ -10,6 +10,7 @@ import com.github.ansafari.plugin.codeGen.storage.DataSourceStorage;
 import com.github.ansafari.plugin.codeGen.storage.Env;
 import com.github.ansafari.plugin.codeGen.ui.wizard.other.StartWizardModel;
 import com.github.ansafari.plugin.codeGen.util.GenDbUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -27,23 +28,33 @@ public class DataSourceConfigurableWizardStep extends WizardStep<StartWizardMode
     private JPanel container;
     private JTextField name_txt;
     private JLabel name_label;
-    private JTextField host_txt;
-    private JTextField dirver_txt;
+    private JTextField driver_txt;
     private JLabel driver_label;
     private JTextField user_txt;
     private JLabel user_label;
     private JLabel password_label;
     private JTextField password_txt;
-    private JLabel url_label;
-    private JTextField url_txt;
+    private JLabel host_label;
+    private JTextField host_text;
     private JButton btn_test;
     private JPanel jPanel;
     private JLabel conn_result_label;
+    private JTextField port_text;
+    private JLabel jLabelPort;
+    private JTextField database_text;
+    private JLabel database_label;
+
 
     private DataSource dataSource = new DataSource();
 
     public DataSourceConfigurableWizardStep(String title, String explanation) {
         super(title, explanation);
+
+        DataSourceStorage dataSourceStorage = ServiceManager.getService(Env.project, DataSourceStorage.class);
+        DataSource dataSource = dataSourceStorage.getState();
+        if (dataSource != null) {
+            this.setData(dataSource);
+        }
 
         btn_test.addMouseListener(new MouseAdapter() {
             @Override
@@ -71,32 +82,40 @@ public class DataSourceConfigurableWizardStep extends WizardStep<StartWizardMode
         return this;
     }
 
-    public void setData(DataSource data) {
-        name_txt.setText(data.getName());
-        dirver_txt.setText(data.getDriver());
-        url_txt.setText(data.getUrl());
-        user_txt.setText(data.getUser());
-        password_txt.setText(data.getPassword());
+    public void setData(DataSource dataSource) {
+        name_txt.setText(dataSource.getName());
+        driver_txt.setText(dataSource.getDriver());
+        host_text.setText(dataSource.getHost());
+        database_text.setText(dataSource.getDatabase());
+        user_txt.setText(dataSource.getUser());
+        password_txt.setText(dataSource.getPassword());
+        port_text.setText(dataSource.getPort());
     }
 
-    public void getData(DataSource data) {
-        data.setName(name_txt.getText());
-        data.setDriver(dirver_txt.getText());
-        data.setUrl(url_txt.getText());
-        data.setUser(user_txt.getText());
-        data.setPassword(password_txt.getText());
+    public void getData(DataSource dataSource) {
+        dataSource.setName(name_txt.getText());
+        dataSource.setDriver(driver_txt.getText());
+        dataSource.setHost(host_text.getText());
+        dataSource.setPort(port_text.getText());
+        dataSource.setDatabase(database_text.getText());
+        dataSource.setUser(user_txt.getText());
+        dataSource.setPassword(password_txt.getText());
     }
 
     public boolean isModified(DataSource data) {
         if (name_txt.getText() != null ? !name_txt.getText().equals(data.getName()) : data.getName() != null)
             return true;
-        if (dirver_txt.getText() != null ? !dirver_txt.getText().equals(data.getDriver()) : data.getDriver() != null)
+        if (driver_txt.getText() != null ? !driver_txt.getText().equals(data.getDriver()) : data.getDriver() != null)
             return true;
-        if (url_txt.getText() != null ? !url_txt.getText().equals(data.getUrl()) : data.getUrl() != null) return true;
+        if (host_text.getText() != null ? !host_text.getText().equals(data.getHost()) : data.getHost() != null)
+            return true;
         if (user_txt.getText() != null ? !user_txt.getText().equals(data.getUser()) : data.getUser() != null)
             return true;
         if (password_txt.getText() != null ? !password_txt.getText().equals(data.getPassword()) : data.getPassword() != null)
             return true;
+        if (StringUtils.isNotBlank(port_text.getText()) ? !StringUtils.equals(port_text.getText(), data.getPort()) : data.getPort() != null) {
+            return true;
+        }
         return false;
     }
 
@@ -107,7 +126,7 @@ public class DataSourceConfigurableWizardStep extends WizardStep<StartWizardMode
      */
     private boolean checkConn(DataSource dataSource) {
         getData(dataSource);
-        Connection connection = GenDbUtils.getConntion(dataSource);
+        Connection connection = GenDbUtils.getConnection(dataSource);
         try {
             if (connection != null && !connection.isClosed()) {
                 logger.info("datasource connect success");

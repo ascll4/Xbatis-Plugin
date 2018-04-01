@@ -3,10 +3,9 @@ package com.github.ansafari.plugin.codeGen.ui.wizard.other;
 import com.intellij.ui.wizard.WizardModel;
 
 /**
- * Created with IntelliJ IDEA.
- * User: xiongjinteng@raycloud.com
- * Date: 2017/4/10
- * Time: 下午11:17
+ * StartWizardModel.
+ *
+ * @author xiongjinteng@raycloud.com
  */
 public class StartWizardModel extends WizardModel {
 

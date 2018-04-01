@@ -3,10 +3,19 @@ package com.github.ansafari.plugin.codeGen.model;
 public class DataSource extends AbstractModelObject {
     private String name;
     private String driver;
-    private String url;
+    private String host;
+    private String port;
+    private String database;
     private String user;
     private String password;
-    private String dbName;
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
 
     public String getName() {
         return name;
@@ -28,14 +37,24 @@ public class DataSource extends AbstractModelObject {
         firePropertyChange("driver", oldValue, driver);
     }
 
-    public String getUrl() {
-        return url;
+    public String getHost() {
+        return host;
     }
 
-    public void setUrl(String url) {
-        String oldValue = this.url;
-        this.url = url;
-        firePropertyChange("url", oldValue, url);
+    public void setHost(String host) {
+        String oldValue = this.host;
+        this.host = host;
+        firePropertyChange("host", oldValue, host);
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        String oldValue = this.database;
+        this.database = database;
+        firePropertyChange("host", oldValue, database);
     }
 
     public String getUser() {
@@ -61,7 +80,7 @@ public class DataSource extends AbstractModelObject {
     /**
      * 获取数据库类型
      *
-     * @return
+     * @return String
      */
     public String getDataBaseType() {
         if ("oracle.jdbc.driver.OracleDriver".equals(this.driver)) {
@@ -71,28 +90,5 @@ public class DataSource extends AbstractModelObject {
         } else {
             return "";
         }
-    }
-
-    public String getDbName() {
-        return dbName;
-    }
-
-    public void setDbName(String dbName) {
-        String oldValue = this.dbName;
-        this.dbName = dbName;
-        firePropertyChange("dbName", oldValue, dbName);
-    }
-
-
-    @Override
-    public String toString() {
-        return "DataSource{" +
-                "name='" + name + '\'' +
-                ", driver='" + driver + '\'' +
-                ", url='" + url + '\'' +
-                ", user='" + user + '\'' +
-                ", password='" + password + '\'' +
-                ", dbName='" + dbName + '\'' +
-                '}';
     }
 }

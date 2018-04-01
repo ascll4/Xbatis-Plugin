@@ -1,18 +1,21 @@
 package com.github.ansafari.plugin.codeGen.ui.wizard.crud;
 
+import com.github.ansafari.plugin.codeGen.model.DataSource;
+import com.github.ansafari.plugin.codeGen.model.gen.GenTable;
+import com.github.ansafari.plugin.codeGen.model.gen.GenTableColumn;
+import com.github.ansafari.plugin.codeGen.storage.DataSourceStorage;
+import com.github.ansafari.plugin.codeGen.storage.Env;
+import com.github.ansafari.plugin.codeGen.storage.GenTableConfigStorage;
+import com.github.ansafari.plugin.codeGen.ui.wizard.other.StartWizardModel;
+import com.github.ansafari.plugin.codeGen.util.Constants;
+import com.github.ansafari.plugin.codeGen.util.GenDbUtils;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.ui.table.JBTable;
 import com.intellij.ui.wizard.WizardNavigationState;
 import com.intellij.ui.wizard.WizardStep;
 import com.intellij.util.ui.JBUI;
-import com.github.ansafari.plugin.codeGen.model.DataSource;
-import com.github.ansafari.plugin.codeGen.model.gen.GenTable;
-import com.github.ansafari.plugin.codeGen.model.gen.GenTableColumn;
-import com.github.ansafari.plugin.codeGen.storage.Env;
-import com.github.ansafari.plugin.codeGen.storage.GenTableConfigStorage;
-import com.github.ansafari.plugin.codeGen.ui.wizard.other.StartWizardModel;
-import com.github.ansafari.plugin.codeGen.util.GenDbUtils;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -63,8 +66,11 @@ public class FieldConfigurableWizardStep extends WizardStep<StartWizardModel> {
             }
         };
         assert genTable != null;
-        DataSource ds = GenDbUtils.getDefaultDataSource();
-        genTable.setColumnList(GenDbUtils.getGenTableColumnList(ds, genTable.getName()));
+        DataSource dataSource = ServiceManager.getService(Env.project, DataSourceStorage.class).getState();
+        if (dataSource == null) {
+            Messages.showErrorDialog("数据库连接失败，请重新配置连接参数", Constants.MESSAGE_TITLE);
+        }
+        genTable.setColumnList(GenDbUtils.getGenTableColumnList(dataSource, genTable.getName()));
 
         // }
         if (genTable.getColumnList() != null) {

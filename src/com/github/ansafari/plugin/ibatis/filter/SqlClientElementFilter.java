@@ -39,8 +39,6 @@ public class SqlClientElementFilter implements ElementPattern<PsiLiteralExpressi
                         if (!text1.equals("(") && previousElement.getPrevSibling() != null) {
                             text2 = previousElement.getPrevSibling().getText();
                         }
-                        System.out.println("text1: " + text1);
-                        System.out.println("text2: " + text2);
                         if (!(text1.equals("(") || (text1.concat(text2).trim().equals("(")))) {
                             return false;
                         }

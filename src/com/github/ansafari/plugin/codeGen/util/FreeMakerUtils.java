@@ -3,13 +3,8 @@ package com.github.ansafari.plugin.codeGen.util;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import com.github.ansafari.plugin.codeGen.model.CodeGenModel;
-import com.github.ansafari.plugin.codeGen.model.ColumnModel;
-import com.github.ansafari.plugin.codeGen.model.DataSource;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -91,22 +86,22 @@ public class FreeMakerUtils {
     }
 
 
-    public static void main(String[] args) {
-        DataSource ds = GenDbUtils.getDefaultDataSource();
-        List<ColumnModel> columnModelList = GenDbUtils.getColumnList(ds, "sys_user");
-        CodeGenModel tableconfig = new CodeGenModel();
-        tableconfig.setTopPackage("xjt");
-        tableconfig.setTableName("sys_user");
-        tableconfig.setFilePath("i");
-
-        Map data = new HashMap();
-        data.put("columnList", columnModelList);
-        data.put("table", tableconfig);
-
-        Configuration freemakerCfg = FreeMakerUtils.getFreeMarkerCfg("templates");
-        FreeMakerUtils.generateFile(freemakerCfg, "entity.ftl", data
-                , "src/" + StringUtils.replace(tableconfig.getTopPackage(), "."
-                        , "/") + "/entity/"
-                , StringUtils.capitalize(tableconfig.getTableJavaName()) + ".java", tableconfig.getFilePath());
-    }
+//    public static void main(String[] args) {
+//        DataSource ds = GenDbUtils.getDefaultDataSource();
+//        List<ColumnModel> columnModelList = GenDbUtils.getColumnList(ds, "sys_user");
+//        CodeGenModel tableconfig = new CodeGenModel();
+//        tableconfig.setTopPackage("xjt");
+//        tableconfig.setTableName("sys_user");
+//        tableconfig.setFilePath("i");
+//
+//        Map data = new HashMap();
+//        data.put("columnList", columnModelList);
+//        data.put("table", tableconfig);
+//
+//        Configuration freemakerCfg = FreeMakerUtils.getFreeMarkerCfg("templates");
+//        FreeMakerUtils.generateFile(freemakerCfg, "entity.ftl", data
+//                , "src/" + StringUtils.replace(tableconfig.getTopPackage(), "."
+//                        , "/") + "/entity/"
+//                , StringUtils.capitalize(tableconfig.getTableJavaName()) + ".java", tableconfig.getFilePath());
+//    }
 }

@@ -1,19 +1,22 @@
 package com.github.ansafari.plugin.codeGen.ui.wizard.crud;
 
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.ui.table.JBTable;
-import com.intellij.ui.wizard.WizardNavigationState;
-import com.intellij.ui.wizard.WizardStep;
 import com.github.ansafari.plugin.codeGen.model.CodeGenModel;
 import com.github.ansafari.plugin.codeGen.model.DataSource;
 import com.github.ansafari.plugin.codeGen.model.gen.GenTable;
 import com.github.ansafari.plugin.codeGen.storage.CodeGenModelStorage;
+import com.github.ansafari.plugin.codeGen.storage.DataSourceStorage;
 import com.github.ansafari.plugin.codeGen.storage.Env;
 import com.github.ansafari.plugin.codeGen.storage.GenTableConfigStorage;
 import com.github.ansafari.plugin.codeGen.ui.wizard.other.SimpleTableCellRenderer;
 import com.github.ansafari.plugin.codeGen.ui.wizard.other.StartWizardModel;
+import com.github.ansafari.plugin.codeGen.util.Constants;
 import com.github.ansafari.plugin.codeGen.util.GenDbUtils;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.ui.table.JBTable;
+import com.intellij.ui.wizard.WizardNavigationState;
+import com.intellij.ui.wizard.WizardStep;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -49,7 +52,11 @@ public class TableSelectionWizardStep extends WizardStep<StartWizardModel> {
     }
 
     private void initTable() {
-        DataSource dataSource = GenDbUtils.getDefaultDataSource();
+        DataSourceStorage dataSourceStorage = ServiceManager.getService(Env.project, DataSourceStorage.class);
+        DataSource dataSource = dataSourceStorage.getState();//GenDbUtils.getDefaultDataSource();
+        if (dataSource == null) {
+            Messages.showErrorDialog("数据库连接失败，请重新配置数据库连接参数", Constants.MESSAGE_TITLE);
+        }
 
         GenTable genTableSelected = ServiceManager.getService(Env.project, GenTableConfigStorage.class).getState();
 
@@ -100,7 +107,7 @@ public class TableSelectionWizardStep extends WizardStep<StartWizardModel> {
                 }
             }
         });
-       // table.setRowSelectionInterval(selectedIndex, selectedIndex);    //初始化选中配置文件中保存的表，的行
+        // table.setRowSelectionInterval(selectedIndex, selectedIndex);    //初始化选中配置文件中保存的表，的行
         logger.info("table初始化数据...成功!");
 
 
@@ -115,7 +122,7 @@ public class TableSelectionWizardStep extends WizardStep<StartWizardModel> {
         table.scrollRectToVisible(rect);
         table.setRowSelectionInterval(selectedIndex, selectedIndex);
         table.grabFocus();
-      // table.changeSelection(table.getRowCount() - 1, 0, false, true);
+        // table.changeSelection(table.getRowCount() - 1, 0, false, true);
 
     }
 

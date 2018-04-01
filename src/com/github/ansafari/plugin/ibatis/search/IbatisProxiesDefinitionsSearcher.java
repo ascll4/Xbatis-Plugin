@@ -16,7 +16,6 @@ public class IbatisProxiesDefinitionsSearcher extends QueryExecutorBase<PsiEleme
         DumbService.getInstance(psiElement.getProject()).runReadActionInSmartMode(new Runnable() {
             @Override
             public void run() {
-                System.out.println(psiElement.getText());
                 //DomFileElementsFinder.getInstance(psiElement.getProject()).processSqlMapStatements();
             }
         });
