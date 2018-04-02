@@ -33,9 +33,9 @@
     <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
     -->
+    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.spring</depends>
     <depends>com.intellij.properties</depends>
-    <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <projectService serviceImplementation="com.github.ansafari.plugin.codeGen.storage.ColumnModelConfigStorage"/>

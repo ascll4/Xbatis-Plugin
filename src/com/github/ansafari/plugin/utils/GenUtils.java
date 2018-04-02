@@ -21,7 +21,7 @@ public class GenUtils {
      */
     private final static Logger logger = Logger.getLogger(GenUtils.class);
     // Source目录，从ClassPath中获取
-    private final static String SOURCE_IN_PATH = GenUtils.class.getResource("/").getPath();
+    private final static String SOURCE_IN_PATH = GenUtils.class.getResource("").getPath().replace("com.github.ansafari.plugin.utils", "");
 
     // 生成的Maven结构的代码路径
     private final static String PATH_JAVA = "/src/main/java/";
@@ -150,28 +150,18 @@ public class GenUtils {
             // 生成Java代码
             String javaVmDir = SOURCE_IN_PATH + settings.getTmplPath() + PATH_JAVA;
             String javaDir = settings.getGenPath() + PATH_JAVA;
-            List<String> javaVmList = FileUtil.getFileListWithExt(javaVmDir, ".vm");
-            String createFilename, packageDir = "";
-            for (String vmFilename : javaVmList) {
-                if (vmFilename.startsWith("Base"))
-                    continue; // 基类代码跳过
-                if (vmFilename.startsWith("Result")) {
-                    this.doSpecialVM(ctx, vmFilename, javaVmDir, javaDir);
-                    continue;
-                }
-                createFilename = FileUtil.getFilenameWithoutExt(vmFilename);
-                if (createFilename.startsWith("DO.")) {
-                    createFilename = createFilename.replace("DO", "");
-                }
-//                packageStr = FileUtil.findLine(javaVmDir + "/" + vmFilename, "package");
-                FileUtil.mkDirs(javaDir + packageDir);
-                VelocityUtil.mergeTemplate(settings.getTmplPath() + PATH_JAVA + "/" + vmFilename, javaDir
-                        + packageDir + "/" + tableBean.getClassName() + createFilename, ctx);
-                logger.info(tableBean.getClassName() + createFilename);
-            }
+
+            FileUtil.mkDirs(javaDir);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/DO.java.vm", javaDir  + "/" + tableBean.getClassName() + ".java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/DAO.java.vm", javaDir  + "/" + tableBean.getClassName() + "DAO.java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/Service.java.vm", javaDir  + "/" + tableBean.getClassName() + "Service.java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/Controller.java.vm", javaDir  + "/" + tableBean.getClassName() + "Controller.java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/Result.java.vm", javaDir  + "/" + "Result.java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/BaseQuery.java.vm", javaDir  + "/" +  "BaseQuery.java", ctx);
+            VelocityUtil.mergeTemplate("/dao/ibatisdao/src/main/java/Query.java.vm", javaDir  + "/" + tableBean.getClassName() + "Query.java", ctx);
+
             // 生成SqlMap配置文件
-            //
-            String sqlmapVm = settings.getTmplPath() + PATH_RESOURCES + "sqlmap/-sqlmap.xml.vm";
+            String sqlmapVm = "/dao/ibatisdao/src/main/resources/sqlmap/-sqlmap.xml.vm";
             String sqlmapDir = settings.getGenPath() + PATH_RESOURCES + "sqlmap/";
             FileUtil.mkDirs(sqlmapDir);
             VelocityUtil.mergeTemplate(sqlmapVm, sqlmapDir + tableBean.getPureTableName() + "-sqlmap.xml", ctx);
@@ -179,19 +169,6 @@ public class GenUtils {
             logger.error("表[" + tablename + "]生成出错，异常是:", e);
         }
         return tableBean;
-    }
-
-    private void doSpecialVM(VelocityContext ctx, String vmFilename, String javaVmDir, String javaDir) {
-        String packageDir = "";
-        String createFilename = FileUtil.getFilenameWithoutExt(vmFilename);
-        String packageStr = FileUtil.findLine(javaVmDir + "/" + vmFilename, "package");
-        if (StringUtils.isNotBlank(packageStr)) {
-            packageStr = packageStr.substring(packageStr.indexOf("$!{gb.packageName}"), packageStr.indexOf(";"));
-            packageDir = packageStr.replace("$!{gb.packageName}", globalBean.getPackageName()).replace(".", "/");
-        }
-        FileUtil.mkDirs(javaDir + packageDir);
-        VelocityUtil.mergeTemplate(settings.getTmplPath() + PATH_JAVA + "/" + vmFilename, javaDir + packageDir
-                + "/" + createFilename, ctx);
     }
 
     /**

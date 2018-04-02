@@ -1,6 +1,6 @@
 package com.github.ansafari.plugin.utils;
 
-import com.github.ansafari.plugin.codeGen.util.StringUtils;
+import com.intellij.openapi.util.io.FileUtil;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -10,7 +10,10 @@ import org.jetbrains.java.generate.velocity.VelocityFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 public class VelocityUtil {
 
@@ -41,17 +44,17 @@ public class VelocityUtil {
 
     public static void mergeTemplate(String templateName, String outfileName, VelocityContext context) {
         try {
-            if (StringUtils.isNotBlank(templateName)) {
-                if (!templateName.startsWith("\\/")) {
-                    templateName = VelocityUtil.class.getResource("/").getPath() + templateName;
-                }
+            InputStream inputStream = VelocityUtil.class.getResourceAsStream(templateName);
+            if (inputStream != null) {
+                String templateContent = FileUtil.loadTextAndClose(inputStream);
+                BufferedWriter writer = new BufferedWriter(new FileWriter(outfileName));
+                VELOCITY_ENGINE.evaluate(context, writer, "", templateContent);
+                writer.flush();
+                writer.close();
+                logger.info("文件生成成功：" + outfileName);
+            } else {
+                logger.error("模板文件不存在：" + templateName);
             }
-            Reader reader = new FileReader(new File(templateName));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outfileName));
-            VELOCITY_ENGINE.evaluate(context, writer, "", reader);
-            writer.flush();
-            writer.close();
-            logger.info("文件生成成功：" + outfileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
